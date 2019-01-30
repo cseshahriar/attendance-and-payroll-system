@@ -7,7 +7,7 @@ class Admins extends Controller
 	
 	function __construct()
 	{
-		$this->userModel = $this->model('User');
+		$this->userModel = $this->model('Admin');
 	}
 
 	public function index()
@@ -20,7 +20,7 @@ class Admins extends Controller
 		$this->view('backend/dashboard'); 
 	}
 
-	public function register()
+	public function register() 
 	{
 		// Check for POST
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -85,13 +85,13 @@ class Admins extends Controller
 				// Register User
 				if($this->userModel->register($data)) { // receive true/false 
 					flash('register_success', 'You are registered and can log in');      
-					redirect('users/login');       
+					redirect('admins/login');       
 				} else {
-					die('Something went wrong!'); 
+					die('Something went wrong!');  
 				} 
 			} else {
 				// load view with errors 
-				$this->view('users/register', $data);  
+				$this->view('backend/users/register', $data);    
 			}
 
 
@@ -109,7 +109,7 @@ class Admins extends Controller
 			];
 
 			// load view 
-			$this->view('users/register', $data); 
+			$this->view('/backend/users/register', $data);   
 		}
 	}
 
@@ -165,11 +165,11 @@ class Admins extends Controller
 
 				} else {
 					$data['password_error'] = 'Incorrect password!';
-					$this->view('users/login', $data);  
+					$this->view('backend/users/login', $data);  
 				}
 			} else {
 				// load view with errors 
-				$this->view('users/login', $data);  
+				$this->view('backend/users/login', $data);  
 			}
 
 		} else {
@@ -182,7 +182,7 @@ class Admins extends Controller
 			];
 
 			// load view 
-			$this->view('users/login', $data);   
+			$this->view('backend/users/login', $data);   
 		}
 	}
 
@@ -198,7 +198,7 @@ class Admins extends Controller
 		$_SESSION['user_email'] = $user->email;
 
 		flash('login_success', 'Welcome, you are successfuly logged in.');   
-		redirect('posts/index');     
+		redirect('admins/dashboard');     
 	}
 
 
@@ -210,7 +210,7 @@ class Admins extends Controller
 		session_destroy();
 
 		flash('logout_success', 'You are now logged out.');
-		redirect('users/login');   
+		redirect('admins/login');    
 	}
 
 	public function isLoggedIn() 
@@ -218,8 +218,8 @@ class Admins extends Controller
 		if (isset($_SESSION['user_id'])) {
 			return true;
 		} else {
-			return false;   
-		}
+			return false;    
+		} 
 	}   
 
 } // end of the class 
