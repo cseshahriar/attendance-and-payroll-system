@@ -17,4 +17,18 @@ class Employee extends Database
 		$rows = $this->db->get(); 
 		return $rows;  
 	}
+
+	public function positions()
+	{
+		$this->db->query("SELECT id, description FROM position");  
+		$rows = $this->db->get();
+		return $rows;  
+	}
+
+	public function schedules()
+	{
+		$this->db->query("SELECT in_time, out_time FROM schedules");    
+		$rows = $this->db->get();
+		return $rows;  
+	}
 }

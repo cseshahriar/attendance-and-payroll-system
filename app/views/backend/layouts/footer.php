@@ -130,8 +130,13 @@
       format: 'yyyy-mm-dd'
     });
 
+    $('#birthday').datepicker({ 
+      autoclose: true,
+      format: 'yyyy-mm-dd'
+    });
+
      //Date picker
-    $('.date').datepicker({   
+    $('.date').datepicker({    
       autoclose: true, 
       format: 'yyyy-mm-dd' 
     });

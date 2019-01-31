@@ -200,6 +200,8 @@ class Admins extends Controller
 		$_SESSION['user_id'] = $user->id;
 		$_SESSION['user_name'] = $user->name;
 		$_SESSION['user_email'] = $user->email;
+		$_SESSION['user_photo'] = $user->photo; 
+		$_SESSION['user_created_at'] = $user->created_at; 
 
 		flash('login_success', 'Welcome, you are successfuly logged in.');    
 		redirect('admins/dashboard');     

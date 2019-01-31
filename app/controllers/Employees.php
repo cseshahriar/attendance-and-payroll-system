@@ -13,9 +13,13 @@ class Employees extends Controller
 	public function index()
 	{
 		$employees = $this->employeeModel->employees(); 
+		$positions = $this->employeeModel->positions(); 
+		$schedules = $this->employeeModel->schedules();  
 		$data = [
 			'title' => 'Employees', 
-			'employees' => $employees 
+			'employees' => $employees,
+			'positions' => $positions, 
+			'schedules' => $schedules
 		];
 		$this->view('backend/employee/index', $data);
 	}
