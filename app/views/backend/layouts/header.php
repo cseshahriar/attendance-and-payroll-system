@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Title</title>
+  <title>Title</title> 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' ?>">
@@ -17,6 +17,7 @@
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-blue.min.css' ?>">
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' ?>"> 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -57,17 +58,17 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="" class="user-image" alt="Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?=  $_SESSION['user_name'] ?></span> 
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="" class="img-circle" alt="Image"> 
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  <?=  $_SESSION['user_name'] ?>
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -78,7 +79,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?= ROOTURL ?>/admins/logout" class="btn btn-default btn-flat">Sign out</a>
                 </div> 
               </li>
             </ul>
@@ -100,7 +101,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p><?= $_SESSION['user_name'] ?></p> 
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -111,7 +112,9 @@
         <li class="header">REPORTS</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active">
-          <a href="#"><i class="fa fa-calendar"></i> <span>Attendance</span></a> 
+          <a href="<?= ROOTURL ?>/attendances/index"> 
+            <i class="fa fa-calendar"></i> <span>Attendance</span>
+          </a> 
         </li>
        
         <li class="treeview">

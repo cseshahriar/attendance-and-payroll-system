@@ -5,7 +5,7 @@
 class Admins extends Controller 
 {
 	
-	function __construct()
+	public function __construct() 
 	{
 		$this->userModel = $this->model('Admin');
 	}
@@ -17,7 +17,10 @@ class Admins extends Controller
 
 	public function dashboard() 
 	{
-		$this->view('backend/dashboard'); 
+		$data = [
+			'title' => 'Dashboard'
+		];
+		$this->view('backend/dashboard', $data);    
 	}
 
 	public function register() 
@@ -179,6 +182,7 @@ class Admins extends Controller
 				'password' => '',
 				'email_error' => '',
 				'password_error' => '',
+				'title' => 'Login'
 			];
 
 			// load view 
@@ -197,7 +201,7 @@ class Admins extends Controller
 		$_SESSION['user_name'] = $user->name;
 		$_SESSION['user_email'] = $user->email;
 
-		flash('login_success', 'Welcome, you are successfuly logged in.');   
+		flash('login_success', 'Welcome, you are successfuly logged in.');    
 		redirect('admins/dashboard');     
 	}
 

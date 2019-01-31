@@ -1,4 +1,4 @@
-<?php require_once 'layouts/header.php'; ?>
+<?php require_once APPROOT.'/views/backend/layouts/header.php'; ?>  
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper"> 
     <!-- Content Header (Page header) -->
@@ -36,14 +36,23 @@
               </thead>
               <tbody>
               <!-- loop -->
+              <?php foreach($data['attendances'] as $attendance) : ?>
               <tr>
-                <td>Trident</td>
-                <td>InternetExplorer 4.0</td> 
-                <td>Win 95+</td>
-                <td> 4</td>
-                <td>X</td>
-                <td>X</td>
+                <td><?= $attendance->date ?></td>
+                <td><?= $attendance->employee_id ?></td> 
+                <td><?= $attendance->name ?></td>
+                <td><?= $attendance->in_time?></td>
+                <td><?= $attendance->out_time ?></td>
+                <td>
+                  <a href="<?= ROOTURL.'/attendance/edit/'.$attendance->id ?>" class="btn btn-success">
+                    <i class="fa fa-pencil-square"></i> Edit
+                  </a>
+                  <form action="<?= ROOTURL.'/attendance/delete/'.$attendance->id ?>" method="post" style="display: inline;"> 
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </form> 
+                </td>
               </tr> 
+            <?php endforeach; ?>
               <!-- loop -->
               </tbody>
               <tfoot>
@@ -63,8 +72,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-<?php require_once 'layouts/footer.php'; ?> 
+<?php require_once APPROOT.'/views/backend/layouts/footer.php'; ?>    
 
 
   
