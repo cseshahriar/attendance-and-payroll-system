@@ -97,20 +97,24 @@
 <script src="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js' ?>"></script>
 <script src="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'?>"></script> 
 <!-- AdminLTE App -->
-<script src="<?= ROOTURL.'/public/adminlte' ?>dist/js/adminlte.min.js"></script> 
+<script src="<?= ROOTURL.'/public/adminlte/' ?>dist/js/adminlte.min.js"></script> 
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="<?= ROOTURL.'/public/adminlte/' ?>dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?= ROOTURL.'/public/adminlte/' ?>dist/js/demo.js"></script>  
 <!-- daterangepicker -->
-<script src="<?= ROOTURL.'/public/adminlte' ?>/bower_components/moment/min/moment.min.js"></script>
-<script src="<?= ROOTURL.'/public/adminlte' ?>/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="<?= ROOTURL.'/public/adminlte/' ?>bower_components/moment/min/moment.min.js"></script>
+<script src="<?= ROOTURL.'/public/adminlte/' ?>bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
-<script src="<?= ROOTURL.'/public/adminlte' ?>/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="<?= ROOTURL.'/public/adminlte/' ?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap time picker -->
-<script src="<?= ROOTURL.'/public/adminlte' ?>/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="<?= ROOTURL.'/public/adminlte/' ?>plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
 <!-- page script -->  
 <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
 
-    $('#example1').DataTable()
+    $('#example1').DataTable(); 
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
@@ -126,13 +130,19 @@
       format: 'yyyy-mm-dd'
     });
 
+     //Date picker
+    $('.date').datepicker({   
+      autoclose: true, 
+      format: 'yyyy-mm-dd' 
+    });
+
     //Timepicker
     $('.timepicker').timepicker({
-      timeFormat: 'H:mm:ss',  
+      timeFormat: 'H:mm:ss' 
       // showInputs: false 
     }) 
 
-  });
+  }); 
 </script>  
 </body>
 </html> 

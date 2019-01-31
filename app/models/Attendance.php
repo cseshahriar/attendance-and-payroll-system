@@ -41,6 +41,24 @@ class Attendance extends Database
 		}
 	}
 
+	public function update($data)  
+	{
+		$this->db->query("UPDATE attendance SET date=:date, in_time=:in_time, out_time=:out_time, status=:status WHERE id=:id"); 
+		// Bind values
+		$this->db->bind(':id', $data['id']); 
+		$this->db->bind(':date', $data['date']); 
+		$this->db->bind(':in_time', $data['in_time']);
+		$this->db->bind(':out_time', $data['out_time']); 
+		$this->db->bind(':status', $data['status']); 
+
+		// Execute
+		if($this->db->execute()) {  
+			return true;
+		} else {
+			return false;    
+		} 
+	}
+
 	public function destroy($id) 
 	{
 		$this->db->query('DELETE FROM attendance WHERE id=:id');

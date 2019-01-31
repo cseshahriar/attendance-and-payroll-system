@@ -49,11 +49,11 @@
                 <td><?= $attendance->out_time ?></td>
                 <td>
                   <!-- edit -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-attendance-<?=$attendance->id ?>"> 
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-attendance-<?= $attendance->id ?>">  
                   <i class="fa fa-pencil-square"></i> Edit
                   </button> 
                 
-                    <div class="modal fade" id="edit-attendance-<?=$attendance->id ?>">
+                    <div class="modal fade" id="edit-attendance-<?= $attendance->id ?>">   
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -61,40 +61,40 @@
                                 <span aria-hidden="true">&times;</span></button>
                               <h4 class="modal-title">Update Attendance</h4>
                             </div>
-                              <div class="modal-body">
+                            <form class="form-horizontal" action="<?= ROOTURL.'/attendances/update/'.$attendance->id ?>" method="post">     
+                              <div class="modal-body"> 
+                                  <input type="hidden" name="id" value="<?= $attendance->id ?>">
+                                  <div class="form-group" style="margin-bottom: 12px;"> 
+                                      <label class="col-sm-3 control-label">Date</label>
+                                      <div class="col-sm-9">  
+                                        <input type="text" name="date" class="form-control datepicker date" value="<?= $attendance->date ?>" name="edate" placeholder="Date" required>    
+                                      </div>    
+                                  </div> 
+
                                   <div class="form-group">
-                                    <label for="date" class="col-sm-3 control-label">Date</label>
-
-                                    <div class="col-sm-9"> 
-                                      <input type="text" class="form-control" id="date" value="<?= date('Y-m-d') ?>" name="date" placeholder="Date" required>  
-                                    </div>  
-                                  </div>  
-
-                                  <div class="form-group">
-                                    <label for="intime" class="col-sm-3 control-label">In Time</label>
-
-                                    <div class="col-sm-9"> 
-                                      <input type="text" class="form-control timepicker" name="in_time" id="intime" placeholder="Date" required> 
-                                    </div>
+                                      <label class="col-sm-3 control-label">In Time</label>
+                                      <div class="col-sm-9"> 
+                                        <input type="text" class="form-control timepicker" name="in_time" id="intime" placeholder="Date" required value="<?= $attendance->in_time ?>"> 
+                                      </div>
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="outtime" class="col-sm-3 control-label">Out Time</label>
-
-                                    <div class="col-sm-9"> 
-                                      <input type="text" class="form-control timepicker" name="out_time" id="outtime" placeholder="Date" required>  
-                                    </div>  
-                                  </div> 
+                                      <label class="col-sm-3 control-label">Out Time</label> 
+                                      <div class="col-sm-9"> 
+                                        <input type="text" class="form-control timepicker" name="out_time" id="outtime" placeholder="Date" required value="<?= $attendance->out_time ?>">  
+                                      </div>  
+                                  </div>   
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                  <button type="submit" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
                               </div>
+                            </form>
                           </div>
                           <!-- /.modal-content -->
                         </div>
                         <!-- /.modal-dialog -->
-                    </div>  
+                    </div>   
                  <!-- / edit -->   
 
                   <form action="<?= ROOTURL.'/attendances/delete/'.$attendance->id ?>" method="post" style="display: inline;">   
@@ -169,7 +169,7 @@
 
               <div class="col-sm-9"> 
                 <input type="text" class="form-control timepicker" name="in_time" id="intime" placeholder="Date" required> 
-              </div>
+              </div> 
             </div>
 
             <div class="form-group">
