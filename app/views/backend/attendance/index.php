@@ -40,7 +40,7 @@
               <tr>
                 <td><?= $attendance->date ?></td>
                 <td><?= $attendance->employee_id ?></td> 
-                <td><?= $attendance->name ?></td>
+                <td><?= $attendance->firstname ?> <?= $attendance->lastname ?></td>
                 <td><?= $attendance->in_time?></td>
                 <td><?= $attendance->out_time ?></td>
                 <td>
