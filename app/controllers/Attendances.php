@@ -77,4 +77,19 @@ class Attendances extends Controller
 				redirect('/attendances/index');   
 		}
 	}
+
+	public function delete($id)
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			if ($this->attendenceModel->destroy($id)) {
+				flash('success', 'Attendance has been removed');
+				redirect('/attendances/index');      
+			} else {
+				die('Something went wrong');
+			}
+		} else {
+			redirect('/attendances/index');   
+		}
+	
+	} 
 }
