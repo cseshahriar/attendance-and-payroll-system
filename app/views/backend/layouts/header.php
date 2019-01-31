@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Title</title> 
+  <title><?php if($data['title']) { echo $data['title']; } ?></title>  
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' ?>">
@@ -18,6 +18,13 @@
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-blue.min.css' ?>">
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' ?>"> 
+  <!-- daterange picker -->
+    <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css' ?>">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/plugins/timepicker/bootstrap-timepicker.min.css'?> ">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'?> "> 
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
