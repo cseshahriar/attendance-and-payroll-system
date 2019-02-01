@@ -137,14 +137,14 @@
               <a href="<?= ROOTURL.'/employees/index' ?>"><i class="fa fa-circle-o"></i> Employee List</a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i> Overtime</a>
+              <a href="<?= ROOTURL.'/overtimes/index' ?>"><i class="fa fa-circle-o"></i> Overtime</a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i> Cash Advance</a>
+              <a href="<?= ROOTURL.'/cashadvances/index'?>"><i class="fa fa-circle-o"></i> Cash Advance</a>
             </li>
             <li>
-              <a href="#"><i class="fa fa-circle-o"></i> Schedules</a>
-            </li>
+              <a href="<?= ROOTURL.'/schedules/index'?>"><i class="fa fa-circle-o"></i> Schedules</a>
+            </li> 
             
           </ul>
         </li> 
