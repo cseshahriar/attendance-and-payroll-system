@@ -44,7 +44,7 @@
 		    <?php flash('register_success'); ?>  
 		    <?php flash('logout_success'); ?>   
 
-			<form action="<?= ROOTURL ?>/admins/login" method="post">   
+			<form action="<?= ROOTURL ?>/admin/login" method="post">     
 
 				  <div class="form-group <?php echo (!empty($data['email_error'])) ? 'has-error' : ''; ?>"> 
 				    <label for="email">Email address <span class="text-danger">*</span></label>

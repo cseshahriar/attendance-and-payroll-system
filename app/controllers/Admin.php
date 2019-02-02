@@ -2,21 +2,24 @@
 /**
  * User Controller
  */
-class Admins extends Controller 
+class Admin extends Controller 
 {
 	
 	public function __construct() 
 	{
-		$this->userModel = $this->model('Admin');
+		$this->userModel = $this->model('AdminModel');  
 	}
 
-	public function index()
+	public function index() 
 	{
 
 	}
 
 	public function dashboard() 
 	{
+		// is not auth 
+		isLoggedIn(); 
+
 		$data = [
 			'title' => 'Dashboard'
 		];
@@ -88,7 +91,7 @@ class Admins extends Controller
 				// Register User
 				if($this->userModel->register($data)) { // receive true/false 
 					flash('register_success', 'You are registered and can log in');      
-					redirect('admins/login');       
+					redirect('admin/login');        
 				} else {
 					die('Something went wrong!');  
 				} 
@@ -204,7 +207,7 @@ class Admins extends Controller
 		$_SESSION['user_created_at'] = $user->created_at; 
 
 		flash('login_success', 'Welcome, you are successfuly logged in.');    
-		redirect('admins/dashboard');     
+		redirect('admin/dashboard');        
 	}
 
 
@@ -216,7 +219,7 @@ class Admins extends Controller
 		session_destroy();
 
 		flash('logout_success', 'You are now logged out.');
-		redirect('admins/login');    
+		redirect('admin/login');     
 	}
 
 	public function isLoggedIn() 
@@ -226,6 +229,6 @@ class Admins extends Controller
 		} else {
 			return false;    
 		} 
-	}   
+	}       
 
 } // end of the class 

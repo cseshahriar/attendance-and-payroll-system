@@ -42,4 +42,15 @@ class Controller
 		}
 	}
 
+	/**
+	 * [isLoggedInUser description]
+	 * @return boolean [description]
+	 */
+	public function isLoggedInUser() 
+	{
+		if (!isset($_SESSION['user_id'])) { 
+			redirect('admin/login');
+		}
+	}
+
 }

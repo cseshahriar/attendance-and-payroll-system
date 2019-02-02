@@ -2,7 +2,7 @@
 /**
  * User Model 
  */
-class Admin extends Database 
+class AdminModel extends Database   
 {
 	private $db;
 	

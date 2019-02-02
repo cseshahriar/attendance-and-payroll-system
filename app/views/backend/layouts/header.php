@@ -83,7 +83,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#profile">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?= ROOTURL ?>/admins/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -170,3 +170,69 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  <!-- profile modal --> 
+<div class="modal fade" id="profile">    
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Admin Profile</h4> 
+      </div>
+
+      <div class="modal-body">
+        <!-- form start -->
+        <form class="form-horizontal" action="<?= ROOTURL.'/attendances/create' ?>" method="post">
+          <div class="box-body">   
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">Name</label>
+                  <div class="col-sm-9"> 
+                    <input type="text" class="form-control" name="name" id="name" required value="<?= $_SESSION['user_name'] ?>">  
+                  </div>
+              </div>    
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">Email</label>
+                  <div class="col-sm-9"> 
+                    <input type="text" class="form-control" name="email" id="email" required value="<?= $_SESSION['user_email'] ?>">  
+                  </div>
+              </div>   
+              <div class="form-group">
+                 <label class="col-sm-3 control-label">Current Photo</label>
+                  <div class="col-sm-9"> 
+                  <img src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" alt="" height="40" class="d-inline"> 
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">Photo</label>
+                  <div class="col-sm-9"> 
+                    <input type="file" class="form-control-file" name="photo" id="photo" required>  
+                  </div>
+              </div>   
+              <hr>
+               <div class="form-group">
+                  <label class="col-sm-3 control-label">Current Password</label>
+                  <div class="col-sm-9"> 
+                    <input type="password" class="form-control" name="password" id="password" required placeholder="Input current password to save change">  
+                  </div>
+              </div> 
+
+          </div>  
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+            <button type="submit" class="btn btn-primary pull-right">Save</button>  
+          </div>
+          <!-- /.box-footer -->
+        </form>  
+      </div> 
+
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- / profile --> 
