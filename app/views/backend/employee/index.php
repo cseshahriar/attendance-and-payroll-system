@@ -17,10 +17,10 @@
         <div class="box">
           <div class="box-header" style="border-bottom: 1px solid #f4f4f4;"> 
             <h3 class="box-title">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employee">
-                  <i class="fa fa-plus"></i> New 
-              </button>
-              <?php flash('success'); ?> 
+              <a href="<?= ROOTURL.'/employee/store' ?>" class="btn btn-sm btn-primary">
+                  <i class="fa fa-plus"></i> New  
+              </a> 
+              <?php flash('message'); ?>    
             </h3> 
           </div>
 
@@ -29,7 +29,6 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
-               
                 <th>Employee ID</th>
                 <th>Name</th>
                 <th>Photo</th> 
@@ -141,11 +140,14 @@
               </tbody>
               <tfoot>
               <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Photo</th>
+                <th>Address</th>
+                <th>Position</th>
+                <th>Schedule</th>
+                <th>Member Since</th>
+                <th>Tools</th>  
               </tr>
               </tfoot>
             </table>
@@ -156,121 +158,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-<!-- new attendance --> 
-<div class="modal fade" id="employee">   
-  <div class="modal-dialog">
-    <div class="modal-content">
-      
-      <div class="modal-header">
-        <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">Add New</h4>
-      </div>
-
-      <div class="modal-body">
-        <!-- form start -->
-        <form class="form-horizontal" action="<?= ROOTURL.'/employees/create' ?>" method="post">
-          <div class="box-body">   
-            <!-- employee_id uniqueid --> 
-
-            <div class="form-group">
-              <label for="firstname" class="col-sm-3 control-label">First Name</label>
-              <div class="col-sm-9"> 
-                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>  
-              </div>  
-            </div> 
-
-            <div class="form-group">
-              <label for="lastname" class="col-sm-3 control-label">Last Name</label>
-              <div class="col-sm-9"> 
-                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>  
-              </div>  
-            </div>   
-
-            <div class="form-group">
-              <label for="address" class="col-sm-3 control-label">Address</label>
-              <div class="col-sm-9"> 
-                <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
-              </div>  
-            </div>  
-
-            <div class="form-group">
-              <label for="birthday" class="col-sm-3 control-label">Birthday</label>
-              <div class="col-sm-9"> 
-                <input type="text" class="form-control date" id="birthday" name="birthday" placeholder="Birthday" required>    
-              </div>  
-            </div> 
-
-            <div class="form-group">
-              <label for="contact_info" class="col-sm-3 control-label">Contact</label> 
-              <div class="col-sm-9"> 
-                <textarea name="contact_info" id="contact_info" cols="5" rows="3" class="form-control" placeholder="Contact Informations"></textarea> 
-              </div>  
-            </div>
-
-            <div class="form-group">
-              <label for="gender" class="col-sm-3 control-label">Gender</label> 
-              <div class="col-sm-9"> 
-                <select name="gender" id="gender" class="form-control">
-                  <option value="" selected>--Select Gender--</option>  
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
-              </div>  
-            </div>
-
-            <div class="form-group">
-              <label for="position" class="col-sm-3 control-label">Position</label> 
-              <div class="col-sm-9"> 
-                <select name="position" id="position" class="form-control">
-                  <option value="" selected>--Select Gender--</option>  
-                  <?php foreach($data['positions'] as $position) : ?>
-                  <option value="<?= $position->id ?>"><?= $position->description ?></option> 
-                  <?php endforeach; ?>  
-                </select>
-              </div>  
-            </div>
-
-            <div class="form-group">
-              <label for="schedule" class="col-sm-3 control-label">Schedule</label>   
-              <div class="col-sm-9"> 
-                <select name="schedule" id="schedule" class="form-control">
-                  <option value="" selected>--Select Schedule--</option>  
-                   <?php foreach($data['schedules'] as $schedule) : ?>
-                  <option value="<?= $schedule->id ?>"> <?= $schedule->in_time ?> - <?= $schedule->out_time ?> </option> 
-                  <?php endforeach; ?>  
-                </select>
-              </div>  
-            </div> 
-
-            <div class="form-group">
-              <label for="photo" class="col-sm-3 control-label">Photo</label>   
-              <div class="col-sm-9"> 
-                <input type="file" class="form-control" name="photo"> 
-              </div>  
-            </div>
-
-
-          </div>  
-          <!-- /.box-body -->
-          <div class="box-footer">
-            <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-            <button type="submit" class="btn btn-primary pull-right">Save</button>  
-          </div>
-          <!-- /.box-footer -->
-        </form>  
-      </div> 
-
-      </form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- / new attendance --> 
-
 <?php require_once APPROOT.'/views/backend/layouts/footer.php'; ?>      
 
 

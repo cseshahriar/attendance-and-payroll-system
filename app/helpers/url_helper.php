@@ -3,4 +3,4 @@
 function redirect($page)
 {
 	header("Location: ".ROOTURL.'/'.$page);   
-}
+} 

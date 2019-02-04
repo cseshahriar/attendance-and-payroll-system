@@ -17,8 +17,8 @@ class Admin extends Controller
 
 	public function dashboard() 
 	{
-		// is not auth 
-		isLoggedIn(); 
+		// auth check   
+		$this->isLoggedInUser();  
 
 		$data = [
 			'title' => 'Dashboard'
@@ -28,6 +28,9 @@ class Admin extends Controller
 
 	public function register() 
 	{
+		// auth check   
+		$this->isLoggedInUser();
+
 		// Check for POST
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// process form 
@@ -111,11 +114,11 @@ class Admin extends Controller
 				'name_error' => '',
 				'email_error' => '',
 				'password_error' => '',
-				'confirm_password_error' => '',
+				'confirm_password_error' => '', 
 			];
 
 			// load view 
-			$this->view('/backend/users/register', $data);   
+			$this->view('/backend/users/register', $data);    
 		}
 	}
 
@@ -213,22 +216,16 @@ class Admin extends Controller
 
 	public function logout()  
 	{
+		// auth check   
+		$this->isLoggedInUser();  
+
 		unset($_SESSION['user_id']);
 		unset($_SESSION['user_name']);
 		unset($_SESSION['user_email']);
 		session_destroy();
 
 		flash('logout_success', 'You are now logged out.');
-		redirect('admin/login');     
-	}
-
-	public function isLoggedIn() 
-	{
-		if (isset($_SESSION['user_id'])) {
-			return true;
-		} else {
-			return false;    
-		} 
+		redirect('admin/login');       
 	}       
 
 } // end of the class 

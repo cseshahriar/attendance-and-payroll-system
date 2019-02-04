@@ -65,12 +65,15 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" class="user-image" alt="Image"> 
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs"><?=  $_SESSION['user_name'] ?></span>  
+              <?php if (isset($_SESSION['user_id'] )): ?> 
+                <img src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" class="user-image" alt="Image"> 
+                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                <span class="hidden-xs"><?=  $_SESSION['user_name'] ?></span>   
+              <?php endif ?>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
+              <?php if (isset($_SESSION['user_id'] )): ?>
               <li class="user-header">
                 <img src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" class="img-circle" alt="Image">  
 
@@ -86,9 +89,10 @@
                   <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#profile">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="<?= ROOTURL ?>/admins/logout" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?= ROOTURL ?>/admin/logout" class="btn btn-default btn-flat">Sign out</a> 
                 </div> 
               </li>
+            <?php endif; ?> 
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
@@ -103,6 +107,7 @@
     <section class="sidebar">
 
       <!-- Sidebar user panel (optional) -->
+    <?php if(isset($_SESSION['user_id'])): ?>
       <div class="user-panel">
         <div class="pull-left image">
           <img src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" class="img-circle" alt="User Image"> 
@@ -110,9 +115,22 @@
         <div class="pull-left info">
           <p><?= $_SESSION['user_name'] ?></p> 
           <!-- Status -->
+          <a href="#"><i class="fa fa-circle text-success"></i> Offline</a>  
+        </div>
+      </div>
+      <?php else: ?>
+        <div class="user-panel">
+        <div class="pull-left image">
+          <img src="" class="img-circle" alt="User Image"> 
+        </div>
+        <div class="pull-left info">
+          <p></p>  
+          <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
+
+      <?php endif; ?>
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -132,21 +150,21 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a> 
-          <ul class="treeview-menu"> 
+          <ul class="treeview-menu">   
             <li>
-              <a href="<?= ROOTURL.'/employees/index' ?>"><i class="fa fa-circle-o"></i> Employee List</a>
+              <a href="<?= ROOTURL.'/employee/index' ?>"><i class="fa fa-circle-o"></i> Employee List</a>
             </li>
             <li>
-              <a href="<?= ROOTURL.'/overtimes/index' ?>"><i class="fa fa-circle-o"></i> Overtime</a>
+              <a href="<?= ROOTURL.'/overtime/index' ?>"><i class="fa fa-circle-o"></i> Overtime</a>
             </li>
             <li>
-              <a href="<?= ROOTURL.'/cashadvances/index'?>"><i class="fa fa-circle-o"></i> Cash Advance</a>
+              <a href="<?= ROOTURL.'/cashadvance/index'?>"><i class="fa fa-circle-o"></i> Cash Advance</a>
             </li>
             <li>
-              <a href="<?= ROOTURL.'/schedules/index'?>"><i class="fa fa-circle-o"></i> Schedules</a>
+              <a href="<?= ROOTURL.'/schedule/index'?>"><i class="fa fa-circle-o"></i> Schedules</a> 
             </li> 
             
-          </ul>
+          </ul>  
         </li> 
 
          <li class="active">

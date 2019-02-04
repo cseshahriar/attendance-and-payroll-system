@@ -10,7 +10,7 @@ class Controller
 	 */
 	public function __construct()
 	{
-		# code...
+		
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Controller
 	public function isLoggedInUser() 
 	{
 		if (!isset($_SESSION['user_id'])) { 
-			redirect('admin/login');
+			header("Location: /admin/login");  
 		}
 	}
 
