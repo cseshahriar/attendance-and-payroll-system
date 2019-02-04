@@ -46,93 +46,31 @@
                 <td><?= $employee->employee_id ?></td>
                 <td><?= $employee->firstname ?> <?= $employee->lastname ?></td> 
                 <td>
-                  <img src="<?= ROOTURL.'/public/uploads/employee/'.$employee->photo ?>" alt="" height="30" style="margin-right: 10px">
+
+                  <img src="<?= ROOTURL.'/public/uploads/employee/'.$employee->photo ?>" alt="" height="30"> 
                   
                   <a href="#employee-photo-<?= $employee->id ?>" type="button" data-toggle="modal" data-target="#employee-photo-<?= $employee->id ?>"> 
                       <i class="fa fa-pencil-square"></i>    
                   </a>   
-                  <!-- employee photo edit  -->
-                    <div class="modal fade" id="employee-photo-<?= $employee->id ?>">    
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          
-                          <div class="modal-header">
-                            <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title">Change Photo</h4> 
-                          </div>
-
-                          <div class="modal-body">
-                            <!-- form start -->
-                            <form class="form-horizontal" action="<?= ROOTURL.'/employee/changePhoto' ?>" method="post">
-                              <div class="box-body">    
-
-                                <div class="form-group" style="margin-bottom: 15px">  
-                                  <label for="oldphoto" class="col-sm-4 control-label">Photos</label>
-
-                                  <div class="col-sm-8">  
-                                    <input type="hidden" name="oldphoto" value="<?= $employee->photo ?>">  
-                                     <img src="<?= ROOTURL.'/public/uploads/employee/'.$employee->photo ?>" alt="" height="80" style="margin-right: 10px">
-                                  </div>  
-                                </div>
-              
-                                <div class="form-group">
-                                  <label for="employee_id" class="col-sm-4 control-label">Change Photos</label>
-                                  <div class="col-sm-8">  
-                                    <input type="file" class="form-control-file" name="image">   
-                                  </div>  
-                                </div> 
-              
-
-                              </div>  
-                              <!-- /.box-body -->
-                              <div class="box-footer">
-                                <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                                <button type="submit" class="btn btn-primary pull-right">Save</button>  
-                              </div>
-                              <!-- /.box-footer -->
-                            </form>  
-                          </div> 
-
-                          </form>
-                        </div>
-                        <!-- /.modal-content -->
-                      </div>
-                      <!-- /.modal-dialog -->
-                    </div>
-                    <!-- / employee photo edit  -->
-                </td> 
-                <td><?= $employee->address ?></td>
+                </td>  
+                <td><?= $employee->address ?></td> 
                 <td><?= $employee->description ?></td> 
                 <td><?= date('h:i a',strtotime($employee->in_time)) ?> - <?= date('h:i a',strtotime($employee->out_time)) ?></td>
                 <td><?= date('d-m-Y', strtotime($employee->created_at)) ?></td> 
                 <td>
                   <!-- edit -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-employee">  
-                  <i class="fa fa-pencil-square"></i> Edit
-                  </button>  
-                
-                    <div class="modal fade" id="edit-employee-">      
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                              <h4 class="modal-title">Update Employee</h4>
-                            </div>
-                          </div>
-                          <!-- /.modal-content --> 
-                        </div>
-                        <!-- /.modal-dialog -->
-                    </div>   
-                 <!-- / edit -->   
-
-                  <form action="<?= ROOTURL.'/employee/delete/'?>" method="post" style="display: inline;">   
-                      <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this ?');"> 
-                      <i class="fa fa-trash"></i> Delete 
-                    </button>
-                  </form>  
+                  <div class="btn-group">
+                    <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-sm btn-primary btn-in"> 
+                       <i class="fa fa-pencil-square"></i> Edit   
+                    </a>         
+                   <!-- / edit -->   
+                    <form action="<?= ROOTURL.'/employee/delete/'?>" method="post" class="d-inline">     
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete this ?');"> 
+                            <i class="fa fa-trash"></i> Delete    
+                        </button>   
+                  </form>   
+                    
+                  </div>
                 </td>
               </tr> 
             <?php endforeach; ?>

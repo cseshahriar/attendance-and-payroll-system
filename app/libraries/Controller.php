@@ -53,4 +53,4 @@ class Controller
 		}
 	}
 
-}
+} // end of the class 
