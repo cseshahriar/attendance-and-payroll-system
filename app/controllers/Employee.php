@@ -54,8 +54,8 @@ class Employee extends Controller
 				'contact_info' => trim($_POST['contact_info']),    
 				'gender' => trim($_POST['gender']),    
 				'position_id' => trim($_POST['position_id']),    
-				'schedule_id' => trim($_POST['schedule_id']),    
-				'photo' => $_FILES['photo'],   
+				'schedule_id' => trim($_POST['schedule_id']),     
+				'photo' => $_FILES['photo'],    
 				'firstname_error' => '',
 				'lastname_error' => '',
 				'address_error' => '', 
@@ -101,15 +101,99 @@ class Employee extends Controller
 
 			// Makes sure errors are empty 
 			if ( empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['address_error']) && empty($data['birthdate_error']) && empty($data['contact_error']) && empty($data['gender_error']) && empty($data['position_error']) && empty($data['schedule_error']) ) {
+				
 				// image process 
-				$this->imageUpload($data['photo'], 'employee');   
+				if (isset($data['photo']['name'])) {  //optional    
+					
+					// Allow certain file formats
+					$imageFileType = strtolower(pathinfo($data['photo']['name'], PATHINFO_EXTENSION));  
+					if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+					&& $imageFileType != "gif" ) { 
+					    
+						$data = [ 
+							'employees' => $employees, 
+							'positions' => $positions, 
+							'schedules' => $schedules, 
+							'title' => 'Employee Store',    
+							'employee_id' => '',   
+							'firstname' => '', 
+							'lastname' => '', 
+							'address' => '',  
+							'birthdate' => '',   
+							'contact_info' => '',    
+							'gender' => '',    
+							'position_id' => '',    
+							'schedule_id' => '',   
+							'photo' => '',   
+							'firstname_error' => '',
+							'lastname_error' => '',
+							'address_error' => '', 
+							'birthdate_error' => '',
+							'contact_error' => '',
+							'gender_error' => '',
+							'position_error' => '',
+							'schedule_error' => '',
+							'photo_error' => 'File is not a image, please upload a image file' 
+						];
+						$this->view('backend/employee/create', $data);   
+					}    
+					// Check file size 
+					elseif ($data["photo"]["size"] >= 500000) { // 500KB 
+						$data = [ 
+							'employees' => $employees, 
+							'positions' => $positions, 
+							'schedules' => $schedules,  
+							'title' => 'Employee Store',     
+							'employee_id' => '',   
+							'firstname' => '', 
+							'lastname' => '', 
+							'address' => '',  
+							'birthdate' => '',   
+							'contact_info' => '',    
+							'gender' => '',    
+							'position_id' => '',    
+							'schedule_id' => '',   
+							'photo' => '',   
+							'firstname_error' => '',
+							'lastname_error' => '',
+							'address_error' => '', 
+							'birthdate_error' => '',
+							'contact_error' => '',
+							'gender_error' => '',
+							'position_error' => '',
+							'schedule_error' => '',
+							'photo_error' => 'Sorry, your file is too large.'   
+						];
 
+						$this->view('backend/employee/create', $data);          
+					} else {	
+						// image rename and upload process 
+						$name = $data['photo']['name'];
+						$tmp_name = $data['photo']['tmp_name'];
+						$type = $data['photo']['type'];
+						$size = $data['photo']['size'];   
+
+						// rename 
+						$newName = date('Y-m-d_H-i-s')."_".uniqid();       
+						$ext = pathinfo($name, PATHINFO_EXTENSION); 
+						$newName = $newName.".".$ext; // name with extension
+						$fileNameWithUploadDir = '../public/uploads/employee/'.$newName;            
+
+						// for database  
+						$data['photo'] = $newName; // for database  
+						if ( empty($data['photo_error'])) {
+							move_uploaded_file($tmp_name, $fileNameWithUploadDir);        
+						}    
+					} 
+
+				}  
+				
 				// Register employee
 				if($this->employeeModel->employeeStore($data)) { // receive true/false 
 					flash('register_success', 'Employee has been registed.');      
 					redirect('employee/index');        
 				} else {
-					die('Something went wrong!');  
+					die('Something went wrong!');     
 				} 
 			} else {
 				// load view with errors 
@@ -145,122 +229,4 @@ class Employee extends Controller
 		}
 	}
 
-	public function upload() 
-	{
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
-
-			$data = [
-				'title' => 'Image upload', 
-				'photo' => $_FILES['photo']  
-			];
-		
-			// file submit check
-			if ($data['photo']['name'] != '' && $data['photo']['size'] != null) {
-				
-				// Allow certain file formats
-				$imageFileType = strtolower(pathinfo($data['photo']['name'],PATHINFO_EXTENSION)); 
-				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-				&& $imageFileType != "gif" ) { 
-				    $data = [
-						'title' => 'Image upload',  
-						'photo_error' => 'File is not a image, please upload a image file'   
-					]; 
-					$this->view('backend/employee/upload', $data); 
-				}    
-				// Check file size 
-				elseif ($data["photo"]["size"] >= 500000) { // 500KB
-				    $data = [
-						'title' => 'Image upload',  
-						'photo_error' => 'Sorry, your file is too large.'    
-					];
-					$this->view('backend/employee/upload', $data);   
-				} else {	
-					// image rename and upload process 
-					$name = $data['photo']['name'];
-					$tmp_name = $data['photo']['tmp_name'];
-					$type = $data['photo']['type'];
-					$size = $data['photo']['size'];  
-
-					// rename 
-					$newName = 'Employee_'.date('Y-m-d_H:i:s')."_".uniqid();    
-					$ext = pathinfo($name, PATHINFO_EXTENSION); 
-					$newName = $newName.".".$ext; // name with extension
-					$fileNameWithUploadDir = '../public/uploads/employee/'.$newName;    
-
-					// for database  
-					// $data['photo'] = $newName; // for database
-					if ( empty($data['photo_error'])) {
-						move_uploaded_file($tmp_name, $fileNameWithUploadDir);   
-					}  
-				}
-
-			} else {
-				$data = [
-					'title' => 'Image upload',  
-					'photo' => '',
-					'photo_error' => 'Something weng wrong!'  
-				];
-				$this->view('backend/employee/upload', $data);  
-			}
-
-			
-		} else { 
-			$data = [
-				'title' => 'Image upload',  
-				'photo' => '',
-				'photo_error' => ''
-			];
-			$this->view('backend/employee/upload', $data);   
-		}
-	}
-
-	// image upload
-	public function imageUpload($file, $uploadFolder)   
-	{
-		$errors = [];
-		$file = $file;  
-
-		$target_dir = "/public/uploads/$uploadFolder";    
-		$target_file = $target_dir . basename($_FILES["$file"]["name"]); 
-		var_dump($target_file); 
-		$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-		// Check if image file is a actual image or fake image
-		if(isset($_POST["$file"])) {
-		    $check = getimagesize($_FILES["$file"]["tmp_name"]);
-		    if($check == false) { 
-		        $errors[] = "File is not an image.";
-		    }  
-		}
-
-		// Check if file already exists
-		if (file_exists($target_file)) {
-		    $errors[] = "Sorry, file already exists.";
-		}
-
-		// Check file size
-		if ($_FILES["fileToUpload"]["size"] > 500000) {
-		    $errors[] = "Sorry, your file is too large.";
-		}
-
-		// Allow certain file formats
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-		&& $imageFileType != "gif" ) {
-		    $errors[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-		}
-
-		// Check $erros 
-		if (!empty($errors)) { // has errors 
-		   $errors[] = "Sorry, your file was not uploaded."; 
-		   return var_dump($errors);   
-		} else {
-			// if everything is ok, try to upload file
-		    if (move_uploaded_file($_FILES["$file"]["tmp_name"], $target_file)) {
-		        // success message 
-		    } else { 
-		        die("Sorry, there was an error uploading your file.");
-		        exit(); 
-		    }
-		}
-	} 
 }

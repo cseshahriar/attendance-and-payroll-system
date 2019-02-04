@@ -18,7 +18,7 @@
         <div class="col-md-8 offset-md-2">
               <div class="box-body">    
 
-            <form class="form-horizontal" action="<?= ROOTURL.'/employee/store' ?>" enctype="multipart/form-data" method="post">      
+            <form class="form-horizontal" action="<?= ROOTURL.'/employee/store' ?>" enctype="multipart/form-data" method="post">       
                 <!-- employee_id uniqueid -->  
                 <div class="form-group">
                   <label for="firstname" class="col-sm-3 control-label">First Name</label>
@@ -104,7 +104,7 @@
                   <div class="col-sm-9"> 
                     <input type="file" class="form-control-file" name="photo">         
                   </div>  
-                  
+                  <p class="text-danger"><?= $data['photo_error'] ?></p>   
                 </div>
 
                 <div class="form-group"> 
