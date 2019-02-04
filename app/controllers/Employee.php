@@ -103,7 +103,7 @@ class Employee extends Controller
 			if ( empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['address_error']) && empty($data['birthdate_error']) && empty($data['contact_error']) && empty($data['gender_error']) && empty($data['position_error']) && empty($data['schedule_error']) ) {
 				
 				// image process 
-				if (isset($data['photo']['name'])) {  //optional    
+				if ($data['photo']['name'] != false) {  //optional     
 					
 					// Allow certain file formats
 					$imageFileType = strtolower(pathinfo($data['photo']['name'], PATHINFO_EXTENSION));  
@@ -223,9 +223,10 @@ class Employee extends Controller
 				'contact_error' => '',
 				'gender_error' => '',
 				'position_error' => '',
-				'schedule_error' => '' 
+				'schedule_error' => '',
+				'photo_error' => ''
 			];
-			$this->view('backend/employee/create', $data);           
+			$this->view('backend/employee/create', $data);            
 		}
 	}
 

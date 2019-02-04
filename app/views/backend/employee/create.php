@@ -23,7 +23,7 @@
                 <div class="form-group">
                   <label for="firstname" class="col-sm-3 control-label">First Name</label>
                   <div class="col-sm-9"> 
-                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">  
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" value="<?php if(isset($_POST['firstname'])) { echo $_POST['firstname']; } ?>">      
                     <p class="text-danger"><?= $data['firstname_error'] ?></p>  
                   </div>  
                 </div>  
@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="lastname" class="col-sm-3 control-label">Last Name</label>
                   <div class="col-sm-9"> 
-                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">  
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" value="<?php if(isset($_POST['lastname'])) { echo $_POST['lastname']; } ?>">  
                    <p class="text-danger"><?= $data['lastname_error'] ?></p>   
                   </div>  
                 </div>   
@@ -39,7 +39,7 @@
                 <div class="form-group"> 
                   <label for="address" class="col-sm-3 control-label">Address</label>
                   <div class="col-sm-9"> 
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="<?php if(isset($_POST['address'])) { echo $_POST['address']; } ?>"> 
                     <p class="text-danger"><?= $data['address_error'] ?></p>  
                   </div>  
                 </div>  
@@ -47,17 +47,17 @@
                 <div class="form-group">
                   <label for="birthday" class="col-sm-3 control-label">Birthday</label>
                   <div class="col-sm-9"> 
-                    <input type="text" class="form-control date" id="birthday" name="birthdate" placeholder="Birthday">    
-                    <p class="text-danger"><?= $data['birthdate_error'] ?></p>   
-                  </div>  
+                    <input type="text" class="form-control date" id="birthday" name="birthdate" placeholder="Birthday">      
+                    <p class="text-danger"><?= $data['birthdate_error'] ?></p>    
+                  </div>   
                   
-                </div> 
+                </div>  
 
                 <div class="form-group">
                   <label for="contact_info" class="col-sm-3 control-label">Contact</label> 
                   <div class="col-sm-9"> 
-                    <textarea name="contact_info" id="contact_info" cols="5" rows="3" class="form-control" placeholder="Contact Informations"></textarea> 
-                    <p class="text-danger"><?= $data['contact_error'] ?></p>    
+                    <textarea name="contact_info" id="contact_info" cols="5" rows="3" class="form-control" placeholder="Contact Informations"><?php if(isset($_POST['contact_info'])) { echo $_POST['contact_info']; } ?></textarea>   
+                    <p class="text-danger"><?= $data['contact_error'] ?></p>       
                   </div>  
                 </div>
 
@@ -65,11 +65,11 @@
                   <label for="gender" class="col-sm-3 control-label">Gender</label> 
                   <div class="col-sm-9"> 
                     <select name="gender" id="gender" class="form-control">
-                      <option value="" selected>--Select Gender--</option>  
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
+                      <option value="" selected>--Select Gender--</option>   
+                      <option value="Male">Male</option> 
+                      <option value="Female">Female</option>   
                     </select>
-                   <p class="text-danger"><?= $data['gender_error'] ?></p>  
+                   <p class="text-danger"><?= $data['gender_error'] ?></p>   
                   </div>  
                 </div>
 
@@ -77,12 +77,12 @@
                   <label for="position_id" class="col-sm-3 control-label">Position</label> 
                   <div class="col-sm-9"> 
                     <select name="position_id" id="position_id" class="form-control">
-                      <option value="" selected>--Select Gender--</option>  
+                      <option value="" selected>--Select Gender--</option>    
                       <?php foreach($data['positions'] as $position) : ?>
-                      <option value="<?= $position->id ?>"><?= $position->description ?></option> 
+                      <option value="<?= $position->id ?>"> <?= $position->description ?> </option>  
                       <?php endforeach; ?>  
                     </select>
-                   <p class="text-danger"><?= $data['position_error'] ?></p>  
+                   <p class="text-danger"><?= $data['position_error'] ?></p>         
                   </div>  
                 </div>
 
@@ -90,14 +90,14 @@
                   <label for="schedule" class="col-sm-3 control-label">Schedule</label>   
                   <div class="col-sm-9"> 
                     <select name="schedule_id" id="schedule_id" class="form-control">
-                      <option value="" selected>--Select Schedule--</option>  
+                      <option value="" selected>--Select Schedule--</option>    
                        <?php foreach($data['schedules'] as $schedule) : ?>
-                      <option value="<?= $schedule->id ?>"> <?= $schedule->in_time ?> - <?= $schedule->out_time ?> </option> 
-                      <?php endforeach; ?>  
+                      <option value="<?= $schedule->id ?>"> <?= $schedule->in_time ?> - <?= $schedule->out_time ?> </option>
+                      <?php endforeach; ?>    
                     </select>
                     <p class="text-danger"><?= $data['schedule_error'] ?></p>    
                   </div>  
-                </div>   
+                </div>    
 
                 <div class="form-group">
                   <label for="photo" class="col-sm-3 control-label">Photo</label>   
