@@ -40,19 +40,19 @@
               </thead>
               <tbody>
               <!-- loop -->
+              <?php foreach($data['overtimes'] as $overtime) : ?>
               <tr>
-                <td></td>
-                <td></td> 
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><?= date('d-m-Y', strtotime($overtime->overtime_date)) ?> </td>   
+                <td><?= $overtime->employee_id ?></td>
+                <td><?= $overtime->firstname.' '.$overtime->lastname ?> </td>
+                <td><?= $overtime->hours ?> </td>
+                <td><?= $overtime->rate ?> </td> 
                 <td>
                   <!-- edit -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-overtime-">  
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-overtime-">
                   <i class="fa fa-pencil-square"></i> Edit
                   </button>  
                  <!-- / edit -->   
-
                   <form action="<?= ROOTURL.'/attendances/delete/'?>" method="post" style="display: inline;">   
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this ?');">
                       <i class="fa fa-trash"></i> Delete
@@ -60,6 +60,7 @@
                   </form>  
                 </td>
               </tr> 
+            <?php endforeach; ?>
               <!-- loop -->
               </tbody>
               <tfoot>
