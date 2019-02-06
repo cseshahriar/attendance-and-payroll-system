@@ -10,6 +10,7 @@
         <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Employee</li>
       </ol>
+       <?php flash('message'); ?>     
     </section>  
 
     <!-- Main content -->
@@ -19,8 +20,7 @@
             <h3 class="box-title">
               <a href="<?= ROOTURL.'/employee/store' ?>" class="btn btn-sm btn-primary">
                   <i class="fa fa-plus"></i> New  
-              </a> 
-              <?php flash('message'); ?>    
+              </a>     
             </h3> 
           </div>
 
@@ -32,7 +32,6 @@
                 <th>Employee ID</th>
                 <th>Name</th>
                 <th>Photo</th> 
-                <th>Address</th>
                 <th>Position</th>
                 <th>Schedule</th>
                 <th>Member Since</th>
@@ -46,32 +45,24 @@
                 <td><?= $employee->employee_id ?></td>
                 <td><?= $employee->firstname ?> <?= $employee->lastname ?></td> 
                 <td>
-
-                  <img src="<?= ROOTURL.'/public/uploads/employee/'.$employee->photo ?>" alt="" height="30"> 
-                  
-                  <a href="#employee-photo-<?= $employee->id ?>" type="button" data-toggle="modal" data-target="#employee-photo-<?= $employee->id ?>"> 
-                      <i class="fa fa-pencil-square"></i>    
-                  </a>   
+                  <img src="<?= ROOTURL.'/public/uploads/employee/'.$employee->photo ?>" alt="" height="30">
                 </td>  
-                <td><?= $employee->address ?></td> 
                 <td><?= $employee->description ?></td> 
                 <td><?= date('h:i a',strtotime($employee->in_time)) ?> - <?= date('h:i a',strtotime($employee->out_time)) ?></td>
                 <td><?= date('d-m-Y', strtotime($employee->created_at)) ?></td> 
                 <td>
+                         
                   <!-- edit -->
-                  <div class="btn-group">
-                    <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-sm btn-primary btn-in"> 
-                       <i class="fa fa-pencil-square"></i> Edit   
+                    <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-flat btn-sm btn-primary btn-in"> 
+                       <i class="fa fa-pencil-square"></i> Edit     
                     </a>         
                    <!-- / edit -->   
-                    <form action="<?= ROOTURL.'/employee/delete/'?>" method="post" class="d-inline">     
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete this ?');"> 
-                            <i class="fa fa-trash"></i> Delete    
-                        </button>   
-                  </form>   
-                    
-                  </div>
+                    <form action="<?= ROOTURL.'/employee/delete/'.$employee->id  ?>" method="post" class="d-none">         
+                      <button class="btn btn-danger btn-sm delete btn-flat" type="submit" onclick="return confirm('Are you sure want to delete this ?');">
+                      <i class="fa fa-trash"></i> Delete</button>   
+                    </form>       
                 </td>
+
               </tr> 
             <?php endforeach; ?>
               <!-- loop -->
@@ -80,8 +71,7 @@
               <tr>
                 <th>Employee ID</th>
                 <th>Name</th>
-                <th>Photo</th>
-                <th>Address</th>
+                <th>Photo</th> 
                 <th>Position</th>
                 <th>Schedule</th>
                 <th>Member Since</th>

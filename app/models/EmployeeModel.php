@@ -13,12 +13,30 @@ class EmployeeModel extends Database
 
 	public function employees()
 	{
-		$this->db->query("SELECT employees.*,position.description,schedules.in_time, schedules.out_time FROM `employees` LEFT JOIN position ON employees.position_id=position.id LEFT JOIN schedules ON employees.schedule_id=schedules.id;");  
+		$this->db->query("SELECT employees.*,position.description,schedules.in_time, schedules.out_time 
+			FROM `employees` 
+			LEFT JOIN position ON employees.position_id=position.id 
+			LEFT JOIN schedules ON employees.schedule_id=schedules.id;");  
 		$rows = $this->db->get(); 
 		return $rows;  
 	}
 
-	public function positions()
+	// single employee for edit view 
+	public function employeeFindById($id)
+	{
+		
+		$this->db->query("SELECT employees.*, position.id as pid, position.description, schedules.id as sid,schedules.in_time,schedules.out_time  
+			FROM employees
+			LEFT JOIN position ON employees.position_id=position.id
+			LEFT JOIN schedules ON employees.schedule_id=schedules.id  
+			WHERE employees.id =:id");
+		
+			$this->db->bind(':id', $id);
+			$result = $this->db->single();    
+			return $result;   
+	}
+
+	public function positions() 
 	{
 		$this->db->query("SELECT id, description FROM position");  
 		$rows = $this->db->get();
@@ -55,4 +73,41 @@ class EmployeeModel extends Database
 			return false;   
 		}  
 	}
+
+	public function employeeUpdate($data, $id)       
+	{
+		
+		$this->db->query("UPDATE employees SET firstname=:firstname, lastname=:lastname, address=:address, birthdate=:birthdate,contact_info=:contact_info,gender=:gender,position_id=:position_id, schedule_id=:schedule_id,photo=:photo WHERE id=:id");      
+		  
+		$this->db->bind(':id', $id);     
+		$this->db->bind(':firstname', $data['firstname']);  
+		$this->db->bind(':lastname', $data['lastname']);
+		$this->db->bind(':address', $data['address']);
+		$this->db->bind(':birthdate', $data['birthdate']); 
+		$this->db->bind(':contact_info', $data['contact_info']);
+		$this->db->bind(':gender', $data['gender']);
+		$this->db->bind(':position_id', $data['position_id']);  
+		$this->db->bind(':schedule_id', $data['schedule_id']);   
+		$this->db->bind(':photo', $data['photo']);   
+
+		if ($this->db->execute()) {
+			return true;
+		} else {
+			return false;   
+		}  
+	}
+
+	public function destroy($id) 
+	{
+		$this->db->query('DELETE FROM employees WHERE id=:id');
+		$this->db->bind(':id', $id);  
+
+		if ($this->db->execute()) {    
+			return true;  
+		} else {
+			return false;     
+		}
+
+	}
+
 }

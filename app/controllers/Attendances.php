@@ -60,22 +60,22 @@ class Attendances extends Controller
 
 				// Add New
 				if($this->attendenceModel->create($data)) { // receive true/false 
-					flash('success', 'Attedance has created', 'alert alert-success');                
-					redirect('/attendances/index');    
+					flash('success', 'Attedance has created', 'alert alert-success alert-dismissible');                 
+					redirect('/attendances/index');      
 				} else { 
-					flash('success', 'Something went wrong!', 'alert alert-danger');
+					flash('success', 'Something went wrong!', 'alert alert-danger alert-dismissible');
 					redirect('/attendances/index');      
 				}
 				
-			} else {
-				flash('success', 'Something went wrong!', 'alert alert-danger');
+			} else { 
+				flash('success', 'Something went wrong!', 'alert alert-danger alert-dismissible');
 				redirect('/attendances/index');     
 			} 
 
 		}  else {
-				flash('success', 'Something went wrong!', 'alert alert-danger');
+				flash('success', 'Something went wrong!', 'alert alert-danger alert-dismissible');
 				redirect('/attendances/index');   
-		}
+		} 
 	}
 
 	public function update()
@@ -148,4 +148,6 @@ class Attendances extends Controller
 		}
 	
 	} 
+
+	
 }

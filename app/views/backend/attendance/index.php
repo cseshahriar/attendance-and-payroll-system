@@ -10,6 +10,7 @@
         <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Attendance</li>
       </ol>
+       <?php flash('success'); ?>  
     </section>  
 
     <!-- Main content -->
@@ -21,7 +22,7 @@
                   <i class="fa fa-plus"></i> New 
               </button>
               
-              <?php flash('success'); ?> 
+             
             </h3> 
           </div>
 

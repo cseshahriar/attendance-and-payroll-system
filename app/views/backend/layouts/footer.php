@@ -91,6 +91,7 @@
 
 <!-- jQuery 3 -->
 <script src="<?= ROOTURL.'/public/adminlte/' ?>bower_components/jquery/dist/jquery.min.js"></script>
+<?php include_once('extjs.js'); ?>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?= ROOTURL.'/public/adminlte/' ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- DataTables -->
