@@ -7,16 +7,17 @@ class Employee extends Controller
 	
 	public function __construct() 
 	{
+		// auth check
+		if (!isset($_SESSION['user_id'])) {
+			header("Location: /admin/login");      
+		}
+
 		$this->employeeModel = $this->model('EmployeeModel');   
 	}
 
 	public function index() 
 	{ 
-		// auth check
-		if (!isset($_SESSION['user_id'])) {
-			header("Location: /admin/login");     
-		}
-
+		
 		$employees = $this->employeeModel->employees(); 
 		$data = [
 			'title' => 'Employees',
@@ -448,4 +449,4 @@ class Employee extends Controller
 		}
 	}
 
-} // end of the class 
+} // end of the class   

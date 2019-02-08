@@ -12,6 +12,8 @@ class Admin extends Controller
 
 	public function index() 
 	{
+		// auth check   
+		$this->isLoggedInUser();   
 
 	}
 
@@ -217,7 +219,7 @@ class Admin extends Controller
 	public function logout()  
 	{
 		// auth check   
-		$this->isLoggedInUser();  
+		$this->isLoggedInUser();   
 
 		unset($_SESSION['user_id']);
 		unset($_SESSION['user_name']);

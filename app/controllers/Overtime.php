@@ -7,6 +7,11 @@ class Overtime extends Controller
 	
 	public function __construct()
 	{
+		// auth check
+		if (!isset($_SESSION['user_id'])) {
+			header("Location: /admin/login");      
+		}
+
 		$this->overtimeModel = $this->model('OvertimeModel'); 
 		$this->employeeModel = $this->model('EmployeeModel');    
 	} 
