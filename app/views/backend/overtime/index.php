@@ -10,7 +10,9 @@
         <li><a href="<?= ROOTURL.'/admin/dashboard' ?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Overtimes</li> 
       </ol>
-      <?php flash('success'); ?> 
+
+      <?php flash('success'); ?>  
+
     </section>  
 
     <!-- Main content -->
@@ -55,10 +57,10 @@
                   <i class="fa fa-pencil-square"></i> Edit  
                   </a>   
                  <!-- / edit -->   
-                  <form action="<?= ROOTURL.'/attendances/delete/'.$overtime->id ?>" method="post" style="display: inline;">   
+                  <form action="<?= ROOTURL.'/overtime/delete/'.$overtime->id ?>" method="post" style="display: inline;">   
                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure want to delete this ?');">
                       <i class="fa fa-trash"></i> Delete  
-                    </button>   
+                    </button>     
                   </form>  
                 </td>
               </tr> 

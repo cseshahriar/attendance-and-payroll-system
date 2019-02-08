@@ -17,9 +17,9 @@ class OvertimeModel extends Database
 	 */
 	public function overtimes()
 	{
-		$this->db->query("SELECT overtime.*, employees.employee_id, employees.firstname, employees.lastname FROM overtime LEFT JOIN employees on overtime.employee_id=employees.id;"); 
-		$rows = $this->db->get(); 
-		return $rows;  
+		$this->db->query("SELECT overtime.*,employees.employee_id, employees.firstname, employees.lastname FROM overtime INNER JOIN employees ON overtime.employee_id=employees.employee_id ORDER BY overtime.id DESC");           
+		$rows = $this->db->get();        
+		return $rows;    
 	}
 
 	/**
@@ -31,7 +31,7 @@ class OvertimeModel extends Database
 	{
 		
 		$this->db->query("INSERT INTO overtime(employee_id, hours, rate, overtime_date) 
-			VALUES(:employee_id, :hours, :rate, :overtime_date)");
+			VALUES(:employee_id, :hours, :rate, :overtime_date)");   
 
 		$this->db->bind('employee_id', $data['employee_id']);   
 		$this->db->bind('hours', $data['hours']);   
@@ -46,7 +46,7 @@ class OvertimeModel extends Database
 	}
 	public function overtimeFindById($id)
 	{
-		$this->db->query("SELECT * FROM `overtime` WHERE id=:id"); 
+		$this->db->query("SELECT * FROM overtime WHERE id=:id");  
 		$this->db->bind('id', $id);
 		$row = $this->db->single(); 
 		return $row;   
@@ -63,6 +63,19 @@ class OvertimeModel extends Database
 
 		if ($this->db->execute()) {
 			return true;		
+		} else {
+			return false; 
+		}
+	}
+
+	public function destroy($id)
+	{
+		$this->db->query("DELETE FROM overtime WHERE id=:id");
+		
+		$this->db->bind('id', $id);  
+
+		if ($this->db->execute()) {
+			return true;
 		} else {
 			return false; 
 		}

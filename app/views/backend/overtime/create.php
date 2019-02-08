@@ -36,11 +36,11 @@
                               </div>
                               <select name="employee_id" id="employee_id" class="form-control" required>  
                                 <option value="" selected>-- Select Employee ID --</option>
-                                <?php foreach($data['employees'] as $employee ) : ?>
+                                <?php foreach($data['employees'] as $employee ) : ?> 
                                 <option value="<?= $employee->employee_id ?>">
                                   <?= $employee->employee_id.' - '.$employee->firstname.' '.$employee->lastname ?> 
                                   </option> 
-                                <?php endforeach; ?>  
+                                <?php endforeach; ?>   
                               </select>
                             </div>
                             <!-- /.input group -->

@@ -146,4 +146,19 @@ class Overtime extends Controller
 		}
 
 	}
+
+	public function delete($id)
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+			if ($this->overtimeModel->destroy($id)) {  
+				flash('success', 'Overtime has been removed.');   
+				redirect('overtime/index');     
+			} else {
+				die('Something went wrong'); 
+			}
+		} else {
+			redirect('overtime/index');       
+		}
+	}
+
 }

@@ -23,7 +23,7 @@ class EmployeeModel extends Database
 
 	public function employeesId()
 	{
-		$this->db->query("SELECT employees.employee_id,employees.firstname,employees.lastname FROM employees");  
+		$this->db->query("SELECT * FROM employees");     
 		$rows = $this->db->get();
 		return $rows;    
 	}
