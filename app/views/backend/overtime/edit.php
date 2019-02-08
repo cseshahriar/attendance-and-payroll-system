@@ -22,10 +22,10 @@
                     <!-- box -->
                     <div class="box box-primary">
                       <div class="box-header"> 
-                        <h3 class="box-title">Add Overtime</h3> 
+                        <h3 class="box-title">Edit Overtime</h3> 
                       </div>
                       <div class="box-body">
-                       <form action="<?= ROOTURL.'/overtime/create' ?>" method="post"> 
+                       <form action="<?= ROOTURL.'/overtime/edit/'.$data['overtime']->id ?>" method="post"> 
 
                           <div class="form-group">
                             <label>Employee ID:</label> 
@@ -34,14 +34,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-user"></i>   
                               </div>
-                              <select name="employee_id" id="employee_id" class="form-control" required>  
-                                <option value="" selected>-- Select Employee ID --</option>
-                                <?php foreach($data['employees'] as $employee ) : ?>
-                                <option value="<?= $employee->employee_id ?>">
-                                  <?= $employee->employee_id.' - '.$employee->firstname.' '.$employee->lastname ?> 
-                                  </option> 
-                                <?php endforeach; ?>  
-                              </select>
+                              <input type="text" class="form-control" value="<?= $data['overtime']->employee_id ?>" disabled title="Disabled">   
                             </div>
                             <!-- /.input group -->
                           </div>
@@ -55,10 +48,10 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-clock-o"></i>
                               </div> 
-                              <input type="text" name="hours" value="" class="timepicker form-control pull-right">
+                              <input type="text" name="hours" value="<?= $data['overtime']->hours ?> " class="timepicker form-control pull-right">
                             </div>  
                             <!-- /.input group -->
-                            <p class="text-danger"><?= $data['hours_error'] ?></p>
+                            <p class="text-danger"><?= $data['hours_error'] ?></p> 
                           </div>
                           <!-- /.form group -->
 
@@ -67,10 +60,10 @@
                             <label>Rate: </label>   
 
                             <div class="input-group">
-                              <div class="input-group-addon">
+                              <div class="input-group-addon"> 
                                 <i class="fa fa-usd"></i> 
                               </div>
-                              <input type="text" name="rate" class="form-control pull-right">  
+                              <input type="text" name="rate" value="<?= $data['overtime']->rate ?> " class="form-control pull-right">  
                             </div>
                             <!-- /.input group -->
                             <p class="text-danger"><?= $data['rate_error'] ?></p>
@@ -85,7 +78,7 @@
                               <div class="input-group-addon"> 
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" name="overtime_date" id="datepicker">     
+                              <input type="text" class="form-control pull-right" value="<?= $data['overtime']->overtime_date ?> " name="overtime_date" id="datepicker">     
                             </div>
                             <!-- /.input group -->
                             <p class="text-danger"><?= $data['overtime_date_error'] ?></p>
@@ -94,7 +87,7 @@
                           
                           <div class="form-group">
                             <button type="submit" class="btn btn-success">Save</button>
-                          </div>
+                          </div> 
                        </form>
                       </div>
                       <!-- /.box-body -->
@@ -108,7 +101,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-<?php require_once APPROOT.'/views/backend/layouts/footer.php'; ?>    
+<?php require_once APPROOT.'/views/backend/layouts/footer.php'; ?>     
 
 
   

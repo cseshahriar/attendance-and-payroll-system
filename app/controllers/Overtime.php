@@ -25,7 +25,7 @@ class Overtime extends Controller
 	{
 		$employees = $this->employeeModel->employeesId();
 	
-		// $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);  
+		$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);    
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		 
@@ -85,5 +85,65 @@ class Overtime extends Controller
 			];  
 			$this->view('backend/overtime/create', $data);  
 		}
+	}
+
+	public function edit($id) 
+	{
+		$overtime = $this->overtimeModel->overtimeFindById($id);
+		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+			$data = [
+				'title' => 'Overtime Edit',
+				'overtime' => $overtime,
+				'hours'  		=> date('H:i:s', strtotime($_POST['hours'])),  
+				'rate'  		=> floatval($_POST['rate']),   
+				'overtime_date' => date('Y-m-d', strtotime($_POST['overtime_date'])),          
+				'overtime_date_error'  => '',    
+				'hours_error'   => '', 
+				'rate_error'    => ''       
+			];
+
+			// validations 
+			if (empty($data['hours'])) {  
+				$data['hours_error'] = 'Time is required.';   
+			}
+
+			if (empty($data['rate'])) {
+				$data['rate_error'] = 'Rate is required.';
+			}   
+			if (empty($data['overtime_date'])) {
+				$data['overtime_date_error'] = 'Date is required.';   
+			} 
+
+
+			// make sure no errors 
+			if ( empty($data['overtime_date_error']) && empty($data['hours_error']) && empty($data['rate_error']))
+			{   
+				
+				// data process 
+				if ($this->overtimeModel->update($data, $id)) {
+					flash('success', 'Overtime has been updated.');      
+					redirect('overtime/index');        
+				} else {
+					die('Something went wrong!');   
+				}
+		
+			} else { // load view with errors 
+				$this->view('backend/overtime/edit', $data);  
+			}
+			
+		} else {
+			$data = [
+				'title' => 'Overtime Edit',
+				'overtime' => $overtime,
+				'hours_error' => '',
+				'rate_error' => '',
+				'overtime_date_error' => '',
+
+			];
+			$this->view('backend/overtime/edit', $data);  
+		}
+
 	}
 }

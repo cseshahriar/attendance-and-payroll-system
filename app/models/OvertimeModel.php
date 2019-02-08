@@ -44,4 +44,27 @@ class OvertimeModel extends Database
 			return false; 
 		}
 	}
+	public function overtimeFindById($id)
+	{
+		$this->db->query("SELECT * FROM `overtime` WHERE id=:id"); 
+		$this->db->bind('id', $id);
+		$row = $this->db->single(); 
+		return $row;   
+	}
+
+	public function update($data, $id)
+	{
+		$this->db->query("UPDATE overtime SET hours=:hours, rate=:rate, overtime_date=:overtime_date WHERE id=:id"); 
+		
+		$this->db->bind('id', $id);
+		$this->db->bind('hours', $data['hours']);
+		$this->db->bind('rate', $data['rate']);
+		$this->db->bind('overtime_date', $data['overtime_date']); 
+
+		if ($this->db->execute()) {
+			return true;		
+		} else {
+			return false; 
+		}
+	}
 }

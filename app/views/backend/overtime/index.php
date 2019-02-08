@@ -48,17 +48,17 @@
                 <td><?= $overtime->employee_id ?></td>
                 <td><?= $overtime->firstname.' '.$overtime->lastname ?> </td>
                 <td><?= $overtime->hours ?> </td>
-                <td><?= $overtime->rate ?> </td> 
+                <td><?= $overtime->rate ?> </td>  
                 <td>
                   <!-- edit -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-overtime-">
-                  <i class="fa fa-pencil-square"></i> Edit
-                  </button>  
+                  <a href="<?= ROOTURL.'/overtime/edit/'.$overtime->id ?>" class="btn btn-primary btn btn-sm" onclick="return confirm('Are you sure want to change it?');">
+                  <i class="fa fa-pencil-square"></i> Edit  
+                  </a>   
                  <!-- / edit -->   
-                  <form action="<?= ROOTURL.'/attendances/delete/'?>" method="post" style="display: inline;">   
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this ?');">
-                      <i class="fa fa-trash"></i> Delete
-                    </button>
+                  <form action="<?= ROOTURL.'/attendances/delete/'.$overtime->id ?>" method="post" style="display: inline;">   
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure want to delete this ?');">
+                      <i class="fa fa-trash"></i> Delete  
+                    </button>   
                   </form>  
                 </td>
               </tr> 
