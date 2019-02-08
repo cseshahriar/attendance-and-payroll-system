@@ -17,8 +17,15 @@ class EmployeeModel extends Database
 			FROM `employees` 
 			LEFT JOIN position ON employees.position_id=position.id 
 			LEFT JOIN schedules ON employees.schedule_id=schedules.id;");  
-		$rows = $this->db->get(); 
+		$rows = $this->db->get();  
 		return $rows;  
+	}
+
+	public function employeesId()
+	{
+		$this->db->query("SELECT employees.employee_id,employees.firstname,employees.lastname FROM employees");  
+		$rows = $this->db->get();
+		return $rows;    
 	}
 
 	// single employee for edit view 

@@ -7,9 +7,10 @@
        Overtimes
       </h1>
       <ol class="breadcrumb">
-        <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Overtimes</li>
+        <li><a href="<?= ROOTURL.'/admin/dashboard' ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Overtimes</li> 
       </ol>
+      <?php flash('success'); ?> 
     </section>  
 
     <!-- Main content -->
@@ -17,11 +18,12 @@
         <div class="box">
           <div class="box-header" style="border-bottom: 1px solid #f4f4f4;"> 
             <h3 class="box-title">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#overtime"> 
-                  <i class="fa fa-plus"></i> New 
-              </button>
+              <a href="<?= ROOTURL.'/overtime/create' ?>" class="btn btn-primary">  
+                  <i class="fa fa-plus"></i> New  
+              </a>
               
               <?php flash('success'); ?>  
+              
             </h3> 
           </div>
 
@@ -37,7 +39,7 @@
                 <th>Rate</th>
                 <th>Tools</th>
               </tr>
-              </thead>
+              </thead> 
               <tbody>
               <!-- loop -->
               <?php foreach($data['overtimes'] as $overtime) : ?>
