@@ -51,16 +51,17 @@
                 <td><?= date('h:i a',strtotime($employee->in_time)) ?> - <?= date('h:i a',strtotime($employee->out_time)) ?></td>
                 <td><?= date('d-m-Y', strtotime($employee->created_at)) ?></td> 
                 <td>
-                         
                   <!-- edit -->
-                    <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-flat btn-sm btn-primary btn-in"> 
-                       <i class="fa fa-pencil-square"></i> Edit     
-                    </a>         
-                   <!-- / edit -->   
-                    <form action="<?= ROOTURL.'/employee/delete/'.$employee->id  ?>" method="post" class="d-none">         
-                      <button class="btn btn-danger btn-sm delete btn-flat" type="submit" onclick="return confirm('Are you sure want to delete this ?');">
-                      <i class="fa fa-trash"></i> Delete</button>   
-                    </form>       
+                  <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Edit     
+                  </a>    
+                 <!-- / edit -->   
+
+                  <form action="<?= ROOTURL.'/employee/delete/'.$employee->id  ?>" method="post" style="display: inline;">    
+                    <button type="submit" class="btn btn-danger delete btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');"> 
+                      <i class="fa fa-trash"></i> Delete         
+                    </button> 
+                  </form>     
                 </td>
 
               </tr> 

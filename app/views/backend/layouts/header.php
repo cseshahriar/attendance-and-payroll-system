@@ -43,11 +43,11 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="<?= ROOTURL.'/admin/dashboard' ?>" class="logo">
+    <a href="<?= ROOTURL.'/dashboard/index' ?>" class="logo"> 
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>P</b>Sys</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Payroll</b>Sys</span> 
+      <span class="logo-lg"><b>Payroll</b>System</span> 
     </a>
 
     <!-- Header Navbar -->
@@ -108,25 +108,25 @@
 
       <!-- Sidebar user panel (optional) -->
     <?php if(isset($_SESSION['user_id'])): ?>
-      <div class="user-panel">
+      <div class="user-panel" style="margin-bottom: 15px"> 
         <div class="pull-left image">
-          <img src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" class="img-circle" alt="User Image"> 
+          <img src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" class="img-circle" alt="User Image">  
         </div>
         <div class="pull-left info">
           <p><?= $_SESSION['user_name'] ?></p> 
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Offline</a>  
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>  
         </div>
       </div>
       <?php else: ?>
-        <div class="user-panel">
+      <div class="user-panel">
         <div class="pull-left image">
           <img src="" class="img-circle" alt="User Image"> 
         </div>
         <div class="pull-left info">
           <p></p>  
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> Offline</a>
         </div>
       </div>
 

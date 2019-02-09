@@ -13,10 +13,10 @@ class EmployeeModel extends Database
 
 	public function employees()
 	{
-		$this->db->query("SELECT employees.*,position.description,schedules.in_time, schedules.out_time 
+		$this->db->query("SELECT employees.*,positions.description,schedules.in_time, schedules.out_time 
 			FROM `employees` 
-			LEFT JOIN position ON employees.position_id=position.id 
-			LEFT JOIN schedules ON employees.schedule_id=schedules.id;");  
+			LEFT JOIN positions ON employees.position_id=positions.id 
+			LEFT JOIN schedules ON employees.schedule_id=schedules.id;");   
 		$rows = $this->db->get();  
 		return $rows;  
 	}
@@ -32,9 +32,9 @@ class EmployeeModel extends Database
 	public function employeeFindById($id)
 	{
 		
-		$this->db->query("SELECT employees.*, position.id as pid, position.description, schedules.id as sid,schedules.in_time,schedules.out_time  
+		$this->db->query("SELECT employees.*, positions.id as pid, positions.description, schedules.id as sid,schedules.in_time,schedules.out_time  
 			FROM employees
-			LEFT JOIN position ON employees.position_id=position.id
+			LEFT JOIN positions ON employees.position_id=positions.id
 			LEFT JOIN schedules ON employees.schedule_id=schedules.id  
 			WHERE employees.id =:id");
 		
@@ -45,7 +45,7 @@ class EmployeeModel extends Database
 
 	public function positions() 
 	{
-		$this->db->query("SELECT id, description FROM position");  
+		$this->db->query("SELECT id, description FROM positions");  
 		$rows = $this->db->get();
 		return $rows;  
 	}
@@ -112,9 +112,8 @@ class EmployeeModel extends Database
 		if ($this->db->execute()) {    
 			return true;  
 		} else {
-			return false;     
+			return false;      
 		}
-
-	}
+	} 
 
 }
