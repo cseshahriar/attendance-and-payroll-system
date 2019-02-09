@@ -4,24 +4,26 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Deductions
+       Positions
       </h1>
       <ol class="breadcrumb">
-        <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Deductions</li>
+        <li><a href="<?= ROOTURL.'/admin/dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Positions</li>
       </ol>
+      
+      <?php flash('success'); ?>    
+   
     </section>  
 
     <!-- Main content -->
-    <section class="content container-fluid">
+    <section class="content container-fluid"> 
         <div class="box">
           <div class="box-header" style="border-bottom: 1px solid #f4f4f4;"> 
             <h3 class="box-title">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deduction"> 
+              <a href="<?= ROOTURL.'/position/create'?>" class="btn btn-primary"> 
                   <i class="fa fa-plus"></i> New 
-              </button>
+              </a>
               
-              <?php flash('success'); ?>  
             </h3> 
           </div>
 
@@ -30,36 +32,41 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
+                <th>#</th>
                 <th>Description</th>
-                <th>Amout</th>
+                <th>Rete</th>
                 <th>Tools</th>
               </tr>
               </thead>
               <tbody>
               <!-- loop -->
+              <?php foreach ($data['positions'] as  $position) : ?> 
               <tr>
-                <td></td>
-                <td></td> 
+                <td><?= $position->id ?></td>
+                <td><?= $position->description ?></td>
+                <td><?= $position->rate ?></td>   
                 <td> 
                   <!-- edit -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-overtime-">  
-                  <i class="fa fa-pencil-square"></i> Edit 
-                  </button>   
+                  <a href="<?= ROOTURL.'/position/edit/'.$position->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Edit     
+                  </a>    
                  <!-- / edit -->   
 
-                  <form action="<?= ROOTURL.'/attendances/delete/'?>" method="post" style="display: inline;">   
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this ?');">
-                      <i class="fa fa-trash"></i> Delete
+                  <form action="<?= ROOTURL.'/position/delete/'.$position->id ?>" method="post" style="display: inline;">    
+                    <button type="submit" class="btn btn-danger btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
+                      <i class="fa fa-trash"></i> Delete     
                     </button>
-                  </form>  
+                  </form>   
                 </td>
               </tr> 
+            <?php endforeach; ?>  
               <!-- loop -->
               </tbody>
               <tfoot>
               <tr>
-                <th>In Time</th>
-                <th>Out Time</th>
+                <th>#</th>
+                <th>Description</th>  
+                <th>Rate</th>
                 <th>Tools</th> 
               </tr>
               </tfoot>
@@ -67,14 +74,14 @@
           </div>
           <!-- /.box-body -->
         </div>  
-    </section>
+    </section> 
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
 
 <!-- new attendance --> 
-<div class="modal fade" id="deduction">    
+<div class="modal fade" id="schedules">   
   <div class="modal-dialog">
     <div class="modal-content">
       
@@ -90,18 +97,18 @@
         <form class="form-horizontal" action="<?= ROOTURL.'/attendances/create' ?>" method="post">
           <div class="box-body">   
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Description</label>
+                  <label class="col-sm-3 control-label">In Time</label>
                   <div class="col-sm-9"> 
-                    <input type="text" class="form-control" name="description" id="descriptin" placeholder="Description" required>  
+                    <input type="text" class="form-control timepicker" name="in_time" id="intime" placeholder="Date" required value="">  
                   </div>
               </div>
 
               <div class="form-group">
-                  <label class="col-sm-3 control-label">Amount</label> 
+                  <label class="col-sm-3 control-label">Out Time</label> 
                   <div class="col-sm-9"> 
-                    <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount" required value="">  
+                    <input type="text" class="form-control timepicker" name="out_time" id="outtime" placeholder="Date" required value="">  
                   </div>  
-              </div>    
+              </div>   
 
 
       

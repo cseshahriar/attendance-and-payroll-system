@@ -4,24 +4,26 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Cash Advance
+       Cash Advances
       </h1>
       <ol class="breadcrumb">
-        <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Cash Advance</li>
+        <li><a href="<?= ROOTURL.'/admin/dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Cash Advances</li> 
       </ol>
+      
+      <?php flash('success'); ?>    
+   
     </section>  
 
     <!-- Main content -->
-    <section class="content container-fluid">
+    <section class="content container-fluid"> 
         <div class="box">
           <div class="box-header" style="border-bottom: 1px solid #f4f4f4;"> 
             <h3 class="box-title">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cashadvance"> 
+              <a href="<?= ROOTURL.'/cashadvance/create'?>" class="btn btn-primary">   
                   <i class="fa fa-plus"></i> New 
-              </button>
+              </a>
               
-              <?php flash('success'); ?>  
             </h3> 
           </div>
 
@@ -30,57 +32,62 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
+                <th>#</th>
                 <th>Date</th>
                 <th>Employee ID</th>
                 <th>Name</th>
                 <th>Amount</th>
-                <th>Tools</th>
+                <th>Tools</th>  
               </tr>
               </thead>
               <tbody>
               <!-- loop -->
+              <?php foreach ($data['cashadvances'] as  $cashadvance) : ?> 
               <tr>
-                <td></td>
-                <td></td> 
-                <td></td>  
-                <td></td> 
-                <td>
+                <td><?= $cashadvance->id ?></td>
+                <td><?= $cashadvance->date_advance ?></td>
+                <td><?= $cashadvance->employee_id ?></td>   
+                <td><?= $cashadvance->firstname.' '.$cashadvance->lastname ?></td>   
+                <td><?= $cashadvance->amount ?></td>   
+                <td> 
                   <!-- edit -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-overtime-">  
-                  <i class="fa fa-pencil-square"></i> Edit
-                  </button>   
+                  <a href="<?= ROOTURL.'/cashadvance/edit/'.$cashadvance->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Edit     
+                  </a>    
                  <!-- / edit -->   
 
-                  <form action="<?= ROOTURL.'/attendances/delete/'?>" method="post" style="display: inline;">   
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this ?');">
-                      <i class="fa fa-trash"></i> Delete
-                    </button>
-                  </form>  
+                  <form action="<?= ROOTURL.'/cashadvance/delete/'.$cashadvance->id ?>" method="post" style="display: inline;">    
+                    <button type="submit" class="btn btn-danger btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
+                      <i class="fa fa-trash"></i> Delete       
+                    </button> 
+                  </form>   
                 </td>
               </tr> 
+            <?php endforeach; ?>  
               <!-- loop -->
               </tbody>
               <tfoot>
               <tr>
+                <th>#</th>
                 <th>Date</th>
-                <th>Employee ID</th>
+                <th>Employee ID</th>    
                 <th>Name</th>
                 <th>Amount</th>
-                <th>Tools</th> 
+                <th>Tools</th>  
               </tr>
               </tfoot>
-            </table>
+            </table> 
           </div>
           <!-- /.box-body -->
         </div>  
-    </section>
+    </section> 
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
 
 <!-- new attendance --> 
-<div class="modal fade" id="cashadvance">   
+<div class="modal fade" id="schedules">   
   <div class="modal-dialog">
     <div class="modal-content">
       
@@ -95,29 +102,22 @@
         <!-- form start -->
         <form class="form-horizontal" action="<?= ROOTURL.'/attendances/create' ?>" method="post">
           <div class="box-body">   
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">In Time</label>
+                  <div class="col-sm-9"> 
+                    <input type="text" class="form-control timepicker" name="in_time" id="intime" placeholder="Date" required value="">  
+                  </div>
+              </div>
 
-            <div class="form-group">
-              <label for="employee_id" class="col-sm-3 control-label">Employee ID</label>
-
-              <div class="col-sm-9"> 
-                <select name="employee_id" id="employee_id" class="form-control" required>
-                    <option value="" selected>-- Select Employee ID --</option> 
-                    <?php foreach($data['employees'] as $employees) : ?>
-                      <option value="<?= $employees->employee_id ?>"><?= $employees->employee_id ?></option> 
-                    <?php endforeach; ?> 
-                </select>
-              </div> 
-            </div>
-
-
-            <div class="form-group">
-              <label for="amount" class="col-sm-3 control-label">Amount</label>
-              <div class="col-sm-9"> 
-                <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount" required>  
-              </div>  
-            </div>   
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">Out Time</label> 
+                  <div class="col-sm-9"> 
+                    <input type="text" class="form-control timepicker" name="out_time" id="outtime" placeholder="Date" required value="">  
+                  </div>  
+              </div>   
 
 
+      
           </div>  
           <!-- /.box-body -->
           <div class="box-footer">

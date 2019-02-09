@@ -171,9 +171,9 @@
           <a href="<?= ROOTURL.'/deductions/index' ?>"><i class="fa fa-file"></i> <span>Deductions</span></a> 
          </li>
 
-         <li class="active"> 
-          <a href="<?= ROOTURL.'/positions/index' ?>"><i class="fa fa-suitcase"></i> <span>Positions</span></a> 
-         </li>
+         <li class="active">  
+          <a href="<?= ROOTURL.'/position/index' ?>"><i class="fa fa-suitcase"></i> <span>Positions</span></a> 
+         </li> 
 
         <li class="header">PRINTTABLES</li>  
         <li class="active">

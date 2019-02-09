@@ -39,8 +39,9 @@ class ScheduleModel extends Database
 
 	public function update($data, $id)     
 	{
-		$this->db->query("UPDATE schedules SET in_time=:in_time, out_time=:out_time"); 
+		$this->db->query("UPDATE schedules SET in_time=:in_time, out_time=:out_time WHERE id=:id"); 
 
+		$this->db->bind(':id', $id); 
 		$this->db->bind(':in_time', $data['in_time']);
 		$this->db->bind(':out_time', $data['out_time']);
 
@@ -62,7 +63,7 @@ class ScheduleModel extends Database
 	public function destroy($id) 
 	{
 		$this->db->query('DELETE FROM schedules WHERE id=:id'); 
-		$this->db->bind(':id', $id);  
+		$this->db->bind(':id', $id);   
 
 		if ($this->db->execute()) {  
 			return true;  
