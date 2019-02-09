@@ -8,7 +8,7 @@ class Pages extends Controller
 	
 	public function __construct() 
 	{
-		// the constructore 
+		// the constructore  
 	}
 
 	// default method must have 

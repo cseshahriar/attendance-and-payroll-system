@@ -3,11 +3,11 @@
   <div class="content-wrapper"> 
   	 <section class="content-header">
       <h1>
-       Schedules
+       Overviews
       </h1>
       <ol class="breadcrumb">
-        <li><a href=""><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Schedules</li>
+        <li><a href="<?= ROOTURL.'/dashboard/index'?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Overviews</li> 
       </ol>
     </section> 
 
@@ -17,14 +17,13 @@
 	          <!-- small box -->
 	          <div class="small-box bg-aqua">
 	            <div class="inner">
-	              <h3>150</h3>
-
-	              <p>New Orders</p>
+	              <h3><?= $data['numbersOfEmployees']->numberOfEmployees ?></h3>   
+	              <p>Total Employees</p> 
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-bag"></i>
 	            </div>
-	            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="<?= ROOTURL.'/employee/index' ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>  
 	          </div>
 	        </div>
 	        <!-- ./col -->
@@ -34,7 +33,7 @@
 	            <div class="inner">
 	              <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-	              <p>Bounce Rate</p>
+	              <p>On Time Percentage</p>
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-stats-bars"></i>
@@ -49,7 +48,7 @@
 	            <div class="inner">
 	              <h3>44</h3>
 
-	              <p>User Registrations</p>
+	              <p>On Time Today</p>
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-person-add"></i>
@@ -64,7 +63,7 @@
 	            <div class="inner">
 	              <h3>65</h3>
 
-	              <p>Unique Visitors</p>
+	              <p>Late Today</p>   
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-pie-graph"></i>

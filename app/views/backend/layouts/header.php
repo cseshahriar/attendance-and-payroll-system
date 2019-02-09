@@ -43,18 +43,18 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?= ROOTURL.'/admin/dashboard' ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>P</b>Sys</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Payroll</b>Sys</span>
+      <span class="logo-lg"><b>Payroll</b>Sys</span> 
     </a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">Toggle navigation</span> 
       </a>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
@@ -136,6 +136,12 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">REPORTS</li>
         <!-- Optionally, you can add icons to the links -->
+        <li class="active">
+          <a href="<?= ROOTURL.'/dashboard/index' ?>">  
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
+          </a> 
+        </li>
+
         <li class="active">
           <a href="<?= ROOTURL ?>/attendances/index"> 
             <i class="fa fa-calendar"></i> <span>Attendance</span>

@@ -13,19 +13,8 @@ class Admin extends Controller
 	public function index() 
 	{
 		// auth check   
-		$this->isLoggedInUser();   
+		$this->isLoggedInUser();    
 
-	}
-
-	public function dashboard() 
-	{
-		// auth check   
-		$this->isLoggedInUser();  
-
-		$data = [
-			'title' => 'Dashboard'
-		];
-		$this->view('backend/dashboard', $data);    
 	}
 
 	public function register() 
@@ -212,7 +201,7 @@ class Admin extends Controller
 		$_SESSION['user_created_at'] = $user->created_at; 
 
 		flash('login_success', 'Welcome, you are successfuly logged in.');    
-		redirect('admin/dashboard');        
+		redirect('dashboard/index');          
 	}
 
 

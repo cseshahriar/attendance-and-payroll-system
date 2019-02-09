@@ -7,6 +7,11 @@ class Attendances extends Controller
 	
 	public function __construct()
 	{
+		// auth check
+		if (!isset($_SESSION['user_id'])) {
+			header("Location: /admin/login");      
+		}
+		
 		$this->attendenceModel = $this->model('Attendance');
 	} 
 
