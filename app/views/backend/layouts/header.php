@@ -161,10 +161,10 @@
               <a href="<?= ROOTURL.'/cashadvance/index'?>"><i class="fa fa-circle-o"></i> Cash Advance</a>
             </li>
             <li>
-              <a href="<?= ROOTURL.'/schedule/index'?>"><i class="fa fa-circle-o"></i> Schedules</a> 
+              <a href="<?= ROOTURL.'/schedule/index'?>"><i class="fa fa-circle-o"></i> Schedules</a>  
             </li> 
             
-          </ul>  
+          </ul>   
         </li> 
 
          <li class="active">
