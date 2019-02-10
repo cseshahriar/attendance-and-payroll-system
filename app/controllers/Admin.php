@@ -7,7 +7,7 @@ class Admin extends Controller
 	
 	public function __construct() 
 	{
-		$this->userModel = $this->model('AdminModel');  
+		$this->userModel = $this->model('AdminModel');   
 	}
 
 	public function index() 

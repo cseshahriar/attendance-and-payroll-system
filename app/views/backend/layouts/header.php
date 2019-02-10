@@ -167,7 +167,7 @@
               <a href="<?= ROOTURL.'/cashadvance/index'?>"><i class="fa fa-circle-o"></i> Cash Advance</a>
             </li>
             <li>
-              <a href="<?= ROOTURL.'/schedule/index'?>"><i class="fa fa-circle-o"></i> Schedules</a>  
+              <a href="<?= ROOTURL.'/employeeschedule/index'?>"><i class="fa fa-circle-o"></i>Employee Schedules</a>         
             </li> 
             
           </ul>   
@@ -183,7 +183,7 @@
 
         <li class="header">PRINTTABLES</li>  
         <li>
-          <a href="#"><i class="fa fa-files-o"></i> <span>Payroll</span></a> 
+          <a href="#"><i class="fa fa-files-o"></i> <span>Payroll</span></a>  
         </li>
         <li>
           <a href="<?= ROOTURL.'/schedule/index' ?>"><i class="fa fa-clock-o"></i> <span>Schedule</span></a> 
