@@ -22,7 +22,7 @@
                     <!-- box -->
                     <div class="box box-primary">
                       <div class="box-header"> 
-                        <h3 class="box-title">Edit Schedule</h3> 
+                        <h3 class="box-title">Edit Schedule</h3>  
                       </div>
                       <div class="box-body">
                        <form action="<?= ROOTURL.'/schedule/edit/'.$data['schedule']->id ?>" method="post">        
@@ -31,7 +31,7 @@
                             <label>In Time:</label>
 
                             <div class="input-group">
-                              <div class="input-group-addon">
+                              <div class="input-group-addon"> 
                                 <i class="fa fa-clock-o"></i>
                               </div> 
                               <input type="text" name="in_time" value="<?= $data['schedule']->in_time ?>" class="timepicker form-control pull-right">

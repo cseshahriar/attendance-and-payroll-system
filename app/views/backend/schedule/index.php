@@ -16,16 +16,13 @@
     </section>  
 
     <!-- Main content -->
-    <section class="content container-fluid"> 
+    <section class="content container-fluid">    
         <div class="box">
           <div class="box-header" style="border-bottom: 1px solid #f4f4f4;"> 
-            <h3 class="box-title">
-              <a href="<?= ROOTURL.'/schedule/create'?>" class="btn btn-primary"> 
-                  <i class="fa fa-plus"></i> New 
-              </a>
-              
+            <h3 class="box-title">  
+              <a href="<?= ROOTURL.'/schedule/create' ?>" class="btn btn-primary btn-sm">Add New</a>
             </h3> 
-          </div>
+          </div>  
 
           <!-- /.box-header -->
           <div class="box-body">
@@ -33,8 +30,7 @@
               <thead>
               <tr>
                 <th>#</th>
-                <th>In Time</th>
-                <th>Out Time</th>
+                <th>Schedule</th>
                 <th>Tools</th>
               </tr>
               </thead>
@@ -43,31 +39,28 @@
               <?php foreach ($data['schedules'] as  $schedule) : ?>
               <tr>
                 <td><?= $schedule->id ?></td>
-                <td><?= $schedule->in_time ?></td>
-                <td><?= $schedule->out_time ?></td>  
+                <td><?= date('h:i:s a', strtotime($schedule->in_time)).' - '.date('h:i:s a', strtotime($schedule->out_time)) ?></td>  
                 <td> 
                   <!-- edit -->
-                  <a href="<?= ROOTURL.'/schedule/edit/'.$schedule->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
-                  <i class="fa fa-pencil-square"></i> Edit    
+                  <a href="<?= ROOTURL.'/schedule/edit/'.$schedule->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">      
+                  <i class="fa fa-pencil-square"></i> Edit        
                   </a>    
-                 <!-- / edit -->   
-
-                  <form action="<?= ROOTURL.'/schedule/delete/'.$schedule->id ?>" method="post" style="display: inline;">   
+                 <!-- / edit -->     
+                   <form action="<?= ROOTURL.'/schedule/delete/'.$schedule->id ?>" method="post" style="display: inline;">   
                     <button type="submit" class="btn btn-danger btn-xs btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
                       <i class="fa fa-trash"></i> Delete   
-                    </button>
-                  </form>   
+                    </button> 
+                  </form> 
                 </td>
               </tr> 
-            <?php endforeach; ?>  
+            <?php endforeach; ?>   
               <!-- loop -->
               </tbody>
               <tfoot>
               <tr>
-                <th>#</th>
-                <th>In Time</th>  
-                <th>Out Time</th>
-                <th>Tools</th> 
+                <th>#</th>      
+                <th>Schedule</th>  
+                <th>Tools</th>
               </tr>
               </tfoot>
             </table> 

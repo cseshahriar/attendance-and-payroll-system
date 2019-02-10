@@ -17,7 +17,7 @@ class ScheduleModel extends Database
 	 */
 	public function schedules()
 	{
-		$this->db->query('SELECT * FROM schedules'); 
+		$this->db->query('SELECT * FROM schedules');  
 		$rows = $this->db->get();
 		return $rows;  
 	}

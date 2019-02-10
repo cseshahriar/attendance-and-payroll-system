@@ -186,7 +186,7 @@
           <a href="#"><i class="fa fa-files-o"></i> <span>Payroll</span></a> 
         </li>
         <li>
-          <a href="#"><i class="fa fa-clock-o"></i> <span>Schedule</span></a> 
+          <a href="<?= ROOTURL.'/schedule/index' ?>"><i class="fa fa-clock-o"></i> <span>Schedule</span></a> 
         </li>
 
       </ul>

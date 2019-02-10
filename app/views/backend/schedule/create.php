@@ -51,7 +51,7 @@
                               <div class="input-group-addon"> 
                                 <i class="fa fa-clock-o"></i> 
                               </div> 
-                              <input type="text" name="out_time" value="" class="timepicker form-control pull-right">
+                              <input type="text" name="out_time" value="" class="timepicker form-control pull-right"> 
                             </div>  
                             <!-- /.input group -->
                             <p class="text-danger"><?= $data['out_time_error'] ?></p> 
