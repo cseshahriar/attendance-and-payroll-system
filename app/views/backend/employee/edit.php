@@ -71,7 +71,7 @@
                       <option value="Male" <?php if( $data['employeeData']->gender == 'Male') { echo 'selected';  } ?> >Male</option> 
                       <option value="Female"  <?php if( $data['employeeData']->gender == 'Female') { echo 'selected'; } ?> >Female</option>     
                     </select>
-                   <p class="text-danger"><?= $data['gender_error'] ?></p>   
+                   <p class="text-danger"><?= $data['gender_error'] ?></p>       
                   </div>  
                 </div>
 
@@ -79,13 +79,11 @@
                   <label for="position_id" class="col-sm-3 control-label">Position</label> 
                   <div class="col-sm-9"> 
                     <select name="position_id" id="position_id" class="form-control">
-                      <option value="">--Select Position--</option>    
-                      <option value="<?= $data['employeeData']->position_id ?>" selected>
-                        <?= $data['employeeData']->description ?>
-                      </option>     
+                      <option value="">--Select Position--</option>     
+                          
                       <?php foreach($data['positions'] as $position) : ?>
-                        <option value="<?= $position->pid ?>">  
-                            <?= $position->description ?>     
+                        <option value="<?= $position->id ?>"  <?php if($data['employeeData']->position_id == $position->id) { echo 'selected'; }?>>   
+                            <?= $position->description ?>      
                          </option>   
                       <?php endforeach; ?>  
                     </select>
@@ -100,13 +98,11 @@
                       
                       <option value="">--Select Schedule--</option>       
                       
-                      <option value="<?= $data['employeeData']->schedule_id ?>" selected>
-                        <?= $data['employeeData']->in_time ?> -  <?= $data['employeeData']->out_time ?> 
-                      </option>  
-
-                       <?php foreach($data['schedules'] as $schedule) : ?>
-                      <option value="<?= $schedule->sid ?>"> <?= $schedule->in_time ?> - <?= $schedule->out_time ?> </option>
-                      <?php endforeach; ?>    
+                      <?php foreach($data['schedules'] as $schedule) : ?>
+                      <option value="<?= $schedule->id ?>"  <?php if($data['employeeData']->schedule_id == $schedule->id) { echo 'selected'; }?>>   
+                        <?= $schedule->in_time ?> - <?= $schedule->out_time ?>  
+                      </option> 
+                      <?php endforeach; ?>     
                     </select>
                     <p class="text-danger"><?= $data['schedule_error'] ?></p>     
                   </div>  

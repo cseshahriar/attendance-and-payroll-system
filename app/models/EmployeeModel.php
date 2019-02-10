@@ -36,9 +36,9 @@ class EmployeeModel extends Database
 			FROM employees
 			LEFT JOIN positions ON employees.position_id=positions.id
 			LEFT JOIN schedules ON employees.schedule_id=schedules.id  
-			WHERE employees.id =:id");
+			WHERE employees.id=:id"); 
 		
-			$this->db->bind(':id', $id);
+			$this->db->bind(':id', $id); 
 			$result = $this->db->single();    
 			return $result;   
 	}

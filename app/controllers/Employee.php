@@ -237,7 +237,7 @@ class Employee extends Controller
 		$schedules = $this->employeeModel->schedules();
 		
 		// fetch employee data 
-		$employeeData = $this->employeeModel->employeeFindById($id);  
+		$employeeData = $this->employeeModel->employeeFindById($id);   
 		
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
