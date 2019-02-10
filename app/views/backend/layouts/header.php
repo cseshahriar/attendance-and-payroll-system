@@ -16,10 +16,8 @@
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
-  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-blue.min.css' ?>">
-  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-green.css' ?>">
-  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-purple.css' ?>"> 
-  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' ?>"> 
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/_all-skins.min.css'?> "> 
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' ?>">  
   <!-- daterange picker -->
     <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css' ?>">
     <!-- Bootstrap time Picker -->
@@ -88,13 +86,13 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#profile">Profile</a>
-                </div>
+                  <a href="<?= ROOTURL.'/admin/profile'?>" class="btn btn-default btn-flat">Profile</a>  
+                </div> 
                 <div class="pull-right">
                   <a href="<?= ROOTURL ?>/admin/logout" class="btn btn-default btn-flat">Sign out</a> 
                 </div> 
               </li>
-            <?php endif; ?> 
+            <?php endif; ?>  
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->

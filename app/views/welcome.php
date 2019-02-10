@@ -1,33 +1,87 @@
-<!doctype html>
-<html lang="en">
-  <head> 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Attendance And Payroll System</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' ?>">  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/font-awesome/css/font-awesome.min.css'?>">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/Ionicons/css/ionicons.min.css' ?>">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/AdminLTE.min.css' ?>">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/plugins/iCheck/square/blue.css' ?>"> 
+  <script src="<?= ROOTURL.'/public/js/moment.min.js' ?>"></script>  
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-   <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-              <div class="card">
-                <div class="card-body">
-                    <h1>Welcome Pages</h1>
-                    <a href="https://github.com/cseshahriar/smvc">SMVC v1.0.0</a> 
-                </div>
-              </div>
-            </div>
-        </div>
-    </div>
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  </body>
+    <p>
+      <?php
+          date_default_timezone_set("Asia/Dhaka");  
+          echo date('D').' - '.date('M').' - '.date('L, Y', time());   
+      ?>
+    </p>   
+
+    <p style="font-weight:700"><?= date('h:i:s a', time()); ?></p>   
+
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+
+    <form action="" method="post"> 
+
+      <div class="form-group has-feedback">
+        <select name="inputtype" id="inputtype" class="form-control">
+          <option value="start">Time Start Now</option> 
+          <option value="end">Time End Now</option>   
+        </select>
+
+        <span class="glyphicon glyphicon-time form-control-feedback"></span>  
+      </div>
+
+      <div class="form-group has-feedback">
+        <input type="email" class="form-control" placeholder="Email">
+        <span class="glyphicon glyphicon-email form-control-feedback"></span> 
+      </div>
+
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>   
+      </div>
+
+      <div class="form-group has-feedback">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+      </div>
+    </form> 
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+<script src="<?= ROOTURL.'/public/adminlte/bower_components/jquery/dist/jquery.min.js' ?>"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js' ?>"></script>
+<!-- iCheck -->
+<script src="<?= ROOTURL.'/public/adminlte/plugins/iCheck/icheck.min.js' ?>"></script>  
+ 
+</body>
 </html>

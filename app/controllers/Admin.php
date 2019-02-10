@@ -219,4 +219,10 @@ class Admin extends Controller
 		redirect('admin/login');       
 	}       
 
+	public function profile()
+	{
+		$data = ['title' => 'Profile'];
+		$this->view('backend/users/profile', $data);  
+	}
+
 } // end of the class 
