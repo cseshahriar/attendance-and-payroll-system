@@ -88,8 +88,8 @@
 			                <form class="form-inline">
 			                  <div class="form-group">
 			                    <label>Select Year: </label>
-			                    <select class="form-control input-sm" id="select_year">
-			                            <option value="">2000</option>   
+			                    <select class="form-control input-sm" id="select_year"> 
+			                            <option value="" selected>-- Select Year --</option>    
 			                    </select>
 			                  </div>
 			                </form>
