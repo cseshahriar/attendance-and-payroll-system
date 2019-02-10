@@ -17,11 +17,13 @@
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-blue.min.css' ?>">
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-green.css' ?>">
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/skin-purple.css' ?>"> 
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' ?>"> 
   <!-- daterange picker -->
     <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css' ?>">
     <!-- Bootstrap time Picker -->
-    <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/plugins/timepicker/bootstrap-timepicker.min.css'?> ">
+    <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/plugins/timepicker/bootstrap-timepicker.min.css'?> "> 
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'?> "> 
 
@@ -36,7 +38,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">  
 <div class="wrapper">
 
   <!-- Main Header -->

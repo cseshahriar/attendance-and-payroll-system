@@ -40,9 +40,9 @@ class Dashboard extends Controller
 		// late present 
 		$todayLatePresent = $this->dashboardModel->todayLatePresent(); 
 		$latePresent = $todayLatePresent->latePresent;  
-	
-		$data = [
-			'title' => 'Dashboard',
+
+		$data = [ 
+			'title' => 'Dashboard', 
 			'numbersOfEmployees' => $numbersOfEmployees,
 			'attendancesPercentage' => $attendancesPercentage,
 			'earlyPresent' => $earlyPresent,  
