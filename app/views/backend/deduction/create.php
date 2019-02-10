@@ -4,12 +4,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Position
+        Deduction
         <small>Create</small> 
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?= ROOTURL.'/position/dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="<?= ROOTURL.'/position/index' ?>">Positions</a></li>    
+        <li><a href="<?= ROOTURL.'/dashboard/index' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="<?= ROOTURL.'/deduction/index' ?>">Deduction</a></li>    
         <li class="active">Create</li>   
       </ol>
     </section>
@@ -22,10 +22,10 @@
                     <!-- box -->
                     <div class="box box-primary">
                       <div class="box-header"> 
-                        <h3 class="box-title">Add Position</h3> 
+                        <h3 class="box-title">Add Deduction</h3> 
                       </div>
                       <div class="box-body">
-                       <form action="<?= ROOTURL.'/position/create' ?>" method="post">      
+                       <form action="<?= ROOTURL.'/deduction/create' ?>" method="post">       
 
                           
                           <!-- intime -->
@@ -45,21 +45,21 @@
 
                           <!-- outtime -->
                           <div class="form-group">
-                            <label>Rate:</label>  
+                            <label>Amount:</label>  
 
                             <div class="input-group"> 
                               <div class="input-group-addon"> 
                                 <i class="fa fa-usd"></i> 
                               </div> 
-                              <input type="text" name="rate" value="" class="form-control pull-right">
+                              <input type="text" name="amount" value="" class="form-control pull-right">
                             </div>  
                             <!-- /.input group -->
-                            <p class="text-danger"><?= $data['rate_error'] ?></p>  
+                            <p class="text-danger"><?= $data['amount_error'] ?></p>  
                           </div>
                           <!-- /.form group -->
 
                           <div class="form-group"> 
-                            <button type="submit" class="btn btn-success">Save</button>
+                            <button type="submit" class="btn btn-success">Save</button> 
                           </div>
                        </form>
                       </div>

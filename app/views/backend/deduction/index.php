@@ -4,11 +4,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       Positions
+       Deductions
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?= ROOTURL.'/admin/dashboard' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Positions</li>
+        <li class="active">Deductions</li> 
       </ol>
       
       <?php flash('success'); ?>    
@@ -20,7 +20,7 @@
         <div class="box">
           <div class="box-header" style="border-bottom: 1px solid #f4f4f4;"> 
             <h3 class="box-title">
-              <a href="<?= ROOTURL.'/position/create'?>" class="btn btn-primary"> 
+              <a href="<?= ROOTURL.'/deduction/create'?>" class="btn btn-primary">    
                   <i class="fa fa-plus"></i> New 
               </a>
               
@@ -34,39 +34,39 @@
               <tr>
                 <th>#</th>
                 <th>Description</th>
-                <th>Rete</th>
+                <th>Amount</th>
                 <th>Tools</th>
               </tr>
               </thead>
               <tbody>
               <!-- loop -->
-              <?php foreach ($data['positions'] as  $position) : ?> 
+              <?php foreach ($data['deductions'] as  $deduction) : ?> 
               <tr>
-                <td><?= $position->id ?></td>
-                <td><?= $position->description ?></td>
-                <td><?= $position->rate ?></td>   
+                <td><?= $deduction->id ?></td>
+                <td><?= $deduction->description ?></td>
+                <td><?= $deduction->amount ?></td>    
                 <td> 
                   <!-- edit -->
-                  <a href="<?= ROOTURL.'/position/edit/'.$position->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <a href="<?= ROOTURL.'/deduction/edit/'.$deduction->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
                   <i class="fa fa-pencil-square"></i> Edit     
                   </a>    
                  <!-- / edit -->   
 
-                  <form action="<?= ROOTURL.'/position/delete/'.$position->id ?>" method="post" style="display: inline;">    
+                  <form action="<?= ROOTURL.'/deduction/delete/'.$deduction->id ?>" method="post" style="display: inline;">      
                     <button type="submit" class="btn btn-danger btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
                       <i class="fa fa-trash"></i> Delete     
                     </button>
                   </form>   
                 </td>
               </tr> 
-            <?php endforeach; ?>  
+            <?php endforeach; ?>   
               <!-- loop -->
               </tbody>
               <tfoot>
               <tr>
                 <th>#</th>
                 <th>Description</th>  
-                <th>Rate</th>
+                <th>Amount</th> 
                 <th>Tools</th> 
               </tr>
               </tfoot>

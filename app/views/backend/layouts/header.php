@@ -174,10 +174,10 @@
         </li> 
 
          <li class="active">
-          <a href="<?= ROOTURL.'/deductions/index' ?>"><i class="fa fa-file"></i> <span>Deductions</span></a> 
-         </li>
+          <a href="<?= ROOTURL.'/deduction/index' ?>"><i class="fa fa-file"></i> <span>Deductions</span></a> 
+         </li> 
 
-         <li class="active">  
+         <li class="active">   
           <a href="<?= ROOTURL.'/position/index' ?>"><i class="fa fa-suitcase"></i> <span>Positions</span></a> 
          </li> 
 
