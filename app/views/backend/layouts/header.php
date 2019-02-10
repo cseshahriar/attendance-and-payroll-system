@@ -143,8 +143,8 @@
         </li>
 
         <li class="active">
-          <a href="<?= ROOTURL ?>/attendances/index"> 
-            <i class="fa fa-calendar"></i> <span>Attendance</span>
+          <a href="<?= ROOTURL ?>/attendance/index">  
+            <i class="fa fa-calendar"></i> <span>Attendances</span> 
           </a> 
         </li>
        
