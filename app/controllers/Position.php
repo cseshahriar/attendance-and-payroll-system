@@ -39,7 +39,7 @@ class Position extends Controller
 			$data = [
 				'title' => 'Positiom create',
 				'description' => trim($_POST['description']),
-				'rate' => floatval($_POST['rate']), 
+				'rate' => trim($_POST['rate']), 
 				'description_error' => '',
 				'rate_error' => ''
 		
@@ -51,7 +51,9 @@ class Position extends Controller
 
 			if (empty($data['rate'])) {
 				$data['rate_error'] = 'Rate is required.';   
-			} 
+			} elseif (!is_numeric($data['rate'])) {
+				$data['rate_error'] = 'Invalid formate, please type decimal number';    
+			}
 
 			if (empty($data['description_error']) && empty($data['rate_error'])) {
 				// process 
@@ -94,7 +96,7 @@ class Position extends Controller
 				'title' => 'Position Edit',
 				'position' => $position,    
 				'description' => trim($_POST['description']),
-				'rate' => trim(floatval($_POST['rate'])),
+				'rate' => trim($_POST['rate']),
 				'description_error' => '', 
 				'rate_error' => ''  
 			];  
@@ -105,9 +107,11 @@ class Position extends Controller
 
 			if (empty($data['rate'])) { 
 				$data['rate_error'] = 'Rate is required.';  
-			}   
+			} elseif (!is_numeric($data['rate'])) {
+				$data['rate_error'] = 'Invalid formate, please type decimal number';    
+			} 
 
-			if (empty($data['description_error']) && empty($data['rate_error'])) {   
+			if (empty($data['description_error']) && empty($data['rate_error'])) {    
 				// process 
 				
 				if ($this->positinModel->update($data, $id)) {  
