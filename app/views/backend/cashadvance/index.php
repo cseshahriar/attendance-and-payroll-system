@@ -48,16 +48,16 @@
                 <td><?= $cashadvance->date_advance ?></td>
                 <td><?= $cashadvance->employee_id ?></td>   
                 <td><?= $cashadvance->firstname.' '.$cashadvance->lastname ?></td>   
-                <td><?= $cashadvance->amount ?></td>   
+                <td><?= $cashadvance->amount ?></td>    
                 <td> 
                   <!-- edit -->
-                  <a href="<?= ROOTURL.'/cashadvance/edit/'.$cashadvance->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
-                  <i class="fa fa-pencil-square"></i> Edit     
+                  <a href="<?= ROOTURL.'/cashadvance/edit/'.$cashadvance->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Edit      
                   </a>    
                  <!-- / edit -->   
 
                   <form action="<?= ROOTURL.'/cashadvance/delete/'.$cashadvance->id ?>" method="post" style="display: inline;">    
-                    <button type="submit" class="btn btn-danger btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
+                    <button type="submit" class="btn btn-danger btn-xs btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
                       <i class="fa fa-trash"></i> Delete       
                     </button> 
                   </form>   

@@ -47,19 +47,19 @@
                 <td><?= $position->rate ?></td>   
                 <td> 
                   <!-- edit -->
-                  <a href="<?= ROOTURL.'/position/edit/'.$position->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
-                  <i class="fa fa-pencil-square"></i> Edit     
+                  <a href="<?= ROOTURL.'/position/edit/'.$position->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Edit      
                   </a>    
                  <!-- / edit -->   
 
                   <form action="<?= ROOTURL.'/position/delete/'.$position->id ?>" method="post" style="display: inline;">    
-                    <button type="submit" class="btn btn-danger btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
+                    <button type="submit" class="btn btn-danger btn-xs btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
                       <i class="fa fa-trash"></i> Delete     
                     </button>
                   </form>   
                 </td>
               </tr> 
-            <?php endforeach; ?>  
+            <?php endforeach; ?>   
               <!-- loop -->
               </tbody>
               <tfoot>

@@ -148,12 +148,12 @@
           </a> 
         </li>
        
-        <li class="treeview active">  
+        <li class="treeview">   
           <a href="#">
             <i class="fa fa-users"></i>  
             <span>Employee</span>
             <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-angle-left pull-right"></i> 
               </span>
           </a> 
           <ul class="treeview-menu">   
@@ -173,19 +173,19 @@
           </ul>   
         </li> 
 
-         <li class="active">
+         <li>
           <a href="<?= ROOTURL.'/deduction/index' ?>"><i class="fa fa-file"></i> <span>Deductions</span></a> 
          </li> 
 
-         <li class="active">   
+         <li>   
           <a href="<?= ROOTURL.'/position/index' ?>"><i class="fa fa-suitcase"></i> <span>Positions</span></a> 
          </li> 
 
         <li class="header">PRINTTABLES</li>  
-        <li class="active">
+        <li>
           <a href="#"><i class="fa fa-files-o"></i> <span>Payroll</span></a> 
         </li>
-        <li class="active">
+        <li>
           <a href="#"><i class="fa fa-clock-o"></i> <span>Schedule</span></a> 
         </li>
 

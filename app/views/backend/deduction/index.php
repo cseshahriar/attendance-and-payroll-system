@@ -47,14 +47,14 @@
                 <td><?= $deduction->amount ?></td>    
                 <td> 
                   <!-- edit -->
-                  <a href="<?= ROOTURL.'/deduction/edit/'.$deduction->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <a href="<?= ROOTURL.'/deduction/edit/'.$deduction->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
                   <i class="fa fa-pencil-square"></i> Edit     
                   </a>    
                  <!-- / edit -->   
 
                   <form action="<?= ROOTURL.'/deduction/delete/'.$deduction->id ?>" method="post" style="display: inline;">      
-                    <button type="submit" class="btn btn-danger btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
-                      <i class="fa fa-trash"></i> Delete     
+                    <button type="submit" class="btn btn-danger btn-xs btn-flate" onclick="return confirm('Are you sure want to delete this ?');">
+                      <i class="fa fa-trash"></i> Delete      
                     </button>
                   </form>   
                 </td>

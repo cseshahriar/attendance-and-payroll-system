@@ -52,13 +52,13 @@
                 <td><?= date('d-m-Y', strtotime($employee->created_at)) ?></td> 
                 <td>
                   <!-- edit -->
-                  <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
                   <i class="fa fa-pencil-square"></i> Edit     
                   </a>    
                  <!-- / edit -->   
 
                   <form action="<?= ROOTURL.'/employee/delete/'.$employee->id  ?>" method="post" style="display: inline;">    
-                    <button type="submit" class="btn btn-danger delete btn-sm btn-flate" onclick="return confirm('Are you sure want to delete this ?');"> 
+                    <button type="submit" class="btn btn-danger delete btn-xs btn-flate" onclick="return confirm('Are you sure want to delete this ?');">  
                       <i class="fa fa-trash"></i> Delete         
                     </button> 
                   </form>     

@@ -53,12 +53,12 @@
                 <td><?= $overtime->rate ?> </td>  
                 <td>
                   <!-- edit -->
-                  <a href="<?= ROOTURL.'/overtime/edit/'.$overtime->id ?>" class="btn btn-primary btn btn-sm" onclick="return confirm('Are you sure want to change it?');">
+                  <a href="<?= ROOTURL.'/overtime/edit/'.$overtime->id ?>" class="btn btn-primary btn btn-xs" onclick="return confirm('Are you sure want to change it?');">
                   <i class="fa fa-pencil-square"></i> Edit  
                   </a>   
                  <!-- / edit -->   
                   <form action="<?= ROOTURL.'/overtime/delete/'.$overtime->id ?>" method="post" style="display: inline;">   
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure want to delete this ?');">
+                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure want to delete this ?');">
                       <i class="fa fa-trash"></i> Delete  
                     </button>     
                   </form>  
