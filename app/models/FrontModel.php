@@ -43,12 +43,20 @@ class FrontModel extends Database
 		$this->db->bind(':email', $email); 
 		$row = $this->db->single(); 
 
-		$hashPasswordd = $row->password; 
-		if (password_verify($password, $hashPasswordd)) {
-			return $row;
+		// check row   
+		if ($this->db->rowCount() > 0) {
+			
+			$hashPasswordd = $row->password; 
+			if (password_verify($password, $hashPasswordd)) {
+				return $row;
+			} else {
+				return false;  
+			} 
+			
 		} else {
-			return false;  
+			return false;   
 		}
+
 	}
 
 	public function alreadyAttendance($employeeId, $created_at)

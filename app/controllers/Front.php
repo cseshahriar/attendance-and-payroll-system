@@ -20,7 +20,7 @@ class Front extends Controller
 		$this->view('welcome', $data);          
 	}    
 
-	public function login() 
+	public function login()  
 	{
 		// if isset post
 		if (isset($_POST)) {
@@ -66,45 +66,54 @@ class Front extends Controller
 
 				// employee is match wher email and password  
 				$employee = $this->frontModel->login($email, $password); 
+				// start login
+				if ($employee) { // if login true 
+					$employeeId = $employee->employee_id;
+					$scheduleId = $employee->employee_id;
+					$date_now = date('Y-m-d');         
+
+					// check status
+					if ($status === 'start') { // in time
+					  	
+					  	// already present or not
+					  	if ($this->frontModel->alreadyAttendance($employeeId, $date_now)) {
+
+					  		$output['error'] = true;
+							$output['message'] = 'You have already attended for today';       
+
+					  	} else {
+
+					  		// strart insert present 
+					  		$time_now = date('H:i:s');
+					  		$empJobStartingTime = $this->frontModel->employeeJobStartingTime($employeeId);     
+					  		$earlyOfNotStatus = ($time_now > $empJobStartingTime) ? 0: 1;  
+					  		
+					  		// insert attendance 
+					  		if ($this->frontModel->attendance($employeeId, $date_now, $time_now, $earlyOfNotStatus)) { 
+
+					  			$output['success'] = true;
+								$output['message'] = 'Welcome, Attendance successfully submited';        
+					  			
+					  		} else {
+					  			$output['errors'] = true; 
+							    $output['email_error'] = 'Attendance submit errors!';    
+					  		}
+					  	
+					  	}
+					  	// end insert present 
+
+					} else { // end intime and start outtime  
+
+					} // end outtime 
+					
+				} else { // if login false
+
+					    $output['errors'] = true;    
+						$output['didNotMatch'] = 'Email or Password did not match.';         
+
+				} // end login
 				
-				$employeeId = $employee->employee_id;
-				$scheduleId = $employee->employee_id;
-				$date_now = date('Y-m-d');         
-
-				// check status
-				if ($status === 'start') { // in time
-				  	
-				  	// already present or not
-				  	if ($this->frontModel->alreadyAttendance($employeeId, $date_now)) {
-
-				  		$output['error'] = true;
-						$output['message'] = 'You already have attended for today';     
-
-				  	} else {
-
-				  		// strart insert present 
-				  		$time_now = date('H:i:s');
-				  		$empJobStartingTime = $this->frontModel->employeeJobStartingTime($employeeId);     
-				  		$earlyOfNotStatus = ($time_now > $empJobStartingTime) ? 1 : 0; 
-				  		
-				  		// insert attendance 
-				  		if ($this->frontModel->attendance($employeeId, $date_now, $time_now, $earlyOfNotStatus)) { 
-
-				  			$output['success'] = true;
-							$output['message'] = 'Welcome, Attendance successfully submited';        
-				  			
-				  		} else {
-				  			$output['error'] = true;
-						    $output['email_error'] = 'Attendance submit errors!';   
-				  		}
-				  	
-				  	}
-				  	// end insert present 
-
-				} else { // end intime and start outtime 
-
-				} // end outtime
- 
+				
 			} else {
 					$output['errors'] = true;  
 			} 

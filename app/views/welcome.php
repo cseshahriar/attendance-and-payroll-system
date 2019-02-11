@@ -58,7 +58,7 @@
       </div>
 
       <div class="form-group has-feedback"> 
-        <input type="email" id="email" name="email" class="form-control" placeholder="Email"> 
+        <input type="email" id="email" name="email" value="<?php if(isset($_POST['email'])) { echo $_POST['email']; } ?>" class="form-control" placeholder="Email"> 
         <span class="glyphicon glyphicon-email form-control-feedback"></span> 
       </div>
 
@@ -82,39 +82,35 @@
       </span>
     </div> 
 
-    <!-- errors --> 
-    <div class="alert alert-danger alert-dismissible mt20 text-center" style="display:none;">
-
+    <!-- errors -->  
+    <div class="alert alert-danger alert-danger1 alert-dismissible mt20 text-center" style="display:none;">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      
-      <span class="result"><i class="icon fa fa-warning"></i> 
-        <span class="status-message"></span>
-      </span> 
-
+      <span class="result"><i class="icon fa fa-warning"></i>    
+        <span class="error-message1"></span>          
+      </span>   
+    </div>  
+   
+    <div class="alert alert-danger alert-danger2 alert-dismissible mt20 text-center" style="display:none;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> 
+      <span class="result"><i class="icon fa fa-warning"></i>      
+        <span class="error-message2"></span>        
+      </span>   
+    </div>   
+   
+    <div class="alert alert-danger alert-danger3 alert-dismissible mt20 text-center" style="display:none;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> 
+      <span class="result"><i class="icon fa fa-warning"></i>     
+        <span class="error-message3"></span>       
+      </span>   
+    </div> 
+   
+    <div class="alert alert-danger alert-danger4 alert-dismissible mt20 text-center" style="display:none;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> 
+      <span class="result"><i class="icon fa fa-warning"></i>    
+        <span class="error-message4"></span>                
+      </span>   
     </div> 
 
-    <div class="alert alert-danger alert-dismissible mt20 text-center" style="display:none;">
-
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-
-      <span class="result"><i class="icon fa fa-warning"></i> 
-        <span class="email-message"></span><br> 
-      </span> 
-    </div> 
-
-
-    <div class="alert alert-danger alert-dismissible mt20 text-center" style="display:none;">
-
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-
-      <span class="result"><i class="icon fa fa-warning"></i> 
-        <span class="password-message"></span>
-      </span> 
-
-    </div> 
-    <!-- / messages  -->   
-
-  </div>
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
@@ -144,13 +140,30 @@ $(document).ready(function() {
           if(response.errors) { // erro message 
 
             $('.alert').hide(); 
+
+            if (response.status_error) { 
+              $('.alert-danger1').hide();     
+              $('.alert-danger1').show();     
+              $('.error-message1').html(response.status_error); 
+            }
+
+            if (response.email_error) {
+              $('.alert-danger2').hide(); 
+              $('.alert-danger2').show();
+              $('.error-message2').html(response.email_error);    
+            }
+           
+            if (response.password_error) {
+              $('.alert-danger3').hide(); 
+              $('.alert-danger3').show();
+              $('.error-message3').html(response.password_error);  
+            }  
             
-            $('.alert-danger').show();  
-            $('.status-message').html(response.status_error);   
-            $('.email-message').html(response.email_error);    
-            $('.password-message').html(response.password_error);
-
-
+            if (response.didNotMatch) {           
+              $('.alert-danger4').hide();         
+              $('.alert-danger4').show();
+              $('.error-message4').html(response.didNotMatch);          
+            }     
 
           } else { // success message 
 
