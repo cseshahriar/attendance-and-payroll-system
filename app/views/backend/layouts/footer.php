@@ -92,14 +92,18 @@
 <!-- jQuery 3 -->
 <script src="<?= ROOTURL.'/public/adminlte/' ?>bower_components/jquery/dist/jquery.min.js"></script>
 
-<!-- extjs -->
-<?php include_once('extjs.js'); ?>
-
 <!-- Bootstrap 3.3.7 -->
 <script src="<?= ROOTURL.'/public/adminlte/' ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <!-- DataTables -->
 <script src="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js' ?>"></script>
 <script src="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/dataTables.buttons.min.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/buttons.print.min.js'?>"></script>   
+
+<!-- extjs -->
+<?php include_once('extjs.js'); ?>
+
 <!-- AdminLTE App -->
 <script src="<?= ROOTURL.'/public/adminlte/' ?>dist/js/adminlte.min.js"></script> 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

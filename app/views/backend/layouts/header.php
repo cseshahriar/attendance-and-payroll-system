@@ -18,6 +18,9 @@
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/_all-skins.min.css'?> "> 
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' ?>">  
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/css/jquery.dataTables.min.css' ?> ">   
+  <link rel="stylesheet" href="<?= ROOTURL.'/public/css/buttons.dataTables.min.css' ?> ">      
+
   <!-- daterange picker -->
     <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css' ?>">
     <!-- Bootstrap time Picker -->
@@ -173,10 +176,6 @@
             <li>
               <a href="<?= ROOTURL.'/cashadvance/index'?>"><i class="fa fa-circle-o"></i> Cash Advance</a>
             </li>
-            <li>
-              <a href="<?= ROOTURL.'/employeeschedule/index'?>"><i class="fa fa-circle-o"></i>Employee Schedules</a>         
-            </li> 
-            
           </ul>   
         </li> 
 
@@ -188,22 +187,26 @@
           <a href="<?= ROOTURL.'/position/index' ?>"><i class="fa fa-suitcase"></i> <span>Positions</span></a> 
          </li> 
 
-        <li class="header">PRINTTABLES</li>  
-        <li>
-          <a href="#"><i class="fa fa-files-o"></i> <span>Payroll</span></a>  
-        </li>
         <li>
           <a href="<?= ROOTURL.'/schedule/index' ?>"><i class="fa fa-clock-o"></i> <span>Schedule</span></a> 
         </li>
 
-      </ul>
+        <li class="header">PRINTTABLES</li> 
+        <li>
+            <a href="<?= ROOTURL.'/employeeschedule/index'?>"><i class="fa fa-clock-o"></i>Employee Schedules</a>          
+        </li>  
+        <li>
+          <a href="<?= ROOTURL.'/payroll/index' ?>"><i class="fa fa-files-o"></i> <span>Payroll</span></a>  
+        </li> 
+       
+      </ul> 
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
 
   <!-- profile modal --> 
-<div class="modal fade" id="profile">    
+<div class="modal fade" id="profile">      
   <div class="modal-dialog">
     <div class="modal-content">
 
