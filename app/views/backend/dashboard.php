@@ -21,12 +21,13 @@
 	              <p>Total Employees</p> 
 	            </div>
 	            <div class="icon">
-	              <i class="ion ion-bag"></i>
+	              <i class="ion ion-person"></i>
 	            </div>
 	            <a href="<?= ROOTURL.'/employee/index' ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>  
 	          </div>
 	        </div>
 	        <!-- ./col -->
+	        
 	        <div class="col-lg-3 col-xs-6">
 	          <!-- small box -->
 	          <div class="small-box bg-green">
@@ -38,11 +39,11 @@
 	            <div class="icon">
 	              <i class="ion ion-stats-bars"></i>
 	            </div>
-	            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
 	        </div>
 	        <!-- ./col -->
-	        <div class="col-lg-3 col-xs-6">
+	        <div class="col-lg-2 col-xs-6">
 	          <!-- small box -->
 	          <div class="small-box bg-yellow">
 	            <div class="inner">
@@ -51,26 +52,44 @@
 	              <p>On Time Today</p>
 	            </div>
 	            <div class="icon">
-	              <i class="ion ion-person-add"></i>
+	              <i class="ion ion-person"></i>
 	            </div>
-	            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
 	        </div>
 	        <!-- ./col -->
 
-	        <div class="col-lg-3 col-xs-6">
+	        <div class="col-lg-2 col-xs-6">
 	          <!-- small box -->
 	          <div class="small-box bg-red">
 	            <div class="inner">
-	              <h3><?= $data['latePresent'] ?></h3> 
+	              <h3><?= $data['numbersOfEmployees']->numberOfEmployees - $data['earlyPresent'] ?></h3> 
 
-	              <p>Late Today</p>   
+	              <p>Late Today</p>    
 	            </div>
 	            <div class="icon">
-	              <i class="ion ion-pie-graph"></i>
+	              <i class="ion ion-person"></i>
 	            </div>
-	            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-	          </div>
+	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info <i class="fa fa-arrow-circle-right"></i></a>
+	          </div> 
+	        </div>
+        	<!-- ./col -->
+
+	        <div class="col-lg-2 col-xs-6">
+	          <!-- small box -->
+	          <div class="small-box bg-red">
+	            <div class="inner">
+	              <h3><?= $data['numbersOfEmployees']->numberOfEmployees - $data['totalPresent'] ?></h3> 
+
+	              <p>Absence</p>       
+	            </div>
+	            <div class="icon">
+	              <i class="ion ion-person"></i>  
+	            </div>
+	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info 
+	            	<i class="fa fa-arrow-circle-right"></i> 
+	            </a>
+	          </div> 
 	        </div>
         	<!-- ./col -->
 

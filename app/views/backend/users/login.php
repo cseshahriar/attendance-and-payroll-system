@@ -39,7 +39,7 @@
     <p class="login-box-msg">Sign in to start your session</p> 
 		<div class="card" style="width: 30rem;">
 		 <div class="card-body">
-		    <h5 class="card-title">User Login</h5>      
+		    <h5 class="card-title"></h5>      
 			<!-- flash message -->
 		    <?php flash('register_success'); ?>  
 		    <?php flash('logout_success'); ?>   

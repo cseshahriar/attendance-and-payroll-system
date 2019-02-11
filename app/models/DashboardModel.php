@@ -48,7 +48,7 @@ class DashboardModel extends Database
 		return $row;  
 	}
 
-	public function todayLatePresent()   
+	public function todayLatePresent()    
 	{
 		date_default_timezone_set('Asia/Dhaka'); 
 		$timezone = date_default_timezone_get();
@@ -57,5 +57,13 @@ class DashboardModel extends Database
 		$this->db->query("SELECT COUNT(id) AS latePresent FROM attendance WHERE created_at='$today' AND status='0' ");        
 		$row = $this->db->single();  
 		return $row;  
+	}
+
+	public function present()
+	{
+		$now = date('Y-m-d'); 
+		$this->db->query("SELECT count(attendance.created_at) as total FROM attendance INNER JOIN employees ON attendance.employee_id=employees.employee_id WHERE attendance.created_at='$now'");
+		 $row = $this->db->single();  
+		 return $row;  
 	}
 }
