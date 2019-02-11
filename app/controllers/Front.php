@@ -78,8 +78,8 @@ class Front extends Controller
 					  	// already present or not
 					  	if ($this->frontModel->alreadyAttendance($employeeId, $date_now)) {
 
-					  		$output['errors'] = true;
-							$output['message'] = 'You have already attended for today';       
+					  		$output['error'] = true;
+							$output['message'] = 'You have already attended for today';        
 
 					  	} else {
 
@@ -143,7 +143,7 @@ class Front extends Controller
 				} else { // if login false
 
 					    $output['errors'] = true;    
-						$output['didNotMatch'] = 'Email or Password did not match.';          
+						$output['didNotMatch'] = 'Email or Password did not match.';           
 
 				} // end login
 				
