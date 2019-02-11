@@ -13,9 +13,7 @@
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/Ionicons/css/ionicons.min.css' ?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/AdminLTE.min.css'?>">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect. -->
+  <!-- AdminLTE Skins -->
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/skins/_all-skins.min.css'?> "> 
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' ?>">  
   <link rel="stylesheet" href="<?= ROOTURL.'/public/css/jquery.dataTables.min.css' ?> ">   
@@ -26,7 +24,8 @@
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/plugins/timepicker/bootstrap-timepicker.min.css'?> "> 
     <!-- bootstrap datepicker -->
-    <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'?> "> 
+    <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'?> ">
+    <link rel="stylesheet" href="<?= ROOTURL.'/public/css/style.css' ?> ">    
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

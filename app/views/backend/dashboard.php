@@ -1,4 +1,4 @@
-<?php require_once 'layouts/header.php'; ?>
+<?php require_once 'layouts/header.php'; ?> 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper"> 
   	 <section class="content-header"> 
@@ -7,7 +7,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?= ROOTURL.'/dashboard/index'?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Overviews</li> 
+        <li class="active">Overviews</li>  
       </ol>
     </section> 
 
@@ -94,10 +94,18 @@
 			                  </div>
 			                </form>
 			            </div>
-
+						
 		            </div>
 		            <div class="box-body">
 		              <div class="chart">
+
+		              	<div id="legend" class="text-center">
+		              		<ul class="bar-legend" style="list-style: none"> 
+		              			<li><span style="background-color:rgba(210, 214, 222, 1)"></span>Late</li>
+		              			<li><span style="background-color:#00a65a"></span>Ontime</li>
+		              		</ul>
+		              	</div>
+
 		                <canvas id="barChart" style="height:230px"></canvas>     
 		              </div>
 		            </div>

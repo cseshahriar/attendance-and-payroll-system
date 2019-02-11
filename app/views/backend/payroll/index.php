@@ -18,7 +18,7 @@
     <!-- Main content -->
     <section class="content container-fluid">    
         <div class="box">
-          <div class="box-header" style="border-bottom: 1px solid #f4f4f4;">  
+          <div class="box-header" style="border-bottom: 1px solid #f4f4f4;padding: 15px">  
 
         	<div class="box-tools pull-right">    
 	            <form method="POST" class="form-inline" id="payForm" _lpchecked="1"> 
@@ -42,7 +42,7 @@
 
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="employeeSchedule" class="table table-bordered table-striped">
+            <table id="payroll" class="table table-bordered table-striped">   
               <thead>
               <tr>
                 <th>Employee ID</th>
