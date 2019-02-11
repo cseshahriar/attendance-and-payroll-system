@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
   <title>Attendance & Payroll System</title>  
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -46,31 +46,74 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="" method="post"> 
+    <form method="post" id="employeeLoginForm">          
 
       <div class="form-group has-feedback">
-        <select name="inputtype" id="inputtype" class="form-control">
-          <option value="start">Time Start Now</option> 
-          <option value="end">Time End Now</option>   
-        </select>
-
+        <select name="status" id="status" class="form-control">  
+          <option value="" selected>-- Choose Start or Stop --</option>  
+          <option value="start">Time Start Now</option>   
+          <option value="stop">Time End Now</option>    
+        </select> 
         <span class="glyphicon glyphicon-time form-control-feedback"></span>  
       </div>
 
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+      <div class="form-group has-feedback"> 
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email"> 
         <span class="glyphicon glyphicon-email form-control-feedback"></span> 
       </div>
 
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>   
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password"> 
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>     
       </div>
 
       <div class="form-group has-feedback">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" id="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
       </div>
-    </form> 
+    </form>
+
+    <!-- messages  -->
+    <div class="alert alert-success alert-dismissible mt20 text-center" style="display:none;">
+
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+      <span class="result"><i class="icon fa fa-check"></i> 
+        <span class="message"></span>   
+      </span>
+    </div> 
+
+    <!-- errors --> 
+    <div class="alert alert-danger alert-dismissible mt20 text-center" style="display:none;">
+
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      
+      <span class="result"><i class="icon fa fa-warning"></i> 
+        <span class="status-message"></span>
+      </span> 
+
+    </div> 
+
+    <div class="alert alert-danger alert-dismissible mt20 text-center" style="display:none;">
+
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+      <span class="result"><i class="icon fa fa-warning"></i> 
+        <span class="email-message"></span><br> 
+      </span> 
+    </div> 
+
+
+    <div class="alert alert-danger alert-dismissible mt20 text-center" style="display:none;">
+
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+      <span class="result"><i class="icon fa fa-warning"></i> 
+        <span class="password-message"></span>
+      </span> 
+
+    </div> 
+    <!-- / messages  -->   
+
   </div>
   <!-- /.login-box-body -->
 </div>
@@ -82,6 +125,51 @@
 <script src="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js' ?>"></script>
 <!-- iCheck -->
 <script src="<?= ROOTURL.'/public/adminlte/plugins/iCheck/icheck.min.js' ?>"></script>  
- 
+<script>
+
+$(document).ready(function() {
+
+    $('#employeeLoginForm').submit(function(e) { 
+      e.preventDefault();
+      
+      var attendance = $(this).serialize();   
+
+      $.ajax({
+        type: 'POST',
+        url: '<?= ROOTURL.'/front/login' ?>',     
+        data: attendance, 
+        dataType: 'json',
+        success: function(response) { 
+          
+          if(response.errors) { // erro message 
+
+            $('.alert').hide(); 
+            
+            $('.alert-danger').show();  
+            $('.status-message').html(response.status_error);   
+            $('.email-message').html(response.email_error);    
+            $('.password-message').html(response.password_error);
+
+
+
+          } else { // success message 
+
+            $('.alert').hide(); 
+            $('.alert-success').show();
+
+            $('.message').html(response.message);   
+            
+            // empty  
+            $('#email').val(''); 
+            $('#password').val('');   
+          } 
+
+        } 
+      });
+
+    });
+
+});
+</script> 
 </body>
 </html>
