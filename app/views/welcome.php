@@ -73,12 +73,13 @@
     </form>
 
     <!-- messages  -->
+   
     <div class="alert alert-success alert-dismissible mt20 text-center" style="display:none;">
 
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
       <span class="result"><i class="icon fa fa-check"></i> 
-        <span class="message"></span>   
+        <span class="message"></span>    
       </span>
     </div> 
 
@@ -108,6 +109,13 @@
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> 
       <span class="result"><i class="icon fa fa-warning"></i>    
         <span class="error-message4"></span>                
+      </span>   
+    </div> 
+   
+    <div class="alert alert-danger alert-danger5 alert-dismissible mt20 text-center" style="display:none;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> 
+      <span class="result"><i class="icon fa fa-warning"></i>    
+        <span class="leave-message"></span>                 
       </span>   
     </div> 
 
@@ -168,10 +176,20 @@ $(document).ready(function() {
           } else { // success message 
 
             $('.alert').hide(); 
-            $('.alert-success').show();
-
-            $('.message').html(response.message);   
             
+            if (response.message) { 
+              $('.alert-success').hide(); 
+              $('.alert-success').show(); 
+              $('.message').html(response.message);  
+            }  
+
+            if (response.leave_message) {  
+              $('.alert-danger5').hide();   
+              $('.alert-danger5').show();  
+              $('.leave-message').html(response.leave_message);          
+            }
+
+
             // empty  
             $('#email').val(''); 
             $('#password').val('');   

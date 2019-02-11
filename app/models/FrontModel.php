@@ -59,7 +59,7 @@ class FrontModel extends Database
 
 	}
 
-	public function alreadyAttendance($employeeId, $created_at)
+	public function alreadyAttendance($employeeId, $created_at) 
 	{
 		$this->db->query("SELECT * FROM attendance WHERE employee_id = :employee_id AND created_at=:created_at AND in_time IS NOT NULL");  
 		
@@ -70,7 +70,8 @@ class FrontModel extends Database
 		
 		// check row   
 		if ($this->db->rowCount() > 0) {
-			return true;
+			//return true;
+			return $row;  
 		} else {
 			return false; 
 		}
@@ -89,6 +90,18 @@ class FrontModel extends Database
 
 	}
 
+	public function employeeisPresentToday($employeeId, $created_at)  
+	{ 
+		$this->db->query("SELECT schedules.out_time FROM employees INNER JOIN schedules ON employees.schedule_id=schedules.id WHERE employees.employee_id=:employee_id AND created_at=:created_at");  
+		
+		$this->db->bind(':employee_id', $employeeId);  
+		$this->db->bind(':employee_id', $created_at);   
+		 
+		$row = $this->db->single();
+
+		return $row->in_time;    
+	}
+
 	public function attendance($employeeId, $date_now, $time_now, $earlyOfNotStatus)
 	{
 		$this->db->query("INSERT INTO attendance(employee_id, created_at, in_time, status) VALUES (:employee_id, :created_at, :in_time, :status)");
@@ -104,6 +117,23 @@ class FrontModel extends Database
 			return false; 
 		}
 		
-	}
+	} 
 
-}
+	public function leave($attendanceId, $employeeId, $time_now)    
+	{
+		$this->db->query("UPDATE attendance SET out_time=:out_time WHERE employee_id=:employee_id AND id=:id");   
+		
+		$this->db->bind(':id', $attendanceId);  
+		$this->db->bind(':employee_id', $employeeId); 
+		$this->db->bind(':out_time', $time_now);    
+
+		if ($this->db->execute()) {
+			return true;
+		} else {
+			return false; 
+		}
+		
+	}   
+
+
+} 

@@ -69,7 +69,7 @@ class Front extends Controller
 				// start login
 				if ($employee) { // if login true 
 					$employeeId = $employee->employee_id;
-					$scheduleId = $employee->employee_id;
+					$scheduleId = $employee->schedule_id; 
 					$date_now = date('Y-m-d');         
 
 					// check status
@@ -78,7 +78,7 @@ class Front extends Controller
 					  	// already present or not
 					  	if ($this->frontModel->alreadyAttendance($employeeId, $date_now)) {
 
-					  		$output['error'] = true;
+					  		$output['errors'] = true;
 							$output['message'] = 'You have already attended for today';       
 
 					  	} else {
@@ -102,14 +102,48 @@ class Front extends Controller
 					  	}
 					  	// end insert present 
 
-					} else { // end intime and start outtime  
+					} else { // end intime and start outtime
+										
+					  		// attendance check 
+					  		$row = $this->frontModel->alreadyAttendance($employeeId, $date_now); 
+						  	if ($row) { // attended 
+						  		
+						  		$attendanceId = $row->id;    
+						  		// var_dump($row);  
+
+						  		// out_time is not empty 
+						  		if($row->out_time != '00:00:00' && $row->out_time != NULL && $row->out_time != '') { // not empty 
+						  			$output['error'] = true;        
+									$output['message'] = 'You have already leave for today';    
+						  		} else { // if not leave today 
+
+						  			// update leave time 
+							  		$time_now = date('H:i:s'); 
+							  		
+							  		if ($this->frontModel->leave($attendanceId, $employeeId, $time_now) ) {    
+							  			// -------------------- working hours calculation ---------------
+							  		
+							  			$output['error'] = true;
+										$output['message'] = 'Goodbye, You time is ended now for today';  
+
+							  		} else {
+							  			$output['error'] = true; 
+									    $output['message'] = 'Opps!, Something went wrong.';   
+							  		}  
+
+						  		}						  		
+
+							} else {
+							  	$output['errors'] = true;
+								$output['leave_message'] = 'Please submit your attendance first.';               
+							}
 
 					} // end outtime 
 					
 				} else { // if login false
 
 					    $output['errors'] = true;    
-						$output['didNotMatch'] = 'Email or Password did not match.';         
+						$output['didNotMatch'] = 'Email or Password did not match.';          
 
 				} // end login
 				
