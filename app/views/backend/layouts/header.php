@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php if($data['title']) { echo $data['title']; } ?></title>  
+  <title><?php if($data['title']) { echo $data['title']; } else { echo 'Dashboard'; } ?></title>   
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' ?>">
@@ -140,6 +140,12 @@
           <a href="<?= ROOTURL.'/dashboard/index' ?>">  
             <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
           </a> 
+        </li> 
+
+        <li class="active">
+          <a href="<?= ROOTURL ?>/admin/index">  
+            <i class="fa fa-users"></i> <span>Users</span> 
+          </a> 
         </li>
 
         <li class="active">
@@ -147,6 +153,7 @@
             <i class="fa fa-calendar"></i> <span>Attendances</span> 
           </a> 
         </li>
+
        
         <li class="treeview">   
           <a href="#">

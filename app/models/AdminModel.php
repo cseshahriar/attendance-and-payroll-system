@@ -11,6 +11,13 @@ class AdminModel extends Database
 		$this->db = new Database;  
 	}
 
+	public function users()
+	{
+		$this->db->query("SELECT name, email, photo, type, created_at FROM admins");
+		$rows = $this->db->get();
+		return $rows; 
+	} 
+
 	/**
 	 * [findUserByEmail description]
 	 * @param  [type] $email [description]
@@ -56,7 +63,7 @@ class AdminModel extends Database
 	public function login($email, $password)
 	{
 		$this->db->query('SELECT * FROM admins WHERE email = :email'); 
-		$this->db->bind(':email', $email);
+		$this->db->bind(':email', $email); 
 		$row = $this->db->single();
 
 		$hashPasswordd = $row->password; 

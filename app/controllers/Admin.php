@@ -5,7 +5,7 @@
 class Admin extends Controller 
 {
 	
-	public function __construct() 
+	public function __construct()  
 	{
 		$this->userModel = $this->model('AdminModel');   
 	}
@@ -13,7 +13,16 @@ class Admin extends Controller
 	public function index() 
 	{
 		// auth check   
-		$this->isLoggedInUser();    
+		$this->isLoggedInUser();  
+
+		$users = $this->userModel->users(); 
+		
+		$data = [
+			'title' => 'Admin List',
+			'users' => $users
+		];
+
+		$this->view('backend/users/index', $data);  
 
 	}
 
@@ -198,10 +207,11 @@ class Admin extends Controller
 		$_SESSION['user_name'] = $user->name;
 		$_SESSION['user_email'] = $user->email;
 		$_SESSION['user_photo'] = $user->photo; 
-		$_SESSION['user_created_at'] = $user->created_at; 
+		$_SESSION['user_type'] = $user->type; 
+		$_SESSION['user_created_at'] = $user->created_at;            
 
 		flash('login_success', 'Welcome, you are successfuly logged in.');    
-		redirect('dashboard/index');          
+		redirect('dashboard/index');           
 	}
 
 
@@ -212,7 +222,7 @@ class Admin extends Controller
 
 		unset($_SESSION['user_id']);
 		unset($_SESSION['user_name']);
-		unset($_SESSION['user_email']);
+		unset($_SESSION['user_email']); 
 		session_destroy();
 
 		flash('logout_success', 'You are now logged out.');
@@ -221,6 +231,9 @@ class Admin extends Controller
 
 	public function profile()
 	{
+		// auth check   
+		$this->isLoggedInUser();  
+
 		$data = ['title' => 'Profile'];
 		$this->view('backend/users/profile', $data);  
 	}
