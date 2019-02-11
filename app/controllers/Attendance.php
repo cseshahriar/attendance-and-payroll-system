@@ -42,13 +42,12 @@ class Attendance extends Controller
 				'employees' => $employees,
 				'employee_id' => trim($_POST['employee_id']),     
 				'created_at'  => $_POST['created_at'], 
-				'in_time'     => $_POST['in_time'], 
-				'out_time'    => $_POST['out_time'],   
-				'status'	  => '1',      
+				'in_time'     => $_POST['in_time'],   
+				'status'	  => $_POST['status'],       
 				'employee_error' => '', 
 				'date_error' => '',
 				'intime_error' => '',
-				'outtime_error' => '' 
+				'status_error' => ''  
 			]; 
 
 			// validation
@@ -68,14 +67,14 @@ class Attendance extends Controller
 				$data['in_time'] = date('H:i:s', strtotime($_POST['in_time']));  
 			}  
 
-			if (empty($data['out_time'])) {
-				$data['outtime_error'] = 'Out Time is required.'; 
-			}  else {
-				$data['out_time'] = date('H:i:s', strtotime($_POST['out_time']));  
-			} 
+			if (empty($data['status'])) {
+				$data['status_error'] = 'Status is required.';  
+			}  elseif($data['status'] !=1 && $data['status'] != 0) {
+				$data['status_error'] = 'Opps!, Invalid Formate.';   
+			}
 
 			// Makes sure errors are empty 
-			if ( empty($data['employee_error']) && empty($data['date_error']) && empty($data['intime_error']) && empty($data['outtime_error']) ) {  
+			if ( empty($data['employee_error']) && empty($data['date_error']) && empty($data['intime_error']) && empty($data['status_error']) ) {  
 
 				// prcess  
 				if($this->attendenceModel->create($data)) { // receive true/false 
@@ -83,7 +82,7 @@ class Attendance extends Controller
 					redirect('attendance/index');         
 				} else { 
 					die('Something wend wrong'); 
-					$this->view('backend/attendance/create', $data);        
+					$this->view('backend/attendance/create', $data);         
 				}
 				
 			} else { // load view with errors
@@ -97,7 +96,7 @@ class Attendance extends Controller
 				'employee_error' => '', 
 				'date_error' => '',
 				'intime_error' => '',
-				'outtime_error' => ''  
+				'status_error' => ''  
 			];
 			$this->view('backend/attendance/create', $data);     
 		} 

@@ -76,15 +76,19 @@
                             </div>
 
                             <div class="form-group">
-                              <label for="outtime">Out Time</label> 
+                              <label for="status">Status</label> 
 
                               <div class="input-group">
                                   <div class="input-group-addon"> 
                                     <i class="fa fa-clock-o"></i>   
                                   </div>  
-                                  <input type="text" class="form-control timepicker" name="out_time" id="outtime" placeholder="Out Time">  
+                                 <select name="status" id="status" class="form-control">
+                                   <option value="" selected>-- Select Early or Late --</option>
+                                   <option value="1">Early</option>
+                                   <option value="0">Late</option>
+                                 </select>
                               </div>  
-                                <p class="text-danger"><?= $data['outtime_error'] ?></p>
+                                <p class="text-danger"><?= $data['status_error'] ?></p> 
                             </div>  
 
                             <div class="form-group">  

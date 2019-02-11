@@ -27,12 +27,12 @@ class AttendanceModel extends Database
 
 	public function create($data)   
 	{
-		$this->db->query("INSERT INTO attendance(employee_id, created_at, in_time, out_time) VALUES(:employee_id, :created_at, :in_time, :out_time)");    
+		$this->db->query("INSERT INTO attendance(employee_id, created_at, in_time, status) VALUES(:employee_id, :created_at, :in_time, :status)");     
 		// Bind values
 		$this->db->bind(':employee_id', $data['employee_id']);
 		$this->db->bind(':created_at', $data['created_at']);
 		$this->db->bind(':in_time', $data['in_time']);
-		$this->db->bind(':out_time', $data['out_time']);  
+		$this->db->bind(':status', $data['status']);   
 		// Execute
 		if($this->db->execute()) {   
 			return true;
