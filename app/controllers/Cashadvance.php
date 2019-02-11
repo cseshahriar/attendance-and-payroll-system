@@ -42,7 +42,7 @@ class Cashadvance extends Controller
 				'employees' => $employees, 
 				'date_advance' => $_POST['date_advance'],
 				'employee_id' => trim($_POST['employee_id']),
-				'amount' => floatval(trim($_POST['amount'])),   
+				'amount' => trim($_POST['amount']),    
 				'date_advance_error' => '',
 				'employee_id_error' => '',
 				'amount_error' => ''
@@ -60,10 +60,14 @@ class Cashadvance extends Controller
 
 			if ( empty($data['amount'])) { 
 				$data['amount_error'] = 'Advance amount is required.';
+			} elseif(!is_numeric($data['amount'])) { 
+				$data['amount_error'] = 'Invalid formate. Please type decimal number.';
+			} else {
+				$data['amount'] = $_POST['amount'];   
 			}
 
 			// make sure no errors 
-			if (empty($data['date_advance_error']) && empty($data['employee_id_error']) && empty($data['amount_error']) ) {
+			if (empty($data['date_advance_error']) && empty($data['employee_id_error']) && empty($data['amount_error']) ) { 
 
 				if($this->cashAdvanceModel->store($data) ) {
 					flash('success', 'Cash Advance successfully created.');  
@@ -104,10 +108,11 @@ class Cashadvance extends Controller
 			$data = [
 				'title' => 'Cash Advance',
 				'employees' => $employees, 
+				'cashadvance' => $cashadvance, 
 				'date_advance' => $_POST['date_advance'],
-				'amount' => floatval($_POST['amount']),       
-				'date_advance_error' => '',
-				'amount_error' => ''
+				'amount' => trim($_POST['amount']),       
+				'date_advance_error' => '', 
+				'amount_error' => '' 
 			];
 
 			if ( empty($data['date_advance'])) {
@@ -118,6 +123,10 @@ class Cashadvance extends Controller
 
 			if ( empty($data['amount'])) { 
 				$data['amount_error'] = 'Advance amount is required.';
+			} elseif(!is_numeric($data['amount'])) { 
+				$data['amount_error'] = 'Invalid formate. Please type decimal number.';
+			} else {
+				$data['amount'] = $_POST['amount'];  
 			}
 
 			// make sure no errors 

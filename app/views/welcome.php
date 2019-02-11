@@ -35,7 +35,7 @@
     <p>
       <?php
           date_default_timezone_set("Asia/Dhaka");  
-          echo date('D').' - '.date('M').' - '.date('L, Y', time());   
+          echo date('l').' - '.date('M').' - '.date('Y', time());    
       ?>
     </p>   
 
