@@ -148,30 +148,19 @@ class Front extends Controller
 										} else {
 											$time_out = $out_time_from_attendance;    
 										}
-											$time_in = new DateTime($time_in);
-											$time_in->format('H:i:s');
-											$time_out = new DateTime($time_out);
-											$time_out->format('H:i:s');  
-											$interval = $time_in->diff($time_out);  
-											$hrs = $interval->format('%h');      
-											$mins = $interval->format('%i'); 
-											$seconds = $interval->format('%s');  
-											// $mins = $mins/60; 
-											$workingTime = $hrs.':'.$mins.':'.$seconds;      
 
-											/* if($workingTime > 4){
-												$workingTime = $workingTime - 1;
-											} */
-											
-											$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
-										
-											// -------------------- end working hours calculation  ---------------
-											
-											$output['success'] = true;  
-										    $output['message'] = 'Goodbye, You time is ended for today'; 
+										$time_in = new DateTime($time_in);
+										$time_out = new DateTime($time_out);
+										$interval = $time_in->diff($time_out);  
+										$workingTime = $interval->format("%H:%I:%S"); 
+
+										$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
+										// -------------------- end working hours calculation  ---------------
+										$output['success'] = true;  
+										$output['message'] = 'Goodbye, You time is ended for today'; 
 
 							  		} else {
-							  			$output['success'] = true;  
+							  			$output['success'] = true;   
 									    $output['message'] = 'Opps!, Something went wrong.';   
 							  		}  
 
