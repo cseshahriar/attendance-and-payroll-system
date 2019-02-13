@@ -8,7 +8,7 @@ class FrontModel extends Database
 	
 	public function __construct() 
 	{
-		$this->db = new Database;  
+		$this->db = new Database;   
 	}
 
 	/**
@@ -134,6 +134,42 @@ class FrontModel extends Database
 		}
 		
 	}   
+
+	// for hours calculation
+	/**
+	 * [attendanceById for hours calculation]
+	 * @param  [type] $attendanceId [description]
+	 * @return [type]               [description]
+	 */
+	public function attendanceById($attendanceId)
+	{
+		$this->db->query("SELECT * FROM attendance WHERE id=:id");     
+		$this->db->bind(':id', $attendanceId);
+		$row = $this->db->single();      
+		return $row;    
+	}
+
+	public function employeeById($employeeId)
+	{
+		$this->db->query("SELECT * FROM employees LEFT JOIN schedules ON schedules.id=employees.schedule_id WHERE employees.employee_id=:employee_id");       
+		$this->db->bind(':employee_id', $employeeId);      
+		$row = $this->db->single();    
+		return $row; 
+	}  
+
+	public function employeeWorkingHours($num_hr, $id)   
+	{
+		$this->db->query("UPDATE attendance SET num_hr=:num_hr WHERE id=:id");         
+		
+		$this->db->bind(':num_hr', $num_hr); 
+		$this->db->bind(':id', $id);  
+
+		if( $this->db->execute() ) {  
+			return true;
+		} else {
+			return false;     
+		}
+	}
 
 
 } 

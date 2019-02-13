@@ -82,5 +82,5 @@ class AttendanceModel extends Database
 			return false;     
 		}
 
-	}
+	} 
 }

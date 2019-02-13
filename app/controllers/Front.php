@@ -78,7 +78,7 @@ class Front extends Controller
 					  	// already present or not
 					  	if ($this->frontModel->alreadyAttendance($employeeId, $date_now)) {
 
-					  		$output['error'] = true;
+					  		$output['success'] = true; 
 							$output['message'] = 'You have already attended for today';        
 
 					  	} else {
@@ -108,12 +108,12 @@ class Front extends Controller
 					  		$row = $this->frontModel->alreadyAttendance($employeeId, $date_now); 
 						  	if ($row) { // attended 
 						  		
-						  		$attendanceId = $row->id;    
+						  		$attendanceId = $row->id;     
 						  		// var_dump($row);  
 
 						  		// out_time is not empty 
 						  		if($row->out_time != '00:00:00' && $row->out_time != NULL && $row->out_time != '') { // not empty 
-						  			$output['error'] = true;        
+						  			$output['success'] = true;         
 									$output['message'] = 'You have already leave for today';    
 						  		} else { // if not leave today 
 
@@ -121,13 +121,59 @@ class Front extends Controller
 							  		$time_now = date('H:i:s'); 
 							  		
 							  		if ($this->frontModel->leave($attendanceId, $employeeId, $time_now) ) {    
+							  			// $output['success'] = true; 
+										// $output['message'] = 'Goodbye, You time is ended for today'; 
+							  			
 							  			// -------------------- working hours calculation ---------------
-							  		
-							  			$output['error'] = true;
-										$output['message'] = 'Goodbye, You time is ended now for today';  
+										$time_in = ''; 
+										$time_out = ''; 
+										$attendanceData = $this->frontModel->attendanceById($attendanceId);
+										$in_time_from_attendance = $attendanceData->in_time;
+										$out_time_from_attendance = $attendanceData->out_time;  
+										
+										// employee in_time, out_time 
+										$employeeData = $this->frontModel->employeeById($employeeId);  
+										$employee_start_time  = $employeeData->in_time; 
+										$employee_end_time = $employeeData->out_time;    
+										
+										// if employee starting tiem is grater than from attendance time
+										// start before from schedule  
+										if($employee_start_time > $in_time_from_attendance) {  
+											$time_in = $employee_start_time;  
+										} else {
+											$time_in = $in_time_from_attendance;
+										}
+										// if employee ending tiem is grater than from attendance stop time  
+										// stop before schedule 
+										if($employee_end_time < $out_time_from_attendance){
+											 $time_out = $employee_end_time;    
+										} else {
+											$time_out = $out_time_from_attendance;    
+										}
+											$time_in = new DateTime($time_in);
+											$time_in->format('H:i:s');
+											$time_out = new DateTime($time_out);
+											$time_out->format('H:i:s');  
+											$interval = $time_in->diff($time_out);  
+											$hrs = $interval->format('%h');      
+											$mins = $interval->format('%i'); 
+											$seconds = $interval->format('%s');  
+											// $mins = $mins/60; 
+											$workingTime = $hrs.':'.$mins.':'.$seconds;      
+
+											/* if($workingTime > 4){
+												$workingTime = $workingTime - 1;
+											} */
+											
+											$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
+										
+											// -------------------- end working hours calculation ---------------
+											
+											$output['success'] = true;  
+										    $output['message'] = 'Goodbye, You time is ended for today'; 
 
 							  		} else {
-							  			$output['error'] = true; 
+							  			$output['success'] = true;  
 									    $output['message'] = 'Opps!, Something went wrong.';   
 							  		}  
 

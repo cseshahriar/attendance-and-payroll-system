@@ -16,7 +16,11 @@
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/dist/css/AdminLTE.min.css' ?>">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?= ROOTURL.'/public/adminlte/plugins/iCheck/square/blue.css' ?>"> 
-  <script src="<?= ROOTURL.'/public/js/moment.min.js' ?>"></script>  
+  <script src="<?= ROOTURL.'/public/js/moment.min.js' ?>"></script> 
+  <script> 
+        let date = moment().format('MMMM Do YYYY');  
+        let time = moment().format('h:mm:ss a');      
+  </script>   
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,15 +35,15 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-
-    <p>
-      <?php
-          date_default_timezone_set("Asia/Dhaka");  
-          echo date('l').' - '.date('M').' - '.date('d').', '.date('Y', time());     
-      ?>
-    </p>   
-
-    <p style="font-weight:700"><?= date('h:i:s a', time()); ?></p>   
+    
+    <a onclick="event.preventDefault();">
+      <script type="text/javascript"> document.write(date); </script>
+    </a>     
+    <a onclick="event.preventDefault();"> 
+      <b>
+        <script type="text/javascript"> document.write(time); </script> 
+      </b>  
+    </a>   
 
   </div>
   <!-- /.login-logo -->
@@ -149,26 +153,32 @@ $(document).ready(function() {
 
             $('.alert').hide(); 
 
-            if (response.status_error) { 
-              $('.alert-danger1').hide();     
+            if (response.status_error) {     
+              $('.alert-danger1').hide();  
+
               $('.alert-danger1').show();     
               $('.error-message1').html(response.status_error); 
             }
 
             if (response.email_error) {
+              $('.error-message2').html('');  
               $('.alert-danger2').hide(); 
+
               $('.alert-danger2').show();
               $('.error-message2').html(response.email_error);    
             }
            
             if (response.password_error) {
+              $('.error-message3').html('');  
               $('.alert-danger3').hide(); 
+
               $('.alert-danger3').show();
               $('.error-message3').html(response.password_error);  
             }  
             
-            if (response.didNotMatch) {           
-              $('.alert-danger4').hide();         
+            if (response.didNotMatch) {            
+              $('.alert-danger4').hide();      
+
               $('.alert-danger4').show();
               $('.error-message4').html(response.didNotMatch);          
             }     
@@ -177,16 +187,18 @@ $(document).ready(function() {
 
             $('.alert').hide(); 
             
-            if (response.message) { 
+            if (response.message) {  
               $('.alert-success').hide(); 
+
               $('.alert-success').show(); 
-              $('.message').html(response.message);  
+              $('.message').html(response.message);   
             }  
 
-            if (response.leave_message) {  
+            if (response.leave_message) {   
               $('.alert-danger5').hide();   
+
               $('.alert-danger5').show();  
-              $('.leave-message').html(response.leave_message);          
+              $('.leave-message').html(response.leave_message);                    
             }
 
 
