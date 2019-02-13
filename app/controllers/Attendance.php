@@ -184,7 +184,7 @@ class Attendance extends Controller
 		$out_time_from_attendance = $attendanceData->out_time; 
 
 		$employeeId = $attendanceData->employee_id;     
-		$employee_attendance_date = $attendanceData->created_at;      
+		$employee_attendance_date = $attendanceData->created_at;       
 		
 		// employee in_time, out_time 
 		$employeeData = $this->frontModel->employeeById($employeeId);      

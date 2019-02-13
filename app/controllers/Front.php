@@ -125,6 +125,7 @@ class Front extends Controller
 							  			// -------------------- working hours calculation ---------------
 										$time_in = ''; 
 										$time_out = ''; 
+										
 										$attendanceData = $this->frontModel->attendanceById($attendanceId);
 										$in_time_from_attendance = $attendanceData->in_time;
 										$out_time_from_attendance = $attendanceData->out_time;  
@@ -132,27 +133,12 @@ class Front extends Controller
 										// employee in_time, out_time 
 										$employeeData = $this->frontModel->employeeById($employeeId);  
 										$employee_start_time  = $employeeData->in_time; 
-										$employee_end_time = $employeeData->out_time;    
+										$employee_end_time = $employeeData->out_time;     
 										
-										// if employee starting tiem is grater than from attendance time
-										// start before from schedule  
-										if($employee_start_time > $in_time_from_attendance) {  
-											$time_in = $employee_start_time;  
-										} else {
-											$time_in = $in_time_from_attendance;
-										}
-										// if employee ending tiem is grater than from attendance stop time  
-										// stop before schedule 
-										if($employee_end_time < $out_time_from_attendance){
-											 $time_out = $employee_end_time;    
-										} else {
-											$time_out = $out_time_from_attendance;    
-										}
+										$time_in = strtotime($in_time_from_attendance);  
+										$time_out = strtotime($out_time_from_attendance);             
 
-										$time_in = new DateTime($time_in);
-										$time_out = new DateTime($time_out);
-										$interval = $time_in->diff($time_out);  
-										$workingTime = $interval->format("%H:%I:%S"); 
+										$workingTime = timeDiff($time_in, $time_out);    
 
 										$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
 										// -------------------- end working hours calculation  ---------------
