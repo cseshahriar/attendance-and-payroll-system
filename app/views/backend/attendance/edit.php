@@ -78,6 +78,22 @@
                                 <p class="text-danger"><?= $data['outtime_error'] ?></p>
                             </div>  
 
+                              <div class="form-group">
+                              <label for="status">Status</label> 
+
+                              <div class="input-group">
+                                  <div class="input-group-addon"> 
+                                    <i class="fa fa-clock-o"></i>    
+                                  </div>  
+                                 <select name="status" id="status" class="form-control">
+                                   <option value="">-- Select Early or Late --</option>  
+                                   <option value="1" <?php if($data['attendance']->status == 1) { echo 'selected'; } ?> >Early</option>
+                                   <option value="0" <?php if($data['attendance']->status == 0) { echo 'selected'; } ?>>Late</option>  
+                                 </select> 
+                              </div>  
+                                <p class="text-danger"><?= $data['status_error'] ?></p> 
+                            </div>
+
                             <div class="form-group">  
                               <div class="input-group">  
                                 <button type="submit" class="btn btn-success">Save</button> 

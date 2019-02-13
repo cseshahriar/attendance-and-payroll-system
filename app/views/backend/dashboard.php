@@ -34,7 +34,7 @@
 	            <div class="inner">
 	              <h3><?= number_format($data['attendancesPercentage'], 2) ?><sup style="font-size: 20px">%</sup></h3> 
 
-	              <p>Total On Time Percentage</p>
+	              <p>Attendance Percentage</p> 
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-stats-bars"></i>

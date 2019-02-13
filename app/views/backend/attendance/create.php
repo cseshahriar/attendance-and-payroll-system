@@ -46,6 +46,7 @@
                               </div>  
 
                               <p class="text-danger"><?= $data['employee_error'] ?></p>  
+                              <p class="text-danger"><?= $data['already_present_error'] ?></p>    
                             </div> 
 
 

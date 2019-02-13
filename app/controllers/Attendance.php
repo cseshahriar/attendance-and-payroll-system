@@ -11,15 +11,16 @@ class Attendance extends Controller
 		if (!isset($_SESSION['user_id'])) {
 			header("Location: /admin/login");       
 		}
+
 		
-		$this->attendenceModel = $this->model('AttendanceModel');   
+		$this->attendanceModel = $this->model('AttendanceModel');   
 		$this->frontModel = $this->model('FrontModel');     
 	} 
 
 	public function index()
 	{
-		$attendances = $this->attendenceModel->attendances(); 
-		$employees = $this->attendenceModel->employees();  
+		$attendances = $this->attendanceModel->attendances(); 
+		$employees = $this->attendanceModel->employees();  
 
 		$data = [
 			'attendances' => $attendances,
@@ -31,7 +32,7 @@ class Attendance extends Controller
 
 	public function create() 
 	{	
-		$employees = $this->attendenceModel->employees();     
+		$employees = $this->attendanceModel->employees();      
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {   
 			// sanitize post data
@@ -44,11 +45,12 @@ class Attendance extends Controller
 				'employee_id' => trim($_POST['employee_id']),     
 				'created_at'  => $_POST['created_at'], 
 				'in_time'     => $_POST['in_time'],   
-				'status'	  => $_POST['status'],       
-				'employee_error' => '', 
+				'status'	  => $_POST['status'],        
+				'employee_error' => '',  
 				'date_error' => '',
 				'intime_error' => '',
-				'status_error' => ''  
+				'status_error' => '',
+				'already_present_error' => ''
 			]; 
 
 			// validation
@@ -68,23 +70,30 @@ class Attendance extends Controller
 				$data['in_time'] = date('H:i:s', strtotime($_POST['in_time']));  
 			}  
 
-			if (empty($data['status'])) {
+			if ( empty($data['status']) && $data['status'] != 0) {
 				$data['status_error'] = 'Status is required.';  
-			}  elseif($data['status'] !=1 && $data['status'] != 0) {
-				$data['status_error'] = 'Opps!, Invalid Formate.';   
+			}  elseif($data['status'] != 1 && $data['status'] != 0) {   
+				$data['status_error'] = 'Opps!, Invalid Formate.';    
+			} else {
+				$data['status'] = trim($_POST['status']);   
+			}
+
+			if ($this->attendanceModel->alreadySubmitAttendance($data['employee_id'], $data['created_at'])) {
+				$data['already_present_error'] = 'This Employee Attendance already submitted.';   
 			}
 
 			// Makes sure errors are empty 
-			if ( empty($data['employee_error']) && empty($data['date_error']) && empty($data['intime_error']) && empty($data['status_error']) ) {  
+			if ( empty($data['employee_error']) && empty($data['date_error']) && empty($data['intime_error']) && empty($data['status_error']) && empty($data['already_present_error']) )  {   
 
 				// prcess  
-				if($this->attendenceModel->create($data)) { // receive true/false 
+				if($this->attendanceModel->create($data)) { // receive true/false 
 					flash('success', 'Attedance has created', 'alert alert-success alert-dismissible');        
 					redirect('attendance/index');         
 				} else { 
 					die('Something wend wrong'); 
 					$this->view('backend/attendance/create', $data);         
 				}
+				
 				
 			} else { // load view with errors
 				$this->view('backend/attendance/create', $data);       
@@ -97,7 +106,8 @@ class Attendance extends Controller
 				'employee_error' => '', 
 				'date_error' => '',
 				'intime_error' => '',
-				'status_error' => ''  
+				'status_error' => '',
+				'already_present_error' => '' 
 			];
 			$this->view('backend/attendance/create', $data);     
 		} 
@@ -105,7 +115,7 @@ class Attendance extends Controller
 
 	public function edit($id) 
 	{	  
-		$attendance = $this->attendenceModel->findById($id);           
+		$attendance = $this->attendanceModel->findById($id);           
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {   
 			// sanitize post data
@@ -118,11 +128,12 @@ class Attendance extends Controller
 				'created_at'  => $_POST['created_at'], 
 				'in_time'     => $_POST['in_time'], 
 				'out_time'    => $_POST['out_time'],   
-				'status'	  => 1,      
+				'status'	  => $_POST['status'],         
 				'date_error' => '',
 				'intime_error' => '',
-				'outtime_error' => '' 
-			]; 
+				'outtime_error' => '',
+				'status_error' => '' 
+			];  
 
 			// validation 
 			if (empty($data['created_at'])) { 
@@ -143,12 +154,20 @@ class Attendance extends Controller
 				$data['out_time'] = date('H:i:s', strtotime($_POST['out_time']));  
 			} 
 
+			if ( empty($data['status']) && $data['status'] != 0) {
+				$data['status_error'] = 'Status is required.';  
+			}  elseif($data['status'] != 1 && $data['status'] != 0) {   
+				$data['status_error'] = 'Opps!, Invalid Formate.';    
+			} else {
+				$data['status'] = trim($_POST['status']);   
+			}
+
 			// Makes sure errors are empty 
-			if ( empty($data['date_error']) && empty($data['intime_error']) && empty($data['outtime_error']) ) {  
+			if ( empty($data['date_error']) && empty($data['intime_error']) && empty($data['outtime_error']) && empty($data['status_error']) ) {     
 				// prcess  
-				if($this->attendenceModel->update($data, $id)) {   
+				if($this->attendanceModel->update($data, $id)) {     
 					
-					$this->workingHoursCal($id);  // attendance it  
+					$this->workingHoursCal($id);  // attendance it    
 
 					flash('success', 'Attedance has updated');             
 					redirect('attendance/index');         
@@ -167,9 +186,10 @@ class Attendance extends Controller
 				'attendance' => $attendance,  
 				'date_error' => '',
 				'intime_error' => '',
-				'outtime_error' => ''  
+				'outtime_error' => '',
+				'status_error' => ''  
 			];
-			$this->view('backend/attendance/edit', $data);       
+			$this->view('backend/attendance/edit', $data);        
 		} 
 	}
 
@@ -227,7 +247,7 @@ class Attendance extends Controller
 	public function delete($id)
 	{
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			if ($this->attendenceModel->destroy($id)) {
+			if ($this->attendanceModel->destroy($id)) {
 				flash('success', 'Attendance has been removed'); 
 				redirect('attendance/index');      
 			} else {

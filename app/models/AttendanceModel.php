@@ -24,6 +24,21 @@ class AttendanceModel extends Database
 		$rows = $this->db->get();
 		return $rows;   
 	}
+	
+	public function alreadySubmitAttendance($empId, $created_at)
+	{
+		$this->db->query("SELECT * FROM attendance WHERE employee_id=:employee_id and created_at=:created_at");
+		$this->db->bind(':employee_id', $empId); 
+		$this->db->bind(':created_at', $created_at);
+
+		$row = $this->db->single();
+
+		if ($this->db->rowCount()) {
+		 	return $row;   
+		 }  else {
+		 	return false; 
+		 }
+	}
 
 	public function create($data)   
 	{
@@ -62,7 +77,7 @@ class AttendanceModel extends Database
 		$this->db->bind(':created_at', $data['created_at']);   
 		$this->db->bind(':in_time', $data['in_time']); 
 		$this->db->bind(':out_time', $data['out_time']); 
-		$this->db->bind(':status', $data['status']);   
+		$this->db->bind(':status', $data['status']);     
 
 		if($this->db->execute()) {   
 			return true;
