@@ -13,6 +13,7 @@ class Attendance extends Controller
 		}
 		
 		$this->attendenceModel = $this->model('AttendanceModel');   
+		$this->frontModel = $this->model('FrontModel');     
 	} 
 
 	public function index()
@@ -145,7 +146,48 @@ class Attendance extends Controller
 			// Makes sure errors are empty 
 			if ( empty($data['date_error']) && empty($data['intime_error']) && empty($data['outtime_error']) ) {  
 				// prcess  
-				if($this->attendenceModel->update($data, $id)) { 
+				if($this->attendenceModel->update($data, $id)) {   
+
+					// -------------------- working hours calculation ---------------
+					$time_in = ''; 
+					$time_out = ''; 
+					$attendanceData = $this->frontModel->attendanceById($id);  
+					$in_time_from_attendance = $attendanceData->in_time;
+					$out_time_from_attendance = $attendanceData->out_time;  
+					$employeeId = $attendanceData->employee_id;     
+					
+					// employee in_time, out_time 
+					$employeeData = $this->frontModel->employeeById($employeeId);     
+					$employee_start_time  = $employeeData->in_time; 
+					$employee_end_time = $employeeData->out_time;    
+					
+					// if employee starting tiem is grater than from attendance time
+					// start before from schedule  
+					if($employee_start_time > $in_time_from_attendance) {  
+						$time_in = $employee_start_time;  
+					} else {
+						$time_in = $in_time_from_attendance;
+					}
+					// if employee ending tiem is grater than from attendance stop time  
+					// stop before schedule 
+					if($employee_end_time < $out_time_from_attendance){
+						 $time_out = $employee_end_time;    
+					} else {
+						$time_out = $out_time_from_attendance;    
+					}
+					$time_in = new DateTime($time_in);
+					$time_in->format('H:i:s');
+					$time_out = new DateTime($time_out);
+					$time_out->format('H:i:s');  
+					$interval = $time_in->diff($time_out);  
+					$hrs = $interval->format('%h');      
+					$mins = $interval->format('%i'); 
+					$seconds = $interval->format('%s');  
+					// $mins = $mins/60; 
+					$workingTime = $hrs.':'.$mins.':'.$seconds;      
+
+					$this->frontModel->employeeWorkingHours($workingTime, $id);     
+					// -------------------- end working hours calculation ---------------
 					flash('success', 'Attedance has updated');             
 					redirect('attendance/index');         
 				} else { 

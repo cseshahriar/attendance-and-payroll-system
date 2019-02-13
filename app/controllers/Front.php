@@ -121,8 +121,6 @@ class Front extends Controller
 							  		$time_now = date('H:i:s'); 
 							  		
 							  		if ($this->frontModel->leave($attendanceId, $employeeId, $time_now) ) {    
-							  			// $output['success'] = true; 
-										// $output['message'] = 'Goodbye, You time is ended for today'; 
 							  			
 							  			// -------------------- working hours calculation ---------------
 										$time_in = ''; 
@@ -167,7 +165,7 @@ class Front extends Controller
 											
 											$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
 										
-											// -------------------- end working hours calculation ---------------
+											// -------------------- end working hours calculation  ---------------
 											
 											$output['success'] = true;  
 										    $output['message'] = 'Goodbye, You time is ended for today'; 

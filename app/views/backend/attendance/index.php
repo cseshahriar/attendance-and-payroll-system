@@ -36,6 +36,7 @@
                 <th>Name</th>
                 <th>In Time</th>
                 <th>Out Time</th>
+                <th title="Working hours per day">WHPD</th>  
                 <th>Actions</th>
               </tr>
               </thead>
@@ -47,8 +48,9 @@
                 <td><?= $attendance->created_at ?></td> 
                 <td><?= $attendance->employee_id ?></td> 
                 <td><?= $attendance->firstname ?> <?= $attendance->lastname ?></td>
-                <td><?= $attendance->in_time ?></td>
-                <td><?= $attendance->out_time ?></td>
+                <td><?= date('h:i:s a', strtotime($attendance->in_time)) ?></td> 
+                <td><?= date('h:i:s a' ,strtotime($attendance->out_time)) ?></td>  
+                <td><?= $attendance->num_hr ?></td>     
                 <td>
                   <!-- edit -->
                   <a href="<?= ROOTURL.'/attendance/edit/'.$attendance->id ?>" class="btn btn-primary btn-xs btn-flate">   
@@ -73,6 +75,7 @@
                 <th>Name</th>
                 <th>In Time</th>
                 <th>Out Time</th>
+                <th title="Working hours per day">WHPD</th>    
                 <th>Actions</th>
               </tr>
               </tfoot>
