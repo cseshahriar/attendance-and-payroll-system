@@ -19,7 +19,7 @@ class Admin extends Controller
 		
 		$data = [
 			'title' => 'Admin List',
-			'users' => $users
+			'users' => $users  
 		];
 
 		$this->view('backend/users/index', $data);  
@@ -47,7 +47,7 @@ class Admin extends Controller
 				'name_error' => '',
 				'email_error' => '',
 				'password_error' => '',
-				'confirm_password_error' => '',
+				'confirm_password_error' => ''     
 			];
 
 			// validte name
@@ -234,8 +234,90 @@ class Admin extends Controller
 		// auth check   
 		$this->isLoggedInUser();  
 
-		$data = ['title' => 'Profile'];
-		$this->view('backend/users/profile', $data);  
+		$data = [
+			'title' => 'Profiles'   
+		];
+		$this->view('backend/users/profile', $data);     
+	}
+
+	public function update($id)   
+	{
+		$user = $this->userModel->getUserById($id);      
+
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);  
+
+			$data = [  
+				'title' => 'Users update',
+				'user' => $user, 
+				'name' => trim($_POST['name']),
+				'email' => trim($_POST['email']), 
+				'type' => trim(strtolower($_POST['type'])),             
+				'created_at' => date('Y-m-d H:i:s'),              
+				'name_error' => '',
+				'email_error' => '', 
+				'type_error' => '',
+				'type_success' => '' 
+			];  
+
+			// validte name
+			if (empty($data['name'])) {
+				$data['name_error'] = 'Name is required.';
+			}  
+
+			// validate email 
+			if (empty($data['email'])) { 
+				$data['email_error'] = 'Email is required.';
+			} else {
+				// valid email address 
+				if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+					$data['email_error'] = 'Invalid Email Address.'; 
+				}
+				// already exist 
+				if ($this->userModel->findUserByEmailExceptThisId($data['email'], $id)) { 
+					$data['email_error'] = 'Email is already taken.';     
+				} 
+			} 
+
+			if (empty($data['type'])) {
+				$data['type_error'] = 'User type is required.';  
+			} else {  
+				// superadmin is already exists 
+				if ($this->userModel->isSuperAdmin($id)) {    
+					$data['type_success'] = 'Welcome Superadmin. Please keep it.';       
+					$data['type'] = 'superadmin';    
+				} else { // superadmin self 
+					$data['type_error'] = 'Opps! only one user can Superadmin.';     
+				}
+			}  
+
+			// Makes sure errors are empty    
+			if ( empty($data['name_error']) && empty($data['email_error']) && empty($data['type_error']) ) {        
+		
+				// Register User
+				if($this->userModel->update($data, $id)) { // receive true/false 
+					flash('message', 'User info has been updated.');           
+					redirect('admin/index');          
+				} else {
+					die('Something went wrong!');    
+				} 
+			} else {
+				// load view with errors 
+				$this->view('backend/users/edit', $data);         
+			}
+			
+		} else { // get request 
+			$data = [
+				'title' => 'Users update', 
+				'user' => $user,     
+				'name_error' => '',
+				'email_error' => '',
+				'type_error' => '', 
+				'type_success' => ''
+			];
+			$this->view('backend/users/edit', $data);          
+		}
 	}
 
 } // end of the class 

@@ -8,7 +8,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?= ROOTURL.'dashboard/index' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">User profile</li>  
+        <li class="active">User profile</li>   
       </ol>
     </section>
 
@@ -57,7 +57,8 @@
             <div class="tab-content">
 
               <div class="tab-pane active" id="settings">   
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="" method="post">
+
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Name</label>
 
@@ -65,6 +66,7 @@
                       <input type="email" class="form-control" id="inputName" placeholder="Name">
                     </div>
                   </div>
+
                   <div class="form-group">
                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
@@ -73,7 +75,7 @@
                     </div>
                   </div>
         
-                  <div class="form-group">
+                  <div class="form-group"> 
                     <label for="password" class="col-sm-2 control-label">Current password</label>
 
                     <div class="col-sm-10"> 
@@ -83,7 +85,7 @@
                 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button> 
+                      <button type="submit" class="btn btn-success">Submit</button>  
                     </div>
                   </div>
                 </form>

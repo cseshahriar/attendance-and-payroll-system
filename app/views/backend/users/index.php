@@ -51,22 +51,36 @@
                 <td><?= $user->email ?></td> 
                 <td>
                   <img src="<?= ROOTURL.'/public/uploads/admin/'.$user->photo ?>" alt="" height="30">
+                  
+                  <a href="<?= ROOTURL.'/admin/photo/'.$user->id ?>" class="btn btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">   
+                  <i class="fa fa-pencil-square"></i>  
+                  </a>  
                 </td>    
                 <td><?= ucwords($user->type) ?></td> 
                 <td><?= date('d-m-Y h:i:s a', strtotime($user->created_at)) ?></td> 
+
                 <?php if($_SESSION['user_type'] == 'superadmin') : ?> 
                 <td>
-                  <!-- edit -->
-                  <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
-                  <i class="fa fa-pencil-square"></i> Edit     
+                  
+                  <!-- edit --> 
+                  <a href="<?= ROOTURL.'/admin/update/'.$user->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Edit       
                   </a>    
-                 <!-- / edit -->   
-                  <form action="<?= ROOTURL.'/employee/delete/'.$employee->id  ?>" method="post" style="display: inline;">    
+                  <!-- / edit --> 
+                  
+                  <!-- edit --> 
+                  <a href="<?= ROOTURL.'/admin/password/'.$user->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Password        
+                  </a>     
+                  <!-- / edit -->   
+
+                  <form action="<?= ROOTURL.'/admin/delete/'.$user->id  ?>" method="post" style="display: inline;">     
                     <button type="submit" class="btn btn-danger delete btn-xs btn-flate" onclick="return confirm('Are you sure want to delete this ?');">  
                       <i class="fa fa-trash"></i> Delete          
                     </button> 
                   </form>     
-                </td>
+                </td> 
+
                 <?php else: ?>
                   <td><span class="label label-danger">You can't access it.</span></td>  
                 <?php endif; ?>  
