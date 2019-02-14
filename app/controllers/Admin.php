@@ -242,7 +242,7 @@ class Admin extends Controller
 
 	public function update($id)   
 	{
-		$user = $this->userModel->getUserById($id);      
+		$user = $this->userModel->getUserById($id);         
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
 
@@ -280,17 +280,20 @@ class Admin extends Controller
 				} 
 			} 
 
+
 			if (empty($data['type'])) {
 				$data['type_error'] = 'User type is required.';  
-			} else {  
-				// superadmin is already exists 
-				if ($this->userModel->isSuperAdmin($id)) {    
-					$data['type_success'] = 'Welcome Superadmin. Please keep it.';       
-					$data['type'] = 'superadmin';    
-				} else { // superadmin self 
-					$data['type_error'] = 'Opps! only one user can Superadmin.';     
-				}
-			}  
+			} elseif ($data['type'] == 'superadmin' && $data['type'] == 'admin') {   
+				$data['type_error'] = 'Opps! Invalid Data.'; 
+			} 
+
+			if ( $this->userModel->isSuperAdmin($id) ) { // this it type is superadmin  and ID same 
+					$data['type_success'] = 'Welcome Superadmin. Please keep it.';        
+					$data['type'] = 'superadmin';     
+			} else {    
+				$data['type'] = 'admin';   
+			}
+			
 
 			// Makes sure errors are empty    
 			if ( empty($data['name_error']) && empty($data['email_error']) && empty($data['type_error']) ) {        
@@ -310,7 +313,7 @@ class Admin extends Controller
 		} else { // get request 
 			$data = [
 				'title' => 'Users update', 
-				'user' => $user,     
+				'user' => $user,      
 				'name_error' => '',
 				'email_error' => '',
 				'type_error' => '', 

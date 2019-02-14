@@ -25,7 +25,7 @@
 						<form action="<?= ROOTURL.'/admin/update/'.$data['user']->id ?>" method="post">        
 							 <div class="form-group <?php echo (!empty($data['name_error'])) ? 'has-error' : ''; ?>"> 
 								<label for="name">Name <span class="text-danger">*</span></label> 
-								<input type="text" name="name" class="form-control" placeholder="Name" value="<?= $data['user']->name ?>">   
+								<input type="text" name="name" class="form-control" placeholder="Name" value="<?= $data['user']->name ?>">    
 								 <small class="text-danger"><?= $data['name_error'] ?></small>  
 							 </div>  
 
@@ -41,7 +41,8 @@
 							    	
 							    	<option value="">-- Select User Type --</option>     
 							    	<option value="admin" <?php if($data['user']->type == 'admin') { echo 'selected'; } ?> >Admin</option>
-							    	<option value="admin" <?php if($data['user']->type == 'superadmin') { echo 'selected'; } ?> >Super Admin</option>      
+
+							    	<option value="superadmin" <?php if($data['user']->type == 'superadmin') { echo 'selected'; } ?> >Super Admin</option>        
 							    
 							    </select>
 							    <small class="text-danger"><?= $data['type_error'] ?></small>  

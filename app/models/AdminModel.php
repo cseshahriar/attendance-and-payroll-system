@@ -103,10 +103,10 @@ class AdminModel extends Database
 		}
 	}
 
-	public function isSuperAdmin($id)    
+	public function isSuperAdmin($id)     
 	{
 		$this->db->query("SELECT * FROM admins WHERE type=:type AND id =:id");        
-		$this->db->bind(':type', 'superadmin');    
+		$this->db->bind(':type', 'superadmin');       
 		$this->db->bind(':id', $id);     
 
 		$row = $this->db->single(); 

@@ -95,8 +95,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Photo</th> 
-                <th>Member Since</th> 
                 <th>Type</th>
+                <th>Member Since</th> 
                 <th>Tools</th>  
               </tr>
               </tfoot>
