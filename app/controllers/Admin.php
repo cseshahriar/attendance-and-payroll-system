@@ -5,7 +5,7 @@
 class Admin extends Controller 
 {
 	
-	public function __construct()  
+	public function __construct()   
 	{
 		$this->userModel = $this->model('AdminModel');   
 	}
@@ -65,7 +65,7 @@ class Admin extends Controller
 				}
 				// already exist 
 				if ($this->userModel->findUserByEmail($data['email'])) {
-					$data['email_error'] = 'Email is aready taken.';
+					$data['email_error'] = 'Email is already taken.'; 
 				} 
 			}
 

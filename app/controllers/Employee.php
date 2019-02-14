@@ -5,7 +5,7 @@
 class Employee extends Controller  
 {
 	
-	public function __construct() 
+	public function __construct()  
 	{
 		// auth check
 		if (!isset($_SESSION['user_id'])) {
@@ -50,6 +50,9 @@ class Employee extends Controller
 				'employee_id' => uniqid(),  
 				'firstname' => trim($_POST['firstname']), 
 				'lastname' => trim($_POST['lastname']), 
+				'email' => trim($_POST['email']), 
+				'password' => trim($_POST['password']),
+				'confirm_password' => trim($_POST['confirm_password']),
 				'address' => trim($_POST['address']),  
 				'birthdate' => trim($_POST['birthdate']),   
 				'contact_info' => trim($_POST['contact_info']),    
@@ -59,6 +62,9 @@ class Employee extends Controller
 				'photo' => $_FILES['photo'],    
 				'firstname_error' => '',
 				'lastname_error' => '',
+				'email_error' => '',
+				'password_error' => '',
+				'confirm_password_error' => '', 
 				'address_error' => '', 
 				'birthdate_error' => '',
 				'contact_error' => '',
@@ -76,17 +82,49 @@ class Employee extends Controller
 				$data['lastname_error'] = 'Lastname is required';
 			} 
 
+			// validate email 
+			if (empty($data['email'])) {
+				$data['email_error'] = 'Email is required.';
+			} else {
+				// valid email address 
+				if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+					$data['email_error'] = 'Invalid Email Address.'; 
+				}
+				// already exist 
+				if ($this->employeeModel->findUserByEmail($data['email'])) {
+					$data['email_error'] = 'Email is already taken.';
+				} 
+			}
+
+			//validate password 
+			if (empty($data['password'])) {
+				$data['password_error'] = 'Password is required.';
+			} elseif(strlen($data['password']) < 6) {
+				$data['password_error'] = 'Password must be at least 6 characters.';
+			}
+
+			// conf password 
+			if (empty($data['confirm_password'])) {
+				$data['confirm_password_error'] = 'Confirm Password is required.'; 
+			} else {
+				if ($data['password'] != $data['confirm_password'] ) {
+					$data['confirm_password_error'] = 'Password did not match.';   
+				}
+			}
+
 			if (empty($data['address'])) {
 				$data['address_error'] = 'Address is required';
 			} 
 
 			if (empty($data['birthdate'])) {
-				$data['birthdate_error'] = 'Birthdate is required';
-			}  
+				$data['birthdate_error'] = 'Birthdate is required';   
+			}   
 
 			if (empty($data['contact_info'])) {
 				$data['contact_error'] = 'Contact is required';  
-			}   
+			}  elseif(!validate_mobile($data['contact_info'])) { 
+				$data['contact_error'] = 'Invalid format. Please input 11 digit mobile number, for example: 01710835653';  
+			}
 
 			if (empty($data['gender'])) {
 				$data['gender_error'] = 'Gender is required';     
@@ -101,8 +139,11 @@ class Employee extends Controller
 			}   
 
 			// Makes sure errors are empty 
-			if ( empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['address_error']) && empty($data['birthdate_error']) && empty($data['contact_error']) && empty($data['gender_error']) && empty($data['position_error']) && empty($data['schedule_error']) ) {
-				
+			if ( empty($data['firstname_error']) && empty($data['lastname_error']) && empty($data['address_error']) && empty($data['birthdate_error']) && empty($data['contact_error']) && empty($data['gender_error']) && empty($data['position_error']) && empty($data['schedule_error']) && empty($data['email_error']) && empty($data['password_error']) && empty($data['confirm_password_error'])  ) {
+					
+				// Hash Password 
+				$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);  
+
 				// image process 
 				if ($data['photo']['name'] != false) {  //optional     
 					
@@ -119,6 +160,9 @@ class Employee extends Controller
 							'employee_id' => '',   
 							'firstname' => '', 
 							'lastname' => '', 
+							'email' => '',
+							'password' => '',
+							'confirm_password' => '',
 							'address' => '',  
 							'birthdate' => '',   
 							'contact_info' => '',    
@@ -128,11 +172,14 @@ class Employee extends Controller
 							'photo' => '',   
 							'firstname_error' => '',
 							'lastname_error' => '',
+							'password_error' => '',
+							'email_error' => '', 
+							'confirm_password_error' => '',
 							'address_error' => '', 
 							'birthdate_error' => '',
 							'contact_error' => '',
 							'gender_error' => '',
-							'position_error' => '',
+							'position_error' => '', 
 							'schedule_error' => '',
 							'photo_error' => 'File is not a image, please upload a image file' 
 						];
@@ -148,6 +195,9 @@ class Employee extends Controller
 							'employee_id' => '',   
 							'firstname' => '', 
 							'lastname' => '', 
+							'email' => '',
+							'password' => '',
+							'confirm_password' => '',
 							'address' => '',  
 							'birthdate' => '',   
 							'contact_info' => '',    
@@ -157,6 +207,9 @@ class Employee extends Controller
 							'photo' => '',   
 							'firstname_error' => '',
 							'lastname_error' => '',
+							'password_error' => '',
+							'email_error' => '', 
+							'confirm_password_error' => '',
 							'address_error' => '', 
 							'birthdate_error' => '',
 							'contact_error' => '',
@@ -167,15 +220,15 @@ class Employee extends Controller
 						];
 
 						$this->view('backend/employee/create', $data);          
-					} else {	
+					} else {	 
 						// image rename and upload process 
 						$name = $data['photo']['name'];
 						$tmp_name = $data['photo']['tmp_name'];
-						$type = $data['photo']['type'];
+						$type = $data['photo']['type']; 
 						$size = $data['photo']['size'];   
 
 						// rename 
-						$newName = date('Y-m-d_H-i-s')."_".uniqid();       
+						$newName = date('Y-m-d_H-i-s')."_".uniqid();        
 						$ext = pathinfo($name, PATHINFO_EXTENSION); 
 						$newName = $newName.".".$ext; // name with extension
 						$fileNameWithUploadDir = '../public/uploads/employee/'.$newName;            
@@ -210,6 +263,9 @@ class Employee extends Controller
 				'employee_id' => '',   
 				'firstname' => '', 
 				'lastname' => '', 
+				'email' => '',
+				'password' => '',
+				'confirm_password' => '',
 				'address' => '',  
 				'birthdate' => '',   
 				'contact_info' => '',    
@@ -219,15 +275,18 @@ class Employee extends Controller
 				'photo' => '',   
 				'firstname_error' => '',
 				'lastname_error' => '',
+				'password_error' => '',
+				'email_error' => '', 
+				'confirm_password_error' => '',
 				'address_error' => '', 
 				'birthdate_error' => '',
 				'contact_error' => '',
 				'gender_error' => '',
 				'position_error' => '',
-				'schedule_error' => '',
+				'schedule_error' => '', 
 				'photo_error' => ''
 			];
-			$this->view('backend/employee/create', $data);            
+			$this->view('backend/employee/create', $data);             
 		}
 	}
 

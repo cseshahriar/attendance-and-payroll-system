@@ -11,6 +11,21 @@ class EmployeeModel extends Database
 		$this->db = new Database; 
 	}
 
+	public function findUserByEmail($email)  
+	{
+		$this->db->query('SELECT * FROM employees WHERE email = :email');  
+		$this->db->bind(':email', $email); 
+
+		$row = $this->db->single(); 
+		
+		// check row 
+		if ($this->db->rowCount() > 0) {
+			return true;
+		} else {
+			return false; 
+		}
+	}
+
 	public function employees()
 	{
 		$this->db->query("SELECT employees.*,positions.description,schedules.in_time, schedules.out_time 
@@ -39,7 +54,7 @@ class EmployeeModel extends Database
 			WHERE employees.id=:id"); 
 		
 			$this->db->bind(':id', $id); 
-			$result = $this->db->single();    
+			$result = $this->db->single();     
 			return $result;   
 	}
 
@@ -60,12 +75,14 @@ class EmployeeModel extends Database
 	public function employeeStore($data)    
 	{
 
-		$this->db->query("INSERT INTO employees(employee_id, firstname, lastname, address, birthdate, contact_info, gender, position_id, schedule_id, photo) 
-			VALUES (:employee_id, :firstname, :lastname, :address, :birthdate, :contact_info, :gender,  :position_id, :schedule_id, :photo )");   
+		$this->db->query("INSERT INTO employees(employee_id, firstname, lastname, email, password, address, birthdate, contact_info, gender, position_id, schedule_id, photo) 
+			VALUES (:employee_id, :firstname, :lastname,:email,:password, :address, :birthdate, :contact_info, :gender,  :position_id, :schedule_id, :photo )");   
 
 		$this->db->bind(':employee_id', $data['employee_id']); 
 		$this->db->bind(':firstname', $data['firstname']);
 		$this->db->bind(':lastname', $data['lastname']);
+		$this->db->bind(':email', $data['email']);
+		$this->db->bind(':password', $data['password']);    
 		$this->db->bind(':address', $data['address']);
 		$this->db->bind(':birthdate', $data['birthdate']);
 		$this->db->bind(':contact_info', $data['contact_info']);
@@ -74,7 +91,7 @@ class EmployeeModel extends Database
 		$this->db->bind(':schedule_id', $data['schedule_id']); 
 		$this->db->bind(':photo', $data['photo']);    
 
-		if ($this->db->execute()) {
+		if ($this->db->execute()) {  
 			return true;
 		} else {
 			return false;   
