@@ -55,6 +55,12 @@
                   <a href="<?= ROOTURL.'/employee/update/'.$employee->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
                   <i class="fa fa-pencil-square"></i> Edit     
                   </a>    
+                 <!-- / edit -->  
+
+                  <!-- email and password -->
+                  <a href="<?= ROOTURL.'/employee/access/'.$employee->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
+                  <i class="fa fa-pencil-square"></i> Access    
+                  </a>    
                  <!-- / edit -->   
 
                   <form action="<?= ROOTURL.'/employee/delete/'.$employee->id  ?>" method="post" style="display: inline;">    

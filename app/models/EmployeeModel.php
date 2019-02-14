@@ -26,6 +26,37 @@ class EmployeeModel extends Database
 		}
 	}
 
+	public function findUserByEmailExceptThisId($email, $id)  
+	{
+		$this->db->query("SELECT email FROM employees WHERE email = :email AND id !=:id");    
+		$this->db->bind(':email', $email); 
+		$this->db->bind(':id', $id);  
+
+		$row = $this->db->single(); 
+		
+		// check row 
+		if ($this->db->rowCount() > 0) {
+			return true;
+		} else {
+			return false; 
+		}
+	}
+
+	public function accessEmployeeFindById($id)     
+	{
+		$this->db->query('SELECT id, email FROM employees WHERE id = :id');       
+		$this->db->bind(':id', $id); 
+
+		$row = $this->db->single();   
+		
+		// check row 
+		if ($this->db->rowCount() > 0) {
+			return $row; 
+		} else {
+			return false; 
+		}
+	}
+
 	public function employees()
 	{
 		$this->db->query("SELECT employees.*,positions.description,schedules.in_time, schedules.out_time 
@@ -113,6 +144,28 @@ class EmployeeModel extends Database
 		$this->db->bind(':position_id', $data['position_id']);  
 		$this->db->bind(':schedule_id', $data['schedule_id']);   
 		$this->db->bind(':photo', $data['photo']);   
+
+		if ($this->db->execute()) {
+			return true;
+		} else {
+			return false;   
+		}  
+	}
+
+	/**
+	 * [accessEdit employeey access info updae]
+	 * @param  [type] $data [description]
+	 * @param  [type] $id   [description]
+	 * @return [type]       [description]
+	 */
+	public function accessEdit($data, $id)        
+	{
+		
+		$this->db->query("UPDATE employees SET email=:email, password=:password WHERE id=:id");      
+		  
+		$this->db->bind(':id', $id);      
+		$this->db->bind(':email', $data['email']);   
+		$this->db->bind(':password', $data['password']);    
 
 		if ($this->db->execute()) {
 			return true;

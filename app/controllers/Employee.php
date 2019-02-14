@@ -79,7 +79,7 @@ class Employee extends Controller
 			}  
 
 			if (empty($data['lastname'])) {
-				$data['lastname_error'] = 'Lastname is required';
+				$data['lastname_error'] = 'Lastname is required'; 
 			} 
 
 			// validate email 
@@ -290,6 +290,11 @@ class Employee extends Controller
 		}
 	}
 
+	/**
+	 * [update employee info]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function update($id) { 
 		
 		$positions = $this->employeeModel->positions(); 
@@ -321,7 +326,7 @@ class Employee extends Controller
 				'schedule_id' => trim($_POST['schedule_id']),     
 				'photo' => $_FILES['photo'],    
 				'firstname_error' => '',
-				'lastname_error' => '',
+				'lastname_error' => '', 
 				'address_error' => '', 
 				'birthdate_error' => '',
 				'contact_error' => '',
@@ -491,6 +496,94 @@ class Employee extends Controller
 				'photo_error' => ''
 			];
 			$this->view("backend/employee/edit", $data);           
+		}
+	}
+
+	/**
+	 * [access employee access info]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function access($id) {  
+		
+		// fetch employee data 
+		$empEmail = $this->employeeModel->accessEmployeeFindById($id);   
+
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+
+			// input sanitize
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);  
+
+			$data = [    
+				'empEmail' => $empEmail,  
+				'title' => 'Employee Access',     
+				'email' => trim($_POST['email']), 
+				'password' => trim($_POST['password']),
+				'confirm_password' => trim($_POST['confirm_password']),
+				'password_error' => '',
+				'email_error' => '', 
+				'confirm_password_error' => '' 
+			];  
+
+			// validate email   
+			if (empty($data['email'])) {
+				$data['email_error'] = 'Email is required.';
+			} else {
+				// valid email address 
+				if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+					$data['email_error'] = 'Invalid Email Address.';  
+				}
+				// already exist 
+				if ($this->employeeModel->findUserByEmailExceptThisId( $data['email'], $id)) {  
+					$data['email_error'] = 'Email is already taken.';      
+				} 
+			}
+
+			//validate password 
+			if (empty($data['password'])) {
+				$data['password_error'] = 'Password is required.';
+			} elseif(strlen($data['password']) < 6) {
+				$data['password_error'] = 'Password must be at least 6 characters.';
+			} 
+
+			// conf password 
+			if (empty($data['confirm_password'])) { 
+				$data['confirm_password_error'] = 'Confirm Password is required.'; 
+			} else {
+				if ($data['password'] != $data['confirm_password'] ) {
+					$data['confirm_password_error'] = 'Password did not match.';   
+				}  
+			}    
+			
+			// Makes sure errors are empty 
+			if ( empty($data['email_error']) && empty($data['password_error']) && empty($data['confirm_password_error']) ) {  
+			   
+				// Register update
+				if($this->employeeModel->accessEdit($data, $id)) { // receive true/false  
+					flash('message', 'Employee access info has been updated.');       
+					redirect('employee/index');           
+				} else {
+					die('Something went wrong!');      
+				} 
+			} else {
+				// load view with errors 
+				$this->view("backend/employee/access", $data);        
+			}
+			// /update
+			
+		} else { // get request
+
+			$data = [
+				'title' => 'Employee Edit',  
+				'empEmail' => $empEmail,  
+				'email' => '', 
+				'password' => '',
+				'confirm_password' => '',
+				'password_error' => '',
+				'email_error' => '', 
+				'confirm_password_error' => ''   
+			];
+			$this->view("backend/employee/access", $data);           
 		}
 	}
 

@@ -38,10 +38,10 @@
                   </div>  
                 </div>   
 
-                <div class="form-group"> 
+                <div class="form-group">   
                   <label for="address" class="col-sm-3 control-label">Address</label>
                   <div class="col-sm-9"> 
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="<?= $data['employeeData']->address ?>"> 
+                    <textarea name="address" id="address" cols="3" rows="3" class="form-control"><?= $data['employeeData']->address ?></textarea>
                     <p class="text-danger"><?= $data['address_error'] ?></p>  
                   </div>  
                 </div>  
@@ -58,12 +58,12 @@
                 <div class="form-group">
                   <label for="contact_info" class="col-sm-3 control-label">Contact</label> 
                   <div class="col-sm-9"> 
-                    <textarea name="contact_info" id="contact_info" cols="5" rows="3" class="form-control" placeholder="Contact Informations"><?= $data['employeeData']->contact_info ?></textarea>   
+                    <input type="text" class="form-control" name="contact_info" id="contact_info" value="<?= $data['employeeData']->contact_info ?>" title="Contact number">   
                     <p class="text-danger"><?= $data['contact_error'] ?></p>       
                   </div>  
                 </div>
 
-                <div class="form-group">
+                <div class="form-group">  
                   <label for="gender" class="col-sm-3 control-label">Gender</label> 
                   <div class="col-sm-9"> 
                     <select name="gender" id="gender" class="form-control">

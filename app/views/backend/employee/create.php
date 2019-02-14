@@ -6,7 +6,7 @@
       <h1>
        Employee Create
       </h1>
-      <ol class="breadcrumb">
+      <ol class="breadcrumb"> 
         <li><a href="<?= ROOTURL.'/admin/dashboard' ?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="<?= ROOTURL.'/employee/index' ?>">Employee</a></li>
         <li><a class="active" href="<?= ROOTURL.'/employee/store' ?>">Register</a></li> 
