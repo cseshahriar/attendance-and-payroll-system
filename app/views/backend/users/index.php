@@ -26,6 +26,9 @@
              <?php endif; ?>
 
             </h3> 
+
+            <?= flash('success') ?>
+            
           </div>
 
           <!-- /.box-header -->
@@ -49,12 +52,13 @@
                 <td><?php $sr = 1; echo $sr++; ?></td>
                 <td><?= $user->name ?></td> 
                 <td><?= $user->email ?></td> 
-                <td>
+                <td title="Super Admin and same user can change">
                   <img src="<?= ROOTURL.'/public/uploads/admin/'.$user->photo ?>" alt="" height="30">
-                  
+                  <?php if($user->id == $_SESSION['user_id'] || $_SESSION['user_type'] == 'superadmin') : ?> 
                   <a href="<?= ROOTURL.'/admin/photo/'.$user->id ?>" class="btn btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">   
-                  <i class="fa fa-pencil-square"></i>  
+                  <i class="fa fa-pencil-square"></i>   
                   </a>  
+                <?php endif; ?>
                 </td>    
                 <td><?= ucwords($user->type) ?></td> 
                 <td><?= date('d-m-Y h:i:s a', strtotime($user->created_at)) ?></td> 

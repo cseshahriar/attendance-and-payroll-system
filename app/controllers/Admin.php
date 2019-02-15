@@ -242,6 +242,9 @@ class Admin extends Controller
 
 	public function update($id)   
 	{
+		// auth check   
+		$this->isLoggedInUser();
+
 		$user = $this->userModel->getUserById($id);         
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
@@ -322,5 +325,90 @@ class Admin extends Controller
 			$this->view('backend/users/edit', $data);          
 		}
 	}
+
+	public function photo($id)
+	{
+		// auth check   
+		$this->isLoggedInUser(); 
+		
+		$user = $this->userModel->getUserById($id);   
+
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+			$data = [ 
+				'title' => 'User Photo Update', 
+				'user' => $user,
+				'photo' => $_FILES['photo'],    
+				'photo_error' => '' 
+			];  
+	
+
+			// Allow certain file formats
+			$imageFileType = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION)); 
+
+			if (empty($imageFileType) || $_FILES['photo'] == NULL) { 
+				$data['photo_error'] = 'Photo is required';     
+			}  
+
+			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+			&& $imageFileType != "gif" ) { 
+			    
+				$data = [ 
+					'user' => $user, 
+					'photo_error' => 'Please upload image file.'   
+				];
+
+				$this->view('backend/users/photo', $data);   
+			}    
+			// Check file size 
+			elseif ($_FILES["photo"]["size"] >= 500000) { // 500KB 
+				$data = [ 
+					'user' => $user,  
+					'photo_error' => 'Sorry, your file is too large than 500KB.'   
+				];
+				$this->view('backend/users/photo', $data); 
+
+			} else {	   
+				// image rename and upload process 
+				$name = $_FILES['photo']['name'];
+				$tmp_name = $data['photo']['tmp_name'];
+				$type = $_FILES['photo']['type']; 
+				$size = $_FILES['photo']['size'];   
+
+				// rename 
+				$newName = date('Y-m-d_H-i-s')."_".uniqid();        
+				$ext = pathinfo($name, PATHINFO_EXTENSION); 
+				$newName = $newName.".".$ext; // name with extension 
+				$fileNameWithUploadDir = '../public/uploads/admin/'.$newName;                 
+
+				// for database  
+				$data['photo'] = $newName; // for database    
+
+				if ( empty($data['photo_error'])) {
+					move_uploaded_file($tmp_name, $fileNameWithUploadDir);   
+
+					// database update 
+					if($this->userModel->photo($data, $id)) { // receive true/false 
+						flash('success', 'Photo has been changed.');       
+						redirect('admin/index');           
+					} else {
+						die('Something went wrong!');     
+					} 
+				}    
+			}  
+		
+		} else { // get request 
+			$data = [
+				'title' => 'User Photo Update', 
+				'user' => $user, 
+				'photo' => '',
+				'photo_error' => '' 
+			];
+			$this->view('backend/users/photo', $data);     
+		}
+
+	} // end photo change method 
 
 } // end of the class 

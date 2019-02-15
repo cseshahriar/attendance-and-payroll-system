@@ -137,5 +137,18 @@ class AdminModel extends Database
 		}
 	}
 
+	public function photo($data, $id)  
+	{
+		$this->db->query("UPDATE admins SET photo=:photo WHERE id=:id");        
+
+		$this->db->bind(':id', $id);  
+		$this->db->bind(':photo', $data['photo']);     
+     
+		if ($this->db->execute()) { 
+			return true;
+		} else {
+			return false;  
+		}
+	}
 
 }

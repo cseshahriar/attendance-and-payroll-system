@@ -249,6 +249,7 @@ class Employee extends Controller
 				} else {
 					die('Something went wrong!');     
 				} 
+				
 			} else {
 				// load view with errors 
 				$this->view('backend/employee/create', $data);     
