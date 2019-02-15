@@ -5,7 +5,8 @@
  */
 class Front extends Controller     
 {
-	
+	public $in_time = NULL;
+	public $out_time = NULL;   
 	public function __construct() 
 	{
 		$this->frontModel = $this->model('FrontModel');  
@@ -123,30 +124,30 @@ class Front extends Controller
 							  		if ($this->frontModel->leave($attendanceId, $employeeId, $time_now) ) {    
 							  			
 							  			// -------------------- working hours calculation ---------------
-										$attendanceData = $this->frontModel->attendanceById($id);  
-		
-										$in_time = strtotime($attendanceData->in_time);      
-										$out_time = strtotime($attendanceData->out_time);          
+										$attendanceData = $this->frontModel->attendanceById($id);            
+										
+										$this->in_time = strtotime($attendanceData->in_time);        
+										$this->out_time = strtotime($attendanceData->out_time);            
 
 										$employeeId = $attendanceData->employee_id;     
 										$employee_attendance_date = $attendanceData->created_at;       
 										
 										// employee in_time, out_time 
 										$employeeData = $this->frontModel->employeeById($employeeId);      
-										$employee_start_time  = $employeeData->in_time; 
-										$employee_end_time    = $employeeData->out_time;          
+										$employee_start_time  = strtotime($employeeData->in_time);   
+										$employee_end_time    = strtotime($employeeData->out_time);            
 										
 										// if employee strting time > attendance starting time 
-										if ($employee_start_time  > $in_time) { 
-											$in_time = strtotime($employee_start_time);  
-										}  
-										
-										// if employee ending time < attendance ending time 
-										if ($employee_end_time  < $out_time) { 
-											$out_time = strtotime($employee_end_time);  
-										}  
+										if ($employee_start_time  > $this->in_time) {    
+											$this->in_time = $employee_start_time;    
+										} 
 
-										$workingTime = $this->timeDiff($in_time, $out_time);     
+										// if employee ending time < attendance ending time 
+										if ($employee_end_time  < $this->out_time) {  
+											$this->out_time = $employee_end_time;      
+										} 
+
+										$workingTime = $this->timeDiff($this->in_time, $this->out_time);    
 
 										$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
 										// -------------------- end working hours calculation  ---------------
