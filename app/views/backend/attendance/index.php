@@ -48,8 +48,19 @@
                 <td><?= $attendance->created_at ?></td> 
                 <td><?= $attendance->employee_id ?></td> 
                 <td><?= $attendance->firstname ?> <?= $attendance->lastname ?></td>
-                <td><?= date('h:i:s a', strtotime($attendance->in_time)) ?></td> 
-                <td><?= date('h:i:s a' ,strtotime($attendance->out_time)) ?></td>  
+                <td>
+                  <?php 
+                    if (!empty($attendance->in_time)) {
+                      echo date('h:i:s a', strtotime($attendance->in_time));   
+                    }
+                  ?>
+                </td> 
+                <td>
+                  <?php if (!empty($attendance->out_time)) {
+                    echo date('h:i:s a' ,strtotime($attendance->out_time));    
+                  }
+                  ?>
+                </td>  
                 <td><?= $attendance->num_hr ?></td>     
                 <td>
                   <!-- edit -->

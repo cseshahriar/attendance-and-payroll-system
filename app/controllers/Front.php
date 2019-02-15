@@ -123,22 +123,30 @@ class Front extends Controller
 							  		if ($this->frontModel->leave($attendanceId, $employeeId, $time_now) ) {    
 							  			
 							  			// -------------------- working hours calculation ---------------
-										$time_in = ''; 
-										$time_out = ''; 
-										
-										$attendanceData = $this->frontModel->attendanceById($attendanceId);
-										$in_time_from_attendance = $attendanceData->in_time;
-										$out_time_from_attendance = $attendanceData->out_time;  
+										$attendanceData = $this->frontModel->attendanceById($id);  
+		
+										$in_time = strtotime($attendanceData->in_time);      
+										$out_time = strtotime($attendanceData->out_time);          
+
+										$employeeId = $attendanceData->employee_id;     
+										$employee_attendance_date = $attendanceData->created_at;       
 										
 										// employee in_time, out_time 
-										$employeeData = $this->frontModel->employeeById($employeeId);  
+										$employeeData = $this->frontModel->employeeById($employeeId);      
 										$employee_start_time  = $employeeData->in_time; 
-										$employee_end_time = $employeeData->out_time;     
+										$employee_end_time    = $employeeData->out_time;          
 										
-										$time_in = strtotime($in_time_from_attendance);  
-										$time_out = strtotime($out_time_from_attendance);             
+										// if employee strting time > attendance starting time 
+										if ($employee_start_time  > $in_time) { 
+											$in_time = strtotime($employee_start_time);  
+										}  
+										
+										// if employee ending time < attendance ending time 
+										if ($employee_end_time  < $out_time) { 
+											$out_time = strtotime($employee_end_time);  
+										}  
 
-										$workingTime = timeDiff($time_in, $time_out);    
+										$workingTime = $this->timeDiff($in_time, $out_time);     
 
 										$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
 										// -------------------- end working hours calculation  ---------------

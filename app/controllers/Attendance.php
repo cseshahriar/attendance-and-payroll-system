@@ -25,7 +25,7 @@ class Attendance extends Controller
 		$data = [
 			'attendances' => $attendances,
 			'employees' =>  $employees,
-			'title' => 'Attendance'
+			'title' => 'Attendance' 
 		];
 		$this->view('backend/attendance/index', $data);   
 	}
@@ -193,15 +193,13 @@ class Attendance extends Controller
 		} 
 	}
 
-	public function workingHoursCal($id) 
-	{
-		// -------------------- working hours calculation ---------------
-		$time_in = ''; 
-		$time_out = ''; 
-		$attendanceData = $this->frontModel->attendanceById($id);  
+	public function workingHoursCal($id)     
+	{ 
+		// -------------------- working hours calculation --------------- 
+		$attendanceData = $this->frontModel->attendanceById($id);          
 		
-		$in_time_from_attendance = $attendanceData->in_time;
-		$out_time_from_attendance = $attendanceData->out_time; 
+		$in_time = strtotime($attendanceData->in_time);      
+		$out_time = strtotime($attendanceData->out_time);          
 
 		$employeeId = $attendanceData->employee_id;     
 		$employee_attendance_date = $attendanceData->created_at;       
@@ -211,14 +209,21 @@ class Attendance extends Controller
 		$employee_start_time  = $employeeData->in_time; 
 		$employee_end_time    = $employeeData->out_time;          
 		
-		$time_in = strtotime($in_time_from_attendance); 
-		$time_out = strtotime($out_time_from_attendance);            
+		// if employee strting time > attendance starting time 
+		if ($employee_start_time  > $in_time) { 
+			$in_time = strtotime($employee_start_time);  
+		} 
 
-		$workingTime = $this->timeDiff($time_in, $time_out);    
+		// if employee ending time < attendance ending time 
+		if ($employee_end_time  < $out_time) { 
+			$out_time = strtotime($employee_end_time);   
+		} 
+
+		$workingTime = $this->timeDiff($in_time, $out_time);          
 
 		$this->frontModel->employeeWorkingHours($workingTime, $id);         
 		// -------------------- end working hours calculation ---------------  
-	}
+	} 
 
 	 public function timeDiff($start, $end) {      
 	    // Convert $start and $end into EN format (ISO 8601)  
