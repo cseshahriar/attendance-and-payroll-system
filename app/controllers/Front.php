@@ -7,6 +7,7 @@ class Front extends Controller
 {
 	public $in_time = NULL;
 	public $out_time = NULL;   
+
 	public function __construct() 
 	{
 		$this->frontModel = $this->model('FrontModel');  
@@ -124,8 +125,7 @@ class Front extends Controller
 							  		if ($this->frontModel->leave($attendanceId, $employeeId, $time_now) ) {    
 							  			
 							  			// -------------------- working hours calculation ---------------
-										$attendanceData = $this->frontModel->attendanceById($id);            
-										
+										$attendanceData = $this->frontModel->attendanceById($attendanceId);              
 										$this->in_time = strtotime($attendanceData->in_time);        
 										$this->out_time = strtotime($attendanceData->out_time);            
 
@@ -147,7 +147,7 @@ class Front extends Controller
 											$this->out_time = $employee_end_time;      
 										} 
 
-										$workingTime = $this->timeDiff($this->in_time, $this->out_time);    
+										$workingTime = timeDiff($this->in_time, $this->out_time);     
 
 										$this->frontModel->employeeWorkingHours($workingTime, $attendanceId);    
 										// -------------------- end working hours calculation  ---------------
