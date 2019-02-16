@@ -53,15 +53,15 @@
           <div class="nav-tabs-custom"> 
            
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
+              <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li> 
               <li><a href="#activity" data-toggle="tab">Change Photo</a></li>
               <li><a href="#timeline" data-toggle="tab">Change Password</a></li> 
             </ul>
 
-            <div class="tab-content">
+            <div class="tab-content">  
 
-              <div class="tab-pane active" id="settings">   
-                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile/' ?>" method="post">  
+              <div class="tab-pane <?php if( isset($_POST['name_email']) && !isset($_POST['change_photo']) || !isset($_POST['change_password']) ) { echo 'active'; }  ?>" id="settings">      
+                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile/' ?>" method="post">   
 
                   <div class="form-group"> 
                     <label for="name" class="col-sm-2 control-label">Name</label>
@@ -99,7 +99,7 @@
               </div>
               <!-- /.tab-pane -->
 
-              <div class="tab-pane" id="activity">
+              <div class="tab-pane <?php if(isset($_POST['change_photo'])) { echo 'active'; } ?>" id="activity">
                 <form class="form-horizontal">
                  
                   <div class="form-group">
@@ -124,17 +124,20 @@
                     </div>
                   </div>
                 </form> 
-              </div>
+              </div>  
               <!-- /.tab-pane -->
 
-              <div class="tab-pane" id="timeline">
-                <form class="form-horizontal">
+              <div class="tab-pane <?php if(isset($_POST['change_password'])) { echo 'active'; } ?>" id="timeline">
+                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile'?>" method="post">     
                  
                   <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">Password</label>
+                    <label for="password" class="col-sm-2 control-label">Password</label>  
 
                     <div class="col-sm-10"> 
                       <input type="password" class="form-control" id="password" placeholder="Please type current Password for update it">
+                      <p class="text-danger">
+                        <?php if(isset($data['password_error'])) { echo $data['password_error']; } ?>  
+                      </p>  
                     </div>
                   </div>
                  
@@ -143,22 +146,28 @@
                     <label for="password" class="col-sm-2 control-label">Confirm Password</label>
 
                     <div class="col-sm-10"> 
-                      <input type="password" class="form-control" id="conf_password" placeholder="Confirm Password">
+                      <input type="password" class="form-control" name="conf_password" id="conf_password" placeholder="Confirm Password">
+                      <p class="text-danger">
+                        <?php if(isset($data['confirm_password_error'])) { echo $data['confirm_password_error']; } ?>
+                      </p>
                     </div>
                   </div> 
                  
               
                   <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">Current password</label>
+                    <label for="curent_password" class="col-sm-2 control-label">Current password</label>
 
                     <div class="col-sm-10"> 
-                      <input type="password" class="form-control" id="password" placeholder="Please type current Password for update it">
-                    </div>
+                      <input type="password" class="form-control" name="curent_password" id="curent_password" placeholder="Please type current Password for update it">  
+                      <p class="text-danger">
+                        <?php if(isset($data['curent_password_error'])) { echo $data['curent_password_error']; } ?>
+                      </p> 
+                    </div> 
                   </div>
                 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button> 
+                      <button type="submit" name="change_password" class="btn btn-success">Save</button>  
                     </div>
                   </div>
                 </form>

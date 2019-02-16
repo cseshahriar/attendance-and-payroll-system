@@ -306,7 +306,7 @@ class Admin extends Controller
 
 			$this->view('backend/users/profile', $data);   
 		}
-	}
+	}  
 
 	public function update($id)   
 	{
