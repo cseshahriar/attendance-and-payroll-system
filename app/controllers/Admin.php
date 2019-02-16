@@ -234,10 +234,78 @@ class Admin extends Controller
 		// auth check   
 		$this->isLoggedInUser();  
 
-		$data = [
-			'title' => 'Profiles'   
-		];
-		$this->view('backend/users/profile', $data);     
+		$user = $this->userModel->currentUserById($_SESSION['user_id']);   
+
+		// -------------- for name emain update ---------------- 
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['name_email']) ) {
+
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING); 
+
+			$data = [
+				'title' => 'Profile', 
+				'user' => $user, 
+				'name' => trim($_POST['name']),
+				'email' => trim($_POST['email']),
+				'password' => trim($_POST['password']),
+				'name_error' => '', 
+				'email_error' => '',  
+				'password_error' => ''
+			];
+		   	
+
+		   	// validte name
+			if ( empty($data['name']) ) {
+				$data['name_error'] = 'Name is required.'; 
+			}  
+
+			// validate email 
+			if ( empty($data['email']) ) {
+				$data['email_error'] = 'Email is required.';
+			} else {
+				// valid email address 
+				if ( !filter_var($data['email'], FILTER_VALIDATE_EMAIL) ) {
+					$data['email_error'] = 'Invalid Email Address.'; 
+				}
+				// already exist 
+				if ( $this->userModel->findUserByEmailExceptThisId($data['email'], $_SESSION['user_id']) ) {  
+					$data['email_error'] = 'Email is already taken.';   
+				} 
+			}
+			$hashPassword = null; 
+			//validate password 
+			if ( empty($data['password']) ) {  
+				$data['password_error'] = 'Password is required.'; 
+			} else { 
+				if (!password_verify($data['password'] ,$user->password) ) {   
+					$data['password_error'] = 'Wrong Password!';         
+				}  
+			}
+		   	// make sure has no error
+		   	if (empty($data['name_error']) && empty($data['email_error']) && empty($data['password_error'])) {
+		   		// process 
+		   		if ($this->userModel->currentUserUpdate($data, $_SESSION['user_id']) ) { 
+		   			flash('message', 'User info has been updated.'); 
+		   			redirect('admin/profile'); 
+		   		} else {
+		   			die('Something went wrong!');
+		   		}
+
+		   	} else {
+		   		// load view with error
+		   		$this->view('backend/users/profile', $data);   
+		   	}
+		}  else { // get request 
+			$data = [
+				'title' => 'Profiles',
+				'user' => $user, 
+				'password_error' => '',  
+				'name_error' => '', 
+				'email_error' => '',  
+				'password_error' => ''
+			];
+
+			$this->view('backend/users/profile', $data);   
+		}
 	}
 
 	public function update($id)   

@@ -9,7 +9,11 @@
       <ol class="breadcrumb">
         <li><a href="<?= ROOTURL.'dashboard/index' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">User profile</li>   
-      </ol>
+      </ol> 
+
+      <br>
+      <?= flash('message') ?>   
+
     </section>
 
     <!-- Main content -->
@@ -57,35 +61,38 @@
             <div class="tab-content">
 
               <div class="tab-pane active" id="settings">   
-                <form class="form-horizontal" action="" method="post">
+                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile/' ?>" method="post">  
 
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                  <div class="form-group"> 
+                    <label for="name" class="col-sm-2 control-label">Name</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="<?= $data['user']->name ?>">   
+                     <p class="text-danger"><?= $data['name_error'] ?></p> 
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                    <label for="email" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                      <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?= $data['user']->email ?>" >
+                      <p class="text-danger"><?= $data['email_error'] ?></p>
                     </div>
                   </div>
         
                   <div class="form-group"> 
                     <label for="password" class="col-sm-2 control-label">Current password</label>
 
-                    <div class="col-sm-10"> 
-                      <input type="password" class="form-control" id="password" placeholder="Please type current Password for update it">
+                    <div class="col-sm-10">    
+                      <input type="password" name="password" class="form-control" id="password" placeholder="Please type current Password for update it">
+                     <p class="text-danger"><?= $data['password_error'] ?></p>  
                     </div>
-                  </div>
+                  </div> 
                 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-success">Submit</button>  
+                      <button type="submit" name="name_email" class="btn btn-success">Save</button>  
                     </div>
                   </div>
                 </form>

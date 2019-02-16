@@ -151,4 +151,26 @@ class AdminModel extends Database
 		}
 	}
 
+	public function currentUserById($id)
+	{
+		$this->db->query("SELECT * FROM admins WHERE id=:id"); 
+		$this->db->bind(':id', $id);
+		$row = $this->db->single();
+		return $row; 
+	} 
+	public function currentUserUpdate($data, $id)
+	{
+		$this->db->query("UPDATE admins SET name=:name, email=:email WHERE id=:id");
+
+		$this->db->bind(':id', $id);
+		$this->db->bind(':name', $data['name']);
+		$this->db->bind(':email', $data['email']);
+
+		if ($this->db->execute()) {   
+			return true;
+		} else {
+			return false;  
+		}
+	} 
+
 }
