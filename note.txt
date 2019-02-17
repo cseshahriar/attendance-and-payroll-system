@@ -1,0 +1,19 @@
+// employee total wroking hours 
+SELECT SEC_TO_TIME( SUM( TIME_TO_SEC(num_hr))) as total_hours, employees.employee_id, employees.firstname, employees.lastname FROM attendance 
+LEFT JOIN employees ON attendance.employee_id = employees.employee_id
+WHERE attendance.created_at BETWEEN '2019-02-10' AND '2019-02-16'
+GROUP BY employees.id   
+
+
+// with overtimes 
+SELECT overtime.employee_id, overtime.rate, SEC_TO_TIME( SUM( TIME_TO_SEC(hours))) as total_overtime
+
+FROM employees
+
+LEFT JOIN overtime ON employees.employee_id = overtime.employee_id
+
+WHERE overtime.overtime_date BETWEEN '2019-02-10' AND '2019-02-16'
+
+GROUP BY overtime.id    
+
+

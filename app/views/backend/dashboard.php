@@ -37,7 +37,7 @@
 	              <p>Attendance Percentage</p> 
 	            </div>
 	            <div class="icon">
-	              <i class="ion ion-stats-bars"></i>
+	              <i class="ion ion-pie-graph"></i>
 	            </div>
 	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
@@ -52,7 +52,7 @@
 	              <p>On Time Today</p>
 	            </div>
 	            <div class="icon">
-	              <i class="ion ion-person"></i>
+	              <i class="ion ion-clock"></i>
 	            </div>
 	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
@@ -68,7 +68,7 @@
 	              <p>Late Today</p>    
 	            </div>
 	            <div class="icon">
-	              <i class="ion ion-person"></i>
+	              <i class="ion ion-alert-circled"></i>
 	            </div>
 	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div> 
@@ -81,10 +81,10 @@
 	            <div class="inner">
 	              <h3><?= $data['numbersOfEmployees']->numberOfEmployees - $data['totalPresent'] ?></h3> 
 
-	              <p>Absence</p>       
+	              <p>Absence</p>        
 	            </div>
 	            <div class="icon">
-	              <i class="ion ion-person"></i>  
+	              <i class="ion ion-alert-circled"></i>  
 	            </div>
 	            <a href="#" class="small-box-footer" onclick="event.preventDefault();">More info 
 	            	<i class="fa fa-arrow-circle-right"></i> 
