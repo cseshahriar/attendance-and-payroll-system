@@ -45,13 +45,14 @@ class Attendance extends Controller
 				'employees' => $employees,
 				'employee_id' => trim($_POST['employee_id']),     
 				'created_at'  => $_POST['created_at'], 
-				'in_time'     => $_POST['in_time'],   
+				'in_time'     => $_POST['in_time'],     
 				'status'	  => $_POST['status'],        
 				'employee_error' => '',  
 				'date_error' => '',
 				'intime_error' => '',
+				'outtime_error' => '',   
 				'status_error' => '',
-				'already_present_error' => ''
+				'already_present_error' => ''  
 			]; 
 
 			// validation
@@ -84,15 +85,14 @@ class Attendance extends Controller
 			}
 
 			// Makes sure errors are empty 
-			if ( empty($data['employee_error']) && empty($data['date_error']) && empty($data['intime_error']) && empty($data['status_error']) && empty($data['already_present_error']) )  {   
-
+			if ( empty($data['employee_error']) && empty($data['date_error']) && empty($data['intime_error']) && empty($data['status_error']) && empty($data['already_present_error']) )  {    
 				// prcess  
 				if($this->attendanceModel->create($data)) { // receive true/false 
 					flash('success', 'Attedance has created', 'alert alert-success alert-dismissible');        
 					redirect('attendance/index');         
 				} else { 
 					die('Something wend wrong'); 
-					$this->view('backend/attendance/create', $data);         
+					$this->view('backend/attendance/create', $data);            
 				}
 				
 				
@@ -108,6 +108,7 @@ class Attendance extends Controller
 				'date_error' => '',
 				'intime_error' => '',
 				'status_error' => '',
+				'outtime_error' => '',
 				'already_present_error' => '' 
 			];
 			$this->view('backend/attendance/create', $data);     
@@ -168,7 +169,7 @@ class Attendance extends Controller
 				// prcess  
 				if($this->attendanceModel->update($data, $id)) {     
 					
-					$this->workingHoursCal($id);  // attendance it    
+					$this->workingHoursCal($id);  // attendance it     
 
 					flash('success', 'Attedance has updated');             
 					redirect('attendance/index');         
