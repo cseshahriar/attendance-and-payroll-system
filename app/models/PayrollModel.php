@@ -47,7 +47,7 @@ class PayrollModel extends Database
 
 	public function overtimes($from, $to) 
 	{
-		$this->db->query("SELECT overtime.employee_id, overtime.rate, SEC_TO_TIME( SUM( TIME_TO_SEC(hours))) as total_overtime FROM employees LEFT JOIN overtime ON employees.employee_id = overtime.employee_id WHERE overtime.overtime_date BETWEEN '$from' AND '$to' GROUP BY overtime.id");         
+		$this->db->query("SELECT overtime.employee_id, overtime.rate, SEC_TO_TIME( SUM( TIME_TO_SEC(hours))) as total_overtime FROM employees LEFT JOIN overtime ON employees.employee_id = overtime.employee_id WHERE overtime.overtime_date BETWEEN '$from' AND '$to' GROUP BY overtime.id");          
 
 	   		$rows = $this->db->get();           
 	   

@@ -54,11 +54,10 @@
             <table id="payroll" class="table table-bordered table-striped">   
               <thead>
               <tr>
-                 <th>Name</th>
+                  <th>Name</th>
                   <th>ID</th>
-                  <th>Rate</th> 
-                  <th>W.Hours</th>
-                  <th>Overtimes & Rate</th>
+                  <th>W.Hours & Rate</th> 
+                  <th>Overtimes & Rate</th> 
                   <th>Gross</th>
                   <th>Deductions</th>
                   <th>Advance</th>
@@ -71,39 +70,42 @@
               <?php foreach($data['payroll'] as $info) : ?> 
               <tr>
                 <td><?= $info->firstname.' '.$info->lastname ?></td>   
-                <td><?= $info->employee_id ?></td>    
-                <td><?= $info->rate ?> TK</td>    
-                <td><?= $info->total_hours ?></td>    
-                  <?php foreach ($data['overtimes'] as $oinfo) : ?>
-                  <?php if($oinfo->employee_id == $info->employee_id) : ?>   
-                  <td>
-                    <?php 
-                        echo $oinfo->total_overtime.' - '.$oinfo->rate. ' = ';
-                        $time = $oinfo->total_overtime;
-                        $intTime = explode(':', $time);
-                        $intTime = $intTime[0].'.'.$intTime[1]; 
-                        echo $intTime * $oinfo->rate;  
-                     ?> 
-                     TK
-                  </td>       
+                <td><?= $info->employee_id ?></td>       
+                <td> <?= $info->total_hours.' & '. $info->rate.' TK/H'; ?>  </td>   
+
+                <?php foreach ($data['overtimes'] as $oinfo) : ?>
+                  <?php if($oinfo->employee_id == $info->employee_id) : ?>    
+                  <td><?= $oinfo->total_overtime.' & '.$oinfo->rate.' TK/H' ?></td>         
                   <?php endif; ?> 
-                  <?php endforeach; ?>
-                <td>Gross</td>    
-                <td>Deduction</td> 
+                <?php endforeach; ?>      
+
+                <?php foreach ($data['overtimes'] as $oinfo) : ?>
+                  <?php if($oinfo->employee_id == $info->employee_id) : ?>    
+                  <td>
+                    <?php
+                      $hours = number_format(decimal($info->total_hours), 2); 
+                      $ot = number_format(decimal($oinfo->total_overtime), 2);   
+                      $rate = (float) $info->rate;
+                      $orate = (float) $oinfo->rate;   
+                       echo grossSalary($hours, $ot, $rate, $orate); 
+                    ?>  TK
+                  </td>        
+                  <?php endif; ?> 
+                <?php endforeach; ?>
+
+                <td>Deduction</td>   
                 <td>Advance</td> 
                 <td>Net Pay</td>   
               </tr> 
             <?php endforeach; ?> 
             <?php else : ?>
                <tr>
-                 <th>Name</th>
-                  <th>ID</th> 
-                  <th>Rate</th> 
-                  <th>W.Hours</th>
-                  <th>Overtimes & Rate</th>
+                  <th>Name</th>
+                  <th>ID</th>
+                  <th>W.Hours</th> 
                   <th>Gross</th>
-                  <th>Deductions</th> 
-                  <th>Advance</th> 
+                  <th>Deductions</th>
+                  <th>Advance</th>
                   <th>Net Pay</th>    
               </tr>  
             <?php endif; ?> 
@@ -112,13 +114,11 @@
               <tfoot>
               <tr>
                   <th>Name</th>
-                  <th>ID</th> 
-                  <th>Rate</th> 
-                  <th>W.Hours</th>
-                  <th>Overtimes & Rate</th>
+                  <th>ID</th>
+                  <th>W.Hours</th> 
                   <th>Gross</th>
-                  <th>Deductions</th> 
-                  <th>Advance</th> 
+                  <th>Deductions</th>
+                  <th>Advance</th>
                   <th>Net Pay</th>  
               </tr>
               </tfoot>

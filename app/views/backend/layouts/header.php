@@ -192,10 +192,10 @@
 
         <li class="header">PRINTTABLES</li> 
         <li>
-            <a href="<?= ROOTURL.'/employeeschedule/index'?>"><i class="fa fa-clock-o"></i>Employee Schedules</a>          
+            <a href="<?= ROOTURL.'/employeeschedule/index'?>"><i class="fa fa-clock-o"></i> <span>Employee Schedules</span></a>          
         </li>  
         <li>
-          <a href="<?= ROOTURL.'/payroll/index' ?>"><i class="fa fa-files-o"></i> <span>Payroll</span></a>  
+          <a href="<?= ROOTURL.'/payroll/index' ?>"><i class="fa fa-files-o"></i> <span>Payroll</span></a>   
         </li> 
        
       </ul> 

@@ -55,8 +55,8 @@ class Payroll extends Controller
           $to = date('Y-m-d'); 
           $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
           $employeeTotalAttendances = $this->payrollModel->employeeTotalAttendances($from, $to);  
-          $overtimes = $this->payrollModel->overtimes($from, $to);      
-
+          $overtimes = $this->payrollModel->overtimes($from, $to);     
+  
     			$data = [
     				'title' => 'Payroll',  
             'payroll' =>  $employeeTotalAttendances,
