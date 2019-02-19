@@ -20,7 +20,7 @@ class PayrollModel extends Database
 		$this->db->query("SELECT * FROM deductions");               
 		$rows = $this->db->get();        
 		return $rows;    
-	} 
+	}  
 	public function deductionsTotal() 
 	{
 		$this->db->query("SELECT SUM(amount) as total_amount FROM deductions");                
@@ -59,13 +59,22 @@ class PayrollModel extends Database
 	    
 	}
 
-
-
-	public function cash($id, $from, $to)    
+	public function cash($from, $to)    
 	{
-		$this->db->query("SELECT cashadvances.*, SUM(amount) AS cashamount FROM cashadvances WHERE employee_id='$empid' AND date_advance BETWEEN '$from' AND '$to'");                    
-		$rows = $this->db->single();         
-		return $rows;    
+		$this->db->query("SELECT employees.*, SUM(amount) AS cashamount FROM employees LEFT JOIN cashadvances ON employees.employee_id = cashadvances.employee_id WHERE date_advance BETWEEN '$from' AND '$to' GROUP BY employees.id"); 
+		$rows = $this->db->get();          
+		return $rows;     
+	} 
+
+	public function advanceDeductions($from, $to)     
+	{
+		$this->db->query("SELECT employees.*, SUM(amount) AS total_deduction FROM employees
+						LEFT JOIN deductions ON employees.employee_id = deductions.employee_id
+						WHERE deductions.created_at BETWEEN '$from' AND '$to'
+						GROUP BY employees.id"
+					); 
+		$rows = $this->db->get();          
+		return $rows;     
 	} 
 
 }

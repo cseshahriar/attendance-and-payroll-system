@@ -72,16 +72,18 @@
                 <td><?= $info->firstname.' '.$info->lastname ?></td>   
                 <td><?= $info->employee_id ?></td>       
                 <td> <?= $info->total_hours.' & '. $info->rate.' TK/H'; ?>  </td>   
-
+                
+                <td>
                 <?php foreach ($data['overtimes'] as $oinfo) : ?>
                   <?php if($oinfo->employee_id == $info->employee_id) : ?>    
-                  <td><?= $oinfo->total_overtime.' & '.$oinfo->rate.' TK/H' ?></td>         
+                  <?= $oinfo->total_overtime.' & '.$oinfo->rate.' TK/H' ?>      
                   <?php endif; ?> 
                 <?php endforeach; ?>      
+                </td>
 
+                <td>
                 <?php foreach ($data['overtimes'] as $oinfo) : ?>
                   <?php if($oinfo->employee_id == $info->employee_id) : ?>    
-                  <td>
                     <?php
                       $hours = number_format(decimal($info->total_hours), 2); 
                       $ot = number_format(decimal($oinfo->total_overtime), 2);   
@@ -89,13 +91,28 @@
                       $orate = (float) $oinfo->rate;   
                        echo grossSalary($hours, $ot, $rate, $orate); 
                     ?>  TK
-                  </td>        
                   <?php endif; ?> 
-                <?php endforeach; ?>
+                <?php endforeach; ?> 
+                </td>        
 
-                <td>Deduction</td>   
-                <td>Advance</td> 
-                <td>Net Pay</td>   
+                
+                <td>
+                <?php foreach ($data['cashes'] as $cash) : ?>
+                  <?php if($info->employee_id == $cash->employee_id) : ?>    
+                    <?= number_format($cash->cashamount, 2) ?>   
+                  <?php endif; ?> 
+                <?php endforeach; ?> 
+                </td>     
+
+                
+                <td>
+                <?php foreach ($data['deductions'] as $deduction) : ?>
+                  <?php if($info->employee_id == $deduction->employee_id) : ?>    
+                    <?= number_format($deduction->total_deduction, 2) ?>    
+                  <?php endif; ?> 
+                <?php endforeach; ?>  
+                </td>        
+  
               </tr> 
             <?php endforeach; ?> 
             <?php else : ?>
