@@ -89,32 +89,71 @@
                       $ot = number_format(decimal($oinfo->total_overtime), 2);   
                       $rate = (float) $info->rate;
                       $orate = (float) $oinfo->rate;   
-                       echo grossSalary($hours, $ot, $rate, $orate); 
+                      $gross = grossSalary($hours, $ot, $rate, $orate); 
+                      echo $gross;
                     ?>  TK
                   <?php endif; ?> 
-                <?php endforeach; ?> 
+                <?php endforeach; ?>  
                 </td>        
 
+                <td>
+                <?php foreach ($data['deductions'] as $deduction) : ?>
+                  <?php if($info->employee_id == $deduction->employee_id) : ?>    
+                    <?= number_format($deduction->total_deduction, 2) ?> TK    
+                  <?php endif; ?> 
+                <?php endforeach; ?>   
+                </td> 
                 
                 <td>
                 <?php foreach ($data['cashes'] as $cash) : ?>
                   <?php if($info->employee_id == $cash->employee_id) : ?>    
-                    <?= number_format($cash->cashamount, 2) ?>   
+                    <?= number_format($cash->cashamount, 2) ?>   TK
                   <?php endif; ?> 
                 <?php endforeach; ?> 
                 </td>     
 
                 
-                <td>
-                <?php foreach ($data['deductions'] as $deduction) : ?>
-                  <?php if($info->employee_id == $deduction->employee_id) : ?>    
-                    <?= number_format($deduction->total_deduction, 2) ?>    
-                  <?php endif; ?> 
-                <?php endforeach; ?>  
-                </td>        
+
+                
+                <!-- net  -->
+                   <td>
+                  <?php foreach ($data['overtimes'] as $oinfo) : ?>
+                    <?php if($oinfo->employee_id == $info->employee_id) : ?>    
+                      <?php
+                        $hours = number_format(decimal($info->total_hours), 2); 
+                        $ot = number_format(decimal($oinfo->total_overtime), 2);   
+                        $rate = (float) $info->rate;
+                        $orate = (float) $oinfo->rate;   
+                        $gross = grossSalary($hours, $ot, $rate, $orate); 
+                        
+                        $net = NULL; 
+                        // $gross - deduction; 
+                        foreach ($data['empDeduction'] as $value) {
+
+                          if ($oinfo->employee_id == $value->employee_id) {
+                            $deduction = $value->totalDeduction;
+                            $deduction = floatval($deduction);  
+                            $net = floatval($gross - $deduction);  
+                            // cash advance   
+                              foreach ($data['empCashes'] as $cvalue) { 
+                                if ($info->employee_id == $cvalue->employee_id) {  
+                                  $advance = $cvalue->totalAdvance; 
+                                  $advance = floatval($advance);  
+                                  $net = floatval($net - $advance); 
+                                  $net = number_format($net, 2);     
+                                  // cash advance   
+                                  echo $net;   
+                                }
+                              }
+                          }
+                        }
+                      ?>  TK
+                    <?php endif; ?> 
+                  <?php endforeach; ?>  
+                </td>
   
               </tr> 
-            <?php endforeach; ?> 
+            <?php endforeach; ?>  
             <?php else : ?>
                <tr>
                   <th>Name</th>

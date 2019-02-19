@@ -16,4 +16,19 @@ WHERE overtime.overtime_date BETWEEN '2019-02-10' AND '2019-02-16'
 
 GROUP BY overtime.id    
 
+// cal  
+SELECT employees.id, employees.employee_id, employees.firstname, employees.lastname, positions.rate, 
+SEC_TO_TIME( SUM( TIME_TO_SEC(num_hr))) as total_hours,  
+SEC_TO_TIME( SUM( TIME_TO_SEC(hours))) as total_hours
+
+FROM employees
+
+LEFT JOIN attendance ON employees.employee_id = attendance.employee_id
+LEFT JOIN positions ON employees.position_id  = positions.id
+LEFT JOIN overtime ON employees.employee_id  = overtime.employee_id
+
+WHERE attendance.created_at BETWEEN '2019-02-10' AND '2019-02-16'
+
+GROUP BY employees.id   
+
 

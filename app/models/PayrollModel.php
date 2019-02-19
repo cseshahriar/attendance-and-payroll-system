@@ -47,7 +47,7 @@ class PayrollModel extends Database
 
 	public function overtimes($from, $to) 
 	{
-		$this->db->query("SELECT overtime.employee_id, overtime.rate, SEC_TO_TIME( SUM( TIME_TO_SEC(hours))) as total_overtime FROM employees LEFT JOIN overtime ON employees.employee_id = overtime.employee_id WHERE overtime.overtime_date BETWEEN '$from' AND '$to' GROUP BY overtime.id");          
+		$this->db->query("SELECT overtime.employee_id, overtime.rate, SEC_TO_TIME( SUM( TIME_TO_SEC(hours))) as total_overtime FROM employees LEFT JOIN overtime ON employees.employee_id = overtime.employee_id WHERE overtime.overtime_date BETWEEN '$from' AND '$to' GROUP BY overtime.id");           
 
 	   		$rows = $this->db->get();           
 	   
@@ -75,6 +75,22 @@ class PayrollModel extends Database
 					); 
 		$rows = $this->db->get();          
 		return $rows;     
+	}
+
+	public function employeeDeduction($from, $to)        
+	{
+		$this->db->query("SELECT employees.id, employees.employee_id, SUM(amount) as totalDeduction FROM employees LEFT JOIN deductions ON employees.employee_id = deductions.employee_id WHERE deductions.created_at BETWEEN '$from' AND '$to' GROUP BY employees.id");    
+		$row = $this->db->get();            
+		return $row;      
 	} 
+
+	public function employeeCashAdvance($from, $to)         
+	{
+		$this->db->query("SELECT employees.id, employees.employee_id, SUM(amount) as totalAdvance FROM employees LEFT JOIN cashadvances ON employees.employee_id = cashadvances.employee_id WHERE cashadvances.date_advance BETWEEN '$from' AND '$to' GROUP BY employees.id");       
+		$row = $this->db->get();             
+		return $row;      
+	} 
+
+
 
 }

@@ -57,18 +57,22 @@ class Payroll extends Controller
           $employeeTotalAttendances = $this->payrollModel->employeeTotalAttendances($from, $to);  
           $overtimes = $this->payrollModel->overtimes($from, $to);   
           $cashes = $this->payrollModel->cash($from, $to);    
-          $deductions = $this->payrollModel->advanceDeductions($from, $to);     
-
-  
+          $deductions = $this->payrollModel->advanceDeductions($from, $to);  
+          $empDeduction = $this->payrollModel->employeeDeduction($from, $to);  
+          $empCashes = $this->payrollModel->employeeCashAdvance($from, $to);   
+          
+          // net pay  
     			$data = [
     				'title' => 'Payroll',  
             'payroll' =>  $employeeTotalAttendances,
             'overtimes' => $overtimes,
             'cashes' => $cashes,
             'deductions' => $deductions, 
+            'empDeduction' => $empDeduction,   
+            'empCashes' => $empCashes      
     			]; 
-      
-    			$this->view('backend/payroll/index', $data);          
+
+    			$this->view('backend/payroll/index', $data);            
       }
         
 	}
