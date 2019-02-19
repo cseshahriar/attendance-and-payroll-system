@@ -25,7 +25,7 @@
 
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="employeeSchedule" class="table table-bordered table-striped">
+            <table id="print" class="table table-bordered table-striped">  
               <thead>
               <tr>
                 <th>Employee ID</th>

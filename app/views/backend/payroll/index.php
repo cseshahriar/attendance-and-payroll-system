@@ -50,8 +50,8 @@
           </div>  
 
           <!-- /.box-header -->
-          <div class="box-body">
-            <table id="payroll" class="table table-bordered table-striped">   
+          <div class="box-body"> 
+            <table id="print" class="table table-bordered table-striped">       
               <thead>
               <tr>
                   <th>Name</th>

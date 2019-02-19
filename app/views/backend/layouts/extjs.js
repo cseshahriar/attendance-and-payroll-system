@@ -3,7 +3,7 @@ $(document).ready(function() {
 	// ------------------- extjs start  --------------- 
 	
 	// ------------------ datatable print -------------
-	$('#employeeSchedule').DataTable( {   
+	$('#print').DataTable( {   
         dom: 'Bfrtip',
         buttons: [
             'print'  
