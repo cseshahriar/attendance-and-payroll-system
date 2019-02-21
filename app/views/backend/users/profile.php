@@ -100,7 +100,7 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane <?php if(isset($_POST['change_photo'])) { echo 'active'; } ?>" id="activity">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="user-photo-change" action="<?= ROOTURL ?>" method="post" onsubmit="event.preventDefault();"> 
                  
                   <div class="form-group">
                     <label for="photo" class="col-sm-2 control-label">Photo</label>
@@ -120,7 +120,7 @@
                 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button> 
+                      <button type="submit" class="btn btn-success">Save</button>   
                     </div>
                   </div>
                 </form> 
@@ -128,9 +128,9 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane <?php if(isset($_POST['change_password'])) { echo 'active'; } ?>" id="timeline">
-                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile'?>" method="post">     
+                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile'?>" id="user-password-change" method="post" onsubmit="event.preventDefault();">      
                  
-                  <div class="form-group">
+                  <div class="form-group"> 
                     <label for="password" class="col-sm-2 control-label">Password</label>  
 
                     <div class="col-sm-10"> 
