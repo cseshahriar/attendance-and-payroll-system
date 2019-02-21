@@ -99,7 +99,12 @@
 <script src="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js' ?>"></script>
 <script src="<?= ROOTURL.'/public/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'?>"></script> 
 <script src="<?= ROOTURL.'/public/js/dataTables.buttons.min.js'?>"></script> 
-<script src="<?= ROOTURL.'/public/js/buttons.print.min.js'?>"></script>   
+<script src="<?= ROOTURL.'/public/js/buttons.flash.min.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/jszip.min.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/pdfmake.min.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/vfs_fonts.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/buttons.html5.min.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/buttons.print.min.js'?>"></script>     
 
 <!-- extjs -->
 <?php include_once('extjs.js'); ?>
@@ -122,7 +127,17 @@
 <script>
   $(document).ready(function() {
 
-    $('#example1').DataTable(); 
+    $('#payroll').DataTable({
+     "paging":   false,
+      dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel', 'pdf', 'print'   
+        ]  
+    });    
+    
+    $('#example1').DataTable();  
+    
+
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,
