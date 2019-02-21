@@ -22,33 +22,64 @@ class Payroll extends Controller
         
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+        $data = [
+          'title' => 'Payroll',
+          'from' => $_POST['from'], 
+          'to'   => $_POST['to'],   
+          'from_error' => '', 
+          'to_error' => '',
+          'payroll' => '' 
+        ]; 
+
         // payroll
-        if (isset($_POST['payroll'])) {
+        if (isset($_POST['payrollBtn'])) {      
 
-            if (!empty($_POST['from'])) {
-              $from = date('Y-m-d', strtotime($_POST['from']));
+            if (empty($data['from'])) { 
+                $data['from_error'] = 'From date is require';
             } else {
-                $from = date('Y-m-d', strtotime('-30 day', strtotime($to)));
+                $data['from'] = date('Y-m-d', strtotime($_POST['from'])); 
             }
 
-            if (!empty($_POST['to'])) {
-              $to = date('Y-m-d', strtotime($_POST['to']));   
+            if (empty($data['to'])) {
+                $data['to_error'] = 'To date is require';
             }  else {
-                 $to = date('Y-m-d');   
+                $data['to'] = date('Y-m-d', strtotime($_POST['to']));  
             }
 
-            $employeeTotalAttendances = $this->payrollModel->employeeTotalAttendances($from, $to);  
 
-            $data = [
-              'title' => 'Payroll',
-              'payroll' =>  $employeeTotalAttendances // employee_id, create_at, in_time, out_time, num_hr, total_hr   
-            ];
-            $this->view('backend/payroll/index', $data);
+           // make sure has no erors 
+           if ( empty($data['from_error']) && empty($data['to_error']) ) {     
+              // process 
+            
+              $from = $data['from'];             
+              $to = $data['to'];   
+
+              $employeeTotalAttendances = $this->payrollModel->employeeTotalAttendances($from, $to);  
+              $overtimes = $this->payrollModel->overtimes($from, $to);   
+              $cashes = $this->payrollModel->cash($from, $to);    
+              $deductions = $this->payrollModel->advanceDeductions($from, $to);  
+              $empDeduction = $this->payrollModel->employeeDeduction($from, $to);  
+              $empCashes = $this->payrollModel->employeeCashAdvance($from, $to);     
+              
+              // net pay  
+              $data = [
+                'title' => 'Payroll',   
+                'payroll' =>  $employeeTotalAttendances,
+                'overtimes' => $overtimes,
+                'cashes' => $cashes,
+                'deductions' => $deductions, 
+                'empDeduction' => $empDeduction,   
+                'empCashes' => $empCashes
+              ]; 
+
+              $this->view('backend/payroll/index', $data);    
+
+           } else { // load view with errors   
+              $this->view('backend/payroll/index', $data);    
+           }
          
 
-        } elseif (isset($_POST['payslip'])) { // payslip   
-
-        }
+        } 
         
       } else { // get request 
     		  // payroll 
@@ -64,12 +95,14 @@ class Payroll extends Controller
           // net pay  
     			$data = [
     				'title' => 'Payroll',  
-            'payroll' =>  $employeeTotalAttendances,
+            'payroll' =>  $employeeTotalAttendances, 
             'overtimes' => $overtimes,
             'cashes' => $cashes,
             'deductions' => $deductions, 
-            'empDeduction' => $empDeduction,   
-            'empCashes' => $empCashes      
+            'empDeduction' => $empDeduction,    
+            'empCashes' => $empCashes, 
+            'from_error' => '', 
+            'to_error' => ''    
     			]; 
 
     			$this->view('backend/payroll/index', $data);            

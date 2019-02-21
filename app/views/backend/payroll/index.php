@@ -27,19 +27,30 @@
                     <div class="input-group-addon"> 
                       <i class="fa fa-calendar"></i> 
                     </div>
-                    <input type="text" class="form-control pull-right col-sm-8 datepiker" id="from" name="from" value="" placeholder="From" required>           
+                    <input type="text" class="form-control pull-right col-sm-8 datepiker" id="from" name="from" value="" placeholder="From">   
+                    <span class="text-danger">
+                    <?php if(!empty($data['from_error'])) : ?>
+                      <?= $data['from_error'] ?>
+                    <?php endif; ?> 
+                    </span>           
                   </div>
                   
                   <div class="input-group date">
-                    <div class="input-group-addon"> 
-                      <i class="fa fa-calendar"></i>  
+                    <div class="input-group-addon">  
+                      <i class="fa fa-calendar"></i>         
                     </div> 
                      
-                    <input type="text" class="form-control pull-right col-sm-8 datepiker" id="to" name="to" value="" placeholder="To" required>          
+                    <input type="text" class="form-control pull-right col-sm-8 datepiker" id="to" name="to" value="" placeholder="To">       
+                    <span class="text-danger">
+                      <?php if(!empty($data['to_error'])) : ?> 
+                        <?= $data['to_error'] ?>
+                      <?php endif; ?>
+                        
+                      </span>         
                   </div>
                
 
-                  <button type="submit" class="btn btn-success btn-sm btn-flat" name="payroll" id="payroll"><span class="glyphicon glyphicon-print"></span> Payroll</button>
+                  <button type="submit" class="btn btn-success btn-sm btn-flat" name="payrollBtn" id="payrollBtn"><span class="glyphicon glyphicon-print"></span> Payroll</button>
 
                   <button type="submit" class="btn btn-primary btn-sm btn-flat" name="payslip" id="payslip"><span class="glyphicon glyphicon-print"></span> Payslip</button>    
                 </form>
@@ -158,20 +169,22 @@
                <tr>
                   <th>Name</th>
                   <th>ID</th>
-                  <th>W.Hours</th> 
+                  <th>W.Hours & Rate</th> 
+                  <th>Overtimes & Rate</th> 
                   <th>Gross</th>
                   <th>Deductions</th>
                   <th>Advance</th>
-                  <th>Net Pay</th>    
+                  <th>Net Pay</th>     
               </tr>  
             <?php endif; ?> 
               <!-- loop -->
               </tbody>
               <tfoot>
               <tr>
-                  <th>Name</th>
+                  <th>Name</th> 
                   <th>ID</th>
-                  <th>W.Hours</th> 
+                  <th>W.Hours & Rate</th> 
+                  <th>Overtimes & Rate</th>  
                   <th>Gross</th>
                   <th>Deductions</th>
                   <th>Advance</th>
