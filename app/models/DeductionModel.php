@@ -17,15 +17,16 @@ class DeductionModel extends Database
 	 */
 	public function deductions() 
 	{
-		$this->db->query('SELECT * FROM deductions ORDER BY id DESC');  
+		$this->db->query('SELECT deductions.*, employees.firstname, employees.lastname FROM deductions LEFT JOIN employees ON deductions.employee_id = employees.employee_id  ORDER BY id DESC');    
 		$rows = $this->db->get(); 
 		return $rows;   
 	}
 
 	public function store($data)  
 	{
-		$this->db->query("INSERT INTO deductions(description, amount) VALUES(:description, :amount)"); 
+		$this->db->query("INSERT INTO deductions(employee_id, description, amount) VALUES(:employee_id, :description, :amount)"); 
 
+		$this->db->bind(':employee_id', $data['employee_id']);    
 		$this->db->bind(':description', $data['description']); 
 		$this->db->bind(':amount', $data['amount']);   
 
@@ -43,8 +44,10 @@ class DeductionModel extends Database
 	 */
 	public function findById($id) 
 	{
-		$this->db->query("SELECT * FROM deductions WHERE id=:id");   
-		$this->db->bind(':id', $id);
+		$this->db->query("SELECT deductions.*, employees.firstname, employees.lastname FROM deductions LEFT JOIN employees ON deductions.employee_id = employees.employee_id WHERE deductions.id=:id");   
+
+		$this->db->bind(':id', $id); 
+
 		$row = $this->db->single();   
 		return $row;    
 	}

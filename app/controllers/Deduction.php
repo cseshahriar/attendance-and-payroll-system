@@ -11,7 +11,9 @@ class Deduction extends Controller
 		if (!isset($_SESSION['user_id'])) {
 			header("Location: /admin/login");      
 		}
+
 		$this->deductionModel = $this->model('DeductionModel');    
+		$this->employeeModel = $this->model('EmployeeModel');          
 	}
 
 	/**
@@ -20,7 +22,7 @@ class Deduction extends Controller
 	 */
 	public function index()
 	{
-		$deductions = $this->deductionModel->deductions(); 
+		$deductions = $this->deductionModel->deductions();  
 		$data = [
 			'title' => 'Deductions',
 			'deductions' => $deductions 
@@ -34,18 +36,27 @@ class Deduction extends Controller
 	 */
 	public function create() 
 	{
+		$employees = $this->employeeModel->employeesId();  
+
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {  
 			
 			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);   
 
 			$data = [
 				'title' => 'Positiom create',
-				'description' => trim($_POST['description']),
+				'employees' => $employees,
+				'employee_id' => trim($_POST['employee_id']), 
+				'description' => trim($_POST['description']), 
 				'amount' => trim($_POST['amount']),   
 				'description_error' => '', 
-				'amount_error' => ''  
+				'amount_error' => '',
+				'employee_id_error' => '' 
 		
 			];   
+			
+			if ( empty($data['employee_id'])) { 
+				$data['employee_id_error'] = 'Employee ID is required.';  
+			}
 
 			if (empty($data['description'])) {
 				$data['description_error'] = 'Description is required.';  
@@ -57,10 +68,10 @@ class Deduction extends Controller
 				$data['amount_error'] = 'Invalid formate, please type decimal number.';   
 			}
 
-			if (empty($data['description_error']) && empty($data['amount_error'])) {
+			if ( empty($data['description_error']) && empty($data['amount_error']) && empty($data['employee_id_error']) ) {
 				// process 
 				
-				if ($this->deductionModel->store($data)) {      
+				if ($this->deductionModel->store($data)) {       
 					flash('success', 'Deduction successfully created.');  
 					redirect('deduction/index');        
 				} else {
@@ -74,11 +85,13 @@ class Deduction extends Controller
 
 		} else { // if get request
 			$data = [
-				'title' => 'Deduction create',  
+				'title' => 'Deduction create',
+				'employees' => $employees,   
 				'description' => '',
 				'amount' => '', 
-				'description_error' => '',
-				'amount_error' => ''
+				'description_error' => '', 
+				'amount_error' => '',
+				'employee_id_error' => '' 
 		
 			];
 

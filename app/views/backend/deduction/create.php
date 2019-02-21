@@ -5,7 +5,7 @@
     <section class="content-header">
       <h1>
         Deduction
-        <small>Create</small> 
+        <small>Create</small>  
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?= ROOTURL.'/dashboard/index' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -26,7 +26,25 @@
                       </div>
                       <div class="box-body">
                        <form action="<?= ROOTURL.'/deduction/create' ?>" method="post">       
+                            <!-- employee id -->
+                          <div class="form-group"> 
+                            <label>Employee ID:</label> 
 
+                            <div class="input-group">
+                              <div class="input-group-addon"> 
+                                <i class="fa fa-users"></i>
+                              </div> 
+                              <select name="employee_id" id="employee_id" class="form-control">
+                                <option value="" selected>-- Select Employee ID--</option> 
+                                <?php foreach($data['employees'] as $employee) : ?>
+                                <option value="<?= $employee->employee_id ?>"> <?= $employee->employee_id.' - '.$employee->firstname.' '. $employee->lastname ?> </option>  
+                                <?php endforeach; ?>
+                              </select>  
+                            </div>  
+                            <!-- /.input group -->
+                            <p class="text-danger"><?= $data['employee_id_error'] ?></p>   
+                          </div>
+                          <!-- /.form group -->  
                           
                           <!-- intime -->
                           <div class="form-group">

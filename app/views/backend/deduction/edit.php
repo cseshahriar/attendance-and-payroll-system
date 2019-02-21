@@ -28,6 +28,21 @@
                        <form action="<?= ROOTURL.'/deduction/edit/'.$data['deduction']->id ?>" method="post">           
                           <!-- intime -->
                           <div class="form-group">  
+                            <label>Employee Id</label>     
+
+                            <div class="input-group">
+                              <div class="input-group-addon">   
+                                <i class="fa fa-user"></i>  
+                              </div> 
+                              <input type="text" value="<?= $data['deduction']->employee_id.' - '.$data['deduction']->firstname.' '.$data['deduction']->lastname ?>" class="form-control pull-right" disabled>    
+                            </div>  
+                            <!-- /.input group -->
+                               
+                          </div>
+                          <!-- /.form group -->    
+
+                          <!-- intime -->
+                          <div class="form-group">  
                             <label>Description:</label>     
 
                             <div class="input-group">

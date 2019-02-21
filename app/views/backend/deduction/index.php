@@ -33,6 +33,8 @@
               <thead>
               <tr>
                 <th>#</th>
+                <th>Employee ID</th>
+                <th>Name</th>
                 <th>Description</th>
                 <th>Amount</th>
                 <th>Tools</th>
@@ -43,8 +45,10 @@
               <?php foreach ($data['deductions'] as  $deduction) : ?> 
               <tr>
                 <td><?= $deduction->id ?></td>
+                <td><?= $deduction->employee_id ?></td>
+                <td><?= $deduction->firstname.' '.$deduction->lastname ?></td> 
                 <td><?= $deduction->description ?></td>
-                <td><?= $deduction->amount ?></td>    
+                <td><?= $deduction->amount ?></td>     
                 <td> 
                   <!-- edit -->
                   <a href="<?= ROOTURL.'/deduction/edit/'.$deduction->id ?>" class="btn btn-primary btn-xs btn-flate" onclick="return confirm('Are you sure want to update it?');">  
@@ -65,6 +69,8 @@
               <tfoot>
               <tr>
                 <th>#</th>
+                <th>Employee ID</th> 
+                <th>Name</th> 
                 <th>Description</th>  
                 <th>Amount</th> 
                 <th>Tools</th> 
