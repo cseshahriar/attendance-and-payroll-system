@@ -7,9 +7,9 @@ $(document).ready(function() {
         dom: 'Bfrtip',
         buttons: [
             'print'  
-        ]
-    } );
-	
+        ],
+    } );     
+
 	// ---------------- chart -----------
 	// Year list 
 	var start = 2000;

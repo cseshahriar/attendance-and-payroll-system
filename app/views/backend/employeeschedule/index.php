@@ -41,7 +41,7 @@
                 <td><?= $empschedule->employee_id ?></td> 
                 <td><?= $empschedule->firstname.' '. $empschedule->lastname ?></td> 
                 <td><?= date('h:i:s a', strtotime($empschedule->in_time)).' - '.date('h:i:s a', strtotime($empschedule->out_time)) ?></td>   
-                <td> 
+                <td class="tools">   
                   <!-- edit -->
                   <a href="<?= ROOTURL.'/employeeschedule/edit/'.$empschedule->id ?>" class="btn btn-primary btn-sm btn-flate" onclick="return confirm('Are you sure want to update it?');">        
                   <i class="fa fa-pencil-square"></i> Edit          
