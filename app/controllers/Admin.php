@@ -477,6 +477,90 @@ class Admin extends Controller
 			$this->view('backend/users/photo', $data);     
 		}
 
-	} // end photo change method 
+	} // end photo change method   
 
+	
+	public function password($id)
+	{
+		// auth check   
+		$this->isLoggedInUser();  
+
+		$user = $this->userModel->currentUserById($_SESSION['user_id']);    
+
+		// -------------- for name emain update ---------------- 
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING); 
+
+			$data = [
+				'title' => 'Change Password', 
+				'user' => $user, 
+				'password' => trim($_POST['password']),  
+				'conf_password' => trim($_POST['conf_password']),  
+				'curent_password' => trim($_POST['curent_password']), 
+				'password_error' => '',
+				'confirm_password_error' => '', 
+				'curent_password_error' => '' 
+			];
+		   	
+
+			$hashPassword = null;  
+
+			//validate password 
+			if ( empty($data['password']) ) {  
+				$data['password_error'] = 'Password is required.';   
+			}  elseif(strlen($data['password']) < 6 ) {
+				$data['password_error'] = 'Password is to short. please more than 6 characters';  
+			}
+
+			if ( empty($data['conf_password']) ) {  
+				$data['confirm_password_error'] = 'Confirm Password is required.';  
+			} else { 
+
+				if ( $data['password'] != $data['conf_password'] ) {       
+					$data['confirm_password_error'] = 'Password did not match!';           
+				}    
+			} 
+
+			if ( empty($data['curent_password']) ) {   
+				$data['curent_password_error'] = 'Current Password is required.'; 
+			} else { 
+				if (!password_verify($data['curent_password'] , $user->password) ) {    
+					$data['curent_password_error'] = 'Wrong Password!';         
+				}  
+			}
+
+		   	// make sure has no error
+		   	if (empty($data['password_error']) && empty($data['confirm_password_error']) && empty($data['curent_password_error'])) {
+
+		   		$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);     
+
+		   		// process 
+		   		if ($this->userModel->currentUserPasswordUpdate($data, $_SESSION['user_id']) ) {  
+		   			flash('message', 'User password has been updated.');    
+		   			redirect('admin/profile'); 
+		   		} else {
+		   			die('Something went wrong!');
+		   		}
+
+		   	} else {
+		   		// load view with error
+		   		$this->view('backend/users/password', $data);    
+		   	}
+
+		}  else { // get request 
+		
+
+			$data = [
+				'title' => 'Change Password', 
+				'user' => $user,   
+				'password_error' => '',
+				'confirm_password_error' => '',  
+				'curent_password_error' => '' 
+			];
+
+			$this->view('backend/users/password', $data);        
+		}
+	}  
+	
 } // end of the class 

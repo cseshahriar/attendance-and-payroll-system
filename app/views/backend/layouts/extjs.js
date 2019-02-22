@@ -8,7 +8,9 @@ $(document).ready(function() {
         buttons: [
             'print'  
         ],
-    } );     
+    } );  
+
+	
 
 	// ---------------- chart -----------
 	// Year list 
@@ -19,6 +21,7 @@ $(document).ready(function() {
 	  options += "<option>"+ year +"</option>";
 	}
 	document.getElementById("select_year").innerHTML = options;
-
+	
+	// ----------------- user photo update  
 }); 
 </script>    

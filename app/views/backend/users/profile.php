@@ -14,6 +14,20 @@
       <br>
       <?= flash('message') ?>   
 
+    <div class="alert alert-success alert-dismissible mt20 text-center" style="display:none;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <span class="result"><i class="icon fa fa-check"></i> 
+        <span class="message"></span>    
+      </span>
+    </div> 
+
+    <div class="alert alert-danger alert-danger alert-dismissible mt20 text-center" style="display:none;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <span class="result"><i class="icon fa fa-warning"></i>    
+        <span class="error-message"><?= $data['photo_error'] ?></span>           
+      </span>   
+    </div>  
+
     </section>
 
     <!-- Main content -->
@@ -100,77 +114,14 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane <?php if(isset($_POST['change_photo'])) { echo 'active'; } ?>" id="activity">
-                <form class="form-horizontal" id="user-photo-change" action="<?= ROOTURL ?>" method="post" onsubmit="event.preventDefault();"> 
-                 
-                  <div class="form-group">
-                    <label for="photo" class="col-sm-2 control-label">Photo</label>
-
-                    <div class="col-sm-10">
-                      <input type="file" class="form-control-file" id="photo" placeholder="Photo">
-                    </div> 
-                  </div>
-        
-                  <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">Current password</label>
-
-                    <div class="col-sm-10"> 
-                      <input type="password" class="form-control" id="password" placeholder="Please type current Password for update it">
-                    </div>
-                  </div>
-                
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-success">Save</button>   
-                    </div>
-                  </div>
-                </form> 
+                  <a class="btn btn-primary" href="<?= ROOTURL.'/admin/photo/'.$_SESSION['user_id'] ?>">Click Here</a>   
               </div>  
               <!-- /.tab-pane -->
 
               <div class="tab-pane <?php if(isset($_POST['change_password'])) { echo 'active'; } ?>" id="timeline">
-                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile'?>" id="user-password-change" method="post" onsubmit="event.preventDefault();">      
-                 
-                  <div class="form-group"> 
-                    <label for="password" class="col-sm-2 control-label">Password</label>  
 
-                    <div class="col-sm-10"> 
-                      <input type="password" class="form-control" id="password" placeholder="Please type current Password for update it">
-                      <p class="text-danger">
-                        <?php if(isset($data['password_error'])) { echo $data['password_error']; } ?>  
-                      </p>  
-                    </div>
-                  </div>
-                 
-              
-                  <div class="form-group"> 
-                    <label for="password" class="col-sm-2 control-label">Confirm Password</label>
+                <a class="btn btn-primary" href="<?= ROOTURL.'/admin/password/'.$_SESSION['user_id'] ?>">Click Here</a>   
 
-                    <div class="col-sm-10"> 
-                      <input type="password" class="form-control" name="conf_password" id="conf_password" placeholder="Confirm Password">
-                      <p class="text-danger">
-                        <?php if(isset($data['confirm_password_error'])) { echo $data['confirm_password_error']; } ?>
-                      </p>
-                    </div>
-                  </div> 
-                 
-              
-                  <div class="form-group">
-                    <label for="curent_password" class="col-sm-2 control-label">Current password</label>
-
-                    <div class="col-sm-10"> 
-                      <input type="password" class="form-control" name="curent_password" id="curent_password" placeholder="Please type current Password for update it">  
-                      <p class="text-danger">
-                        <?php if(isset($data['curent_password_error'])) { echo $data['curent_password_error']; } ?>
-                      </p> 
-                    </div> 
-                  </div>
-                
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" name="change_password" class="btn btn-success">Save</button>  
-                    </div>
-                  </div>
-                </form>
               </div>
               <!-- /.tab-pane -->
 

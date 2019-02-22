@@ -176,7 +176,7 @@ class AdminModel extends Database
 
 	public function currentUserPasswordUpdate($data, $id)
 	{
-		$this->db->query("UPDATE admins SET password=:password WHERE id=:id");
+		$this->db->query("UPDATE admins SET password=:password WHERE id=:id"); 
 
 		$this->db->bind(':id', $id);
 		$this->db->bind(':password', $data['password']);  
