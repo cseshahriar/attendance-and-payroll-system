@@ -4,31 +4,23 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User Profile
+        User Profile 
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?= ROOTURL.'dashboard/index' ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">User profile</li>   
+        <li class="active">User profile</li>    
       </ol> 
 
       <br>
-      <?= flash('message') ?>   
+      <?= flash('message') ?>    
 
-    <div class="alert alert-success alert-dismissible mt20 text-center" style="display:none;">
+    <div class="alert alert-success alert-dismissible mt20" style="display:none;">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <span class="result"><i class="icon fa fa-check"></i> 
-        <span class="message"></span>    
+      <span class="result"><i class="icon fa fa-check"></i>  
+        <span class="message"></span>     
       </span>
-    </div> 
-
-    <div class="alert alert-danger alert-danger alert-dismissible mt20 text-center" style="display:none;">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <span class="result"><i class="icon fa fa-warning"></i>    
-        <span class="error-message"><?= $data['photo_error'] ?></span>           
-      </span>   
     </div>  
-
-    </section>
+    </section> 
 
     <!-- Main content -->
     <section class="content">
@@ -120,7 +112,47 @@
 
               <div class="tab-pane <?php if(isset($_POST['change_password'])) { echo 'active'; } ?>" id="timeline">
 
-                <a class="btn btn-primary" href="<?= ROOTURL.'/admin/password/'.$_SESSION['user_id'] ?>">Click Here</a>   
+                <!-- <a class="btn btn-primary" href="<?php /* ROOTURL.'/admin/password/'.$_SESSION['user_id'] */ ?>">Click Here</a>    -->
+                <form id="password-form">      
+
+                <div class="box-body">   
+    
+                  <div class="form-group"> 
+                    <label for="password" class="col-sm-3 control-label">Password</label>  
+
+                    <div class="col-sm-9"> 
+                      <input type="password" name="password" class="form-control" id="password" placeholder="Please type current Password for update it">
+                      <p class="text-danger password_error"></p>   
+                    </div> 
+                  </div>
+                 
+              
+                  <div class="form-group"> 
+                    <label for="password" class="col-sm-3 control-label">Confirm Password</label>
+
+                    <div class="col-sm-9"> 
+                      <input type="password" class="form-control" name="conf_password" id="conf_password" placeholder="Confirm Password">
+                      <p class="text-danger conf_password_error"></p> 
+                    </div>
+                  </div> 
+                 
+              
+                  <div class="form-group">
+                    <label for="curent_password" class="col-sm-3 control-label">Current password</label>
+
+                    <div class="col-sm-9"> 
+                      <input type="password" class="form-control" name="current_password" id="curent_password" placeholder="Please type current Password for update it">  
+                      <p class="text-danger current_password_error"></p>        
+                    </div> 
+                  </div>
+                
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-success">Change Password</button>  
+                </div>
+              </form>
 
               </div>
               <!-- /.tab-pane -->
