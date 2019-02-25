@@ -98,4 +98,5 @@ class AttendanceModel extends Database
 		}
 
 	} 
+	
 }

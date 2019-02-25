@@ -53,5 +53,5 @@ class Dashboard extends Controller
 		];
 		
 		$this->view('backend/dashboard', $data);         
-	}
+	}  
 }

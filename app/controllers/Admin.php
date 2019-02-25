@@ -563,6 +563,7 @@ class Admin extends Controller
 		}
 	}  
 
+	// change password from profile view with ajax 
 	public function cangePassword() 
 	{
 		// auth check   
@@ -636,6 +637,12 @@ class Admin extends Controller
 		} // end post request
   
 		echo json_encode($output);    
+	}
+
+	// change photo from profile view with ajax 
+	public function changePhoto()
+	{
+		
 	}
 	
 } // end of the class 

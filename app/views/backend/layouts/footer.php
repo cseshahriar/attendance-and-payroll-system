@@ -101,7 +101,7 @@
 <script src="<?= ROOTURL.'/public/js/dataTables.buttons.min.js'?>"></script> 
 <script src="<?= ROOTURL.'/public/js/buttons.flash.min.js'?>"></script> 
 <script src="<?= ROOTURL.'/public/js/jszip.min.js'?>"></script> 
-<script src="<?= ROOTURL.'/public/js/pdfmake.min.js'?>"></script> 
+<script src="<?= ROOTURL.'/public/js/pdfmake.min.js'?>"></script>  
 <script src="<?= ROOTURL.'/public/js/vfs_fonts.js'?>"></script> 
 <script src="<?= ROOTURL.'/public/js/buttons.html5.min.js'?>"></script> 
 <script src="<?= ROOTURL.'/public/js/buttons.print.min.js'?>"></script>     

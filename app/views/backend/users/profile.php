@@ -105,14 +105,42 @@
               </div>
               <!-- /.tab-pane -->
 
-              <div class="tab-pane <?php if(isset($_POST['change_photo'])) { echo 'active'; } ?>" id="activity">
-                  <a class="btn btn-primary" href="<?= ROOTURL.'/admin/photo/'.$_SESSION['user_id'] ?>">Click Here</a>   
+              <div class="tab-pane" id="activity">  
+                <form id="imageUploadForm" name="imageUploadForm" action="<?= ROOTURL.'/admin/changePhoto' ?>" method="post" enctype="multipart/form-data">               
+
+                <div class="box-body">      
+    
+                  <div class="form-group"> 
+                    <label class="col-sm-3 control-label">Photo</label>  
+
+                    <div class="col-sm-9"> 
+                      <input type="file" name="image" id="image" class="form-control-file">        
+                      <p class="text-danger" class="image_error"></p>               
+                    </div> 
+                  </div>
+                 
+                  <div class="form-group">
+                    <label for="curent_password" class="col-sm-3 control-label">Current password</label>
+
+                    <div class="col-sm-9"> 
+                      <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Please type current Password for update it">  
+                      <p class="text-danger" class="current_password_error2"></p>              
+                    </div> 
+                  </div>
+                
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                  <button type="submit" id="image_upload" class="btn btn-success">Change image</button>     
+                </div>
+               </form>
+                  
               </div>  
               <!-- /.tab-pane -->
 
               <div class="tab-pane <?php if(isset($_POST['change_password'])) { echo 'active'; } ?>" id="timeline">
 
-                <!-- <a class="btn btn-primary" href="<?php /* ROOTURL.'/admin/password/'.$_SESSION['user_id'] */ ?>">Click Here</a>    -->
                 <form id="password-form">      
 
                 <div class="box-body">   
@@ -152,7 +180,7 @@
                 <div class="box-footer">
                   <button type="submit" class="btn btn-success">Change Password</button>  
                 </div>
-              </form>
+               </form>
 
               </div>
               <!-- /.tab-pane -->

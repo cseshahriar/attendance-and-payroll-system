@@ -35,21 +35,25 @@ $(document).ready(function() {
 		              $('.current_password_error').show();      
 		              $('.current_password_error').html(response.current_password_error);  
 		            }  
+
 				} else { 
 					if (response.message) {     
-		              $('.alert-success ').hide();   
-		              $('.alert-success ').show();       
-					  $('.message').html(response.message); 
+			              $('.alert-success ').hide();   
+			              $('.alert-success ').show();       
+						  $('.message').html(response.message); 
 		            } 
 				}
 
-			} 
+			}
 		});
-
+		
 	});
-	
+
+
+	// ----------------- admin photo change -------------  
+	 
 	// ------------------ datatable print -------------
-	$('#print').DataTable( {   
+	$('#print').DataTable( {    
         dom: 'Bfrtip',
         buttons: [
             'print'  
