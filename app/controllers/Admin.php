@@ -246,16 +246,17 @@ class Admin extends Controller
 				'user' => $user, 
 				'name' => trim($_POST['name']),
 				'email' => trim($_POST['email']),
-				'password' => trim($_POST['password']),
+				'password' => trim($_POST['password']), 
+				'photo' => $_FILES['photo'], 
 				'name_error' => '', 
 				'email_error' => '',  
-				'password_error' => ''
-			];
+				'password_error' => '',
+				'photo_error' => ''
+			]; 
 		   	
-
 		   	// validte name
 			if ( empty($data['name']) ) {
-				$data['name_error'] = 'Name is required.'; 
+				$data['name_error'] = 'Name is required.';  
 			}  
 
 			// validate email 
@@ -271,29 +272,90 @@ class Admin extends Controller
 					$data['email_error'] = 'Email is already taken.';   
 				} 
 			}
-			$hashPassword = null; 
+
+			$hashPassword = null;   
 			//validate password 
 			if ( empty($data['password']) ) {  
-				$data['password_error'] = 'Password is required.'; 
+				$data['password_error'] = 'Current password is required.'; 
 			} else { 
 				if (!password_verify($data['password'] ,$user->password) ) {   
-					$data['password_error'] = 'Wrong Password!';         
+					$data['password_error'] = 'Wrong Password!';          
 				}  
 			}
+
+			// if isset photo
+			if (is_uploaded_file($_FILES['photo']['tmp_name'])) { 
+				// Allow certain file formats
+				$imageFileType = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION)); 
+
+				if (empty($imageFileType) || $_FILES['photo'] == NULL) { 
+					$data['photo_error'] = 'Photo is required';      
+				}  
+
+				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+				&& $imageFileType != "gif" ) { 
+					$data = [  
+						'title' => 'Profile', 
+						'user' => $user, 
+						'name_error' => '', 
+						'email_error' => '',
+						'password_error' => '',
+						'photo_error' => 'Please upload image file.'   
+					];
+					$this->view('backend/users/profile', $data);   
+				}   elseif ($_FILES["photo"]["size"] >= 500000) { // 500KB  
+					$data = [ 
+						'title' => 'Profile', 
+						'user' => $user,  
+						'name_error' => '', 
+						'email_error' => '',
+						'password_error' => '',
+						'photo_error' => 'Sorry, your file is too large than 500KB.'   
+					];
+					$this->view('backend/users/profile', $data);   
+				}
+			}
+
 		   	// make sure has no error
-		   	if (empty($data['name_error']) && empty($data['email_error']) && empty($data['password_error'])) {
-		   		// process 
-		   		if ($this->userModel->currentUserUpdate($data, $_SESSION['user_id']) ) { 
+		   	if ( empty($data['name_error']) && empty($data['email_error']) && empty($data['password_error'])) { 
+
+		   	   	if ( empty($data['photo_error']) ) { 
+		   	   		// image rename and upload process 
+					$name = $_FILES['photo']['name'];
+					$tmp_name = $data['photo']['tmp_name'];
+					$type = $_FILES['photo']['type']; 
+					$size = $_FILES['photo']['size'];   
+
+					// rename 
+					$newName = date('Y-m-d_H-i-s')."_".uniqid();        
+					$ext = pathinfo($name, PATHINFO_EXTENSION); 
+					$newName = $newName.".".$ext; // name with extension 
+					$fileNameWithUploadDir = '../public/uploads/admin/'.$newName;                  
+
+					// for database  
+					$data['photo'] = $newName; // for database    
+
+					if ( empty($data['photo_error'])) { 
+						move_uploaded_file($tmp_name, $fileNameWithUploadDir);    
+					}
+
+		   	   	} else {
+		   	   		$data['photo'] = $user->photo;  
+		   	   	}
+
+		   		// process  
+		   		if ($this->userModel->currentUserUpdate($data, $_SESSION['user_id']) ) {    
 		   			flash('message', 'User info has been updated.'); 
 		   			redirect('admin/profile'); 
 		   		} else {
-		   			die('Something went wrong!');
+		   			die('Something went wrong!'); 
 		   		}
 
 		   	} else {
 		   		// load view with error
-		   		$this->view('backend/users/profile', $data);   
+		   		$this->view('backend/users/profile', $data);     
 		   	}
+
 		}  else { // get request 
 			$data = [
 				'title' => 'Profiles',
@@ -301,7 +363,8 @@ class Admin extends Controller
 				'password_error' => '',  
 				'name_error' => '', 
 				'email_error' => '',  
-				'password_error' => ''
+				'password_error' => '',
+				'photo_error' => '' 
 			];
 
 			$this->view('backend/users/profile', $data);   
@@ -477,10 +540,9 @@ class Admin extends Controller
 			$this->view('backend/users/photo', $data);     
 		}
 
-	} // end photo change method   
+	} // end photo change method  
 
-	
-	public function password($id)
+	public function password($id) 
 	{
 		// auth check   
 		$this->isLoggedInUser();  
@@ -637,12 +699,6 @@ class Admin extends Controller
 		} // end post request
   
 		echo json_encode($output);    
-	}
-
-	// change photo from profile view with ajax 
-	public function changePhoto()
-	{
-		
 	}
 	
 } // end of the class 

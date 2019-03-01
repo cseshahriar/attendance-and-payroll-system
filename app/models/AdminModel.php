@@ -175,11 +175,13 @@ class AdminModel extends Database
 
 	public function currentUserUpdate($data, $id)
 	{
-		$this->db->query("UPDATE admins SET name=:name, email=:email WHERE id=:id");
+		
+		$this->db->query("UPDATE admins SET name=:name, email=:email, photo=:photo WHERE id=:id");  
 
 		$this->db->bind(':id', $id);
 		$this->db->bind(':name', $data['name']);
 		$this->db->bind(':email', $data['email']);
+		$this->db->bind(':photo', $data['photo']);   
 
 		if ($this->db->execute()) {   
 			return true;

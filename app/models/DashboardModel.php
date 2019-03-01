@@ -66,4 +66,15 @@ class DashboardModel extends Database
 		 $row = $this->db->single();  
 		 return $row;  
 	}
+
+	public function monthlyOntime($m)
+	{
+		
+	}
+
+	public function monthlyLate($m)
+	{
+
+	}
+	
 }

@@ -12,7 +12,7 @@
       </ol> 
 
       <br>
-      <?= flash('message') ?>    
+      <?= flash('message') ?>     
 
     <div class="alert alert-success alert-dismissible mt20" style="display:none;">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -29,7 +29,7 @@
         <div class="col-md-3">
 
           <!-- Profile Image -->
-          <div class="box box-primary">
+          <div class="box box-primary"> 
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="<?= ROOTURL.'/public/uploads/admin/'.$_SESSION['user_photo'] ?>" alt="User profile picture">
 
@@ -43,31 +43,32 @@
 
           <!-- About Me Box -->
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">About Me</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-             <!--  <strong><i class="fa fa-book margin-r-5"></i></strong> -->   
-            </div>
-            <!-- /.box-body -->
+              <div class="box-header with-border">
+                <h3 class="box-title">Contact</h3> 
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+               <!--  <strong><i class="fa fa-book margin-r-5"></i></strong> -->   
+               <p><?= $_SESSION['user_email'] ?></p> 
+              </div>
+              <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
         <div class="col-md-9">
+
           <div class="nav-tabs-custom"> 
            
             <ul class="nav nav-tabs">
               <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li> 
-              <li><a href="#activity" data-toggle="tab">Change Photo</a></li>
               <li><a href="#timeline" data-toggle="tab">Change Password</a></li> 
             </ul>
 
             <div class="tab-content">  
 
-              <div class="tab-pane <?php if( isset($_POST['name_email']) && !isset($_POST['change_photo']) || !isset($_POST['change_password']) ) { echo 'active'; }  ?>" id="settings">      
-                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile/' ?>" method="post">   
+              <div class="tab-pane <?php if( isset($_POST['name_email']) || !isset($_POST['change_password']) ) { echo 'active'; }  ?>" id="settings">      
+                <form class="form-horizontal" action="<?= ROOTURL.'/admin/profile/' ?>" method="post" enctype="multipart/form-data">      
 
                   <div class="form-group"> 
                     <label for="name" class="col-sm-2 control-label">Name</label>
@@ -85,8 +86,17 @@
                       <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?= $data['user']->email ?>" >
                       <p class="text-danger"><?= $data['email_error'] ?></p>
                     </div>
-                  </div>
-        
+                  </div> 
+
+                  <div class="form-group">
+                    <label for="photo" class="col-sm-2 control-label">Photo</label>
+
+                    <div class="col-sm-10">
+                      <input type="file" name="photo" class="form-control" id="photo">  
+                      <p class="text-danger"><?= $data['photo_error'] ?></p>  
+                    </div>
+                  </div> 
+                  
                   <div class="form-group"> 
                     <label for="password" class="col-sm-2 control-label">Current password</label>
 
@@ -97,46 +107,12 @@
                   </div> 
                 
                   <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" name="name_email" class="btn btn-success">Save</button>  
+                    <div class="col-sm-12">  
+                      <button type="submit" name="name_email" class="btn btn-success float-left">Save Changes</button>  
                     </div>
                   </div>
                 </form>
               </div>
-              <!-- /.tab-pane -->
-
-              <div class="tab-pane" id="activity">  
-                <form id="imageUploadForm" name="imageUploadForm" action="<?= ROOTURL.'/admin/changePhoto' ?>" method="post" enctype="multipart/form-data">               
-
-                <div class="box-body">      
-    
-                  <div class="form-group"> 
-                    <label class="col-sm-3 control-label">Photo</label>  
-
-                    <div class="col-sm-9"> 
-                      <input type="file" name="image" id="image" class="form-control-file">        
-                      <p class="text-danger" class="image_error"></p>               
-                    </div> 
-                  </div>
-                 
-                  <div class="form-group">
-                    <label for="curent_password" class="col-sm-3 control-label">Current password</label>
-
-                    <div class="col-sm-9"> 
-                      <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Please type current Password for update it">  
-                      <p class="text-danger" class="current_password_error2"></p>              
-                    </div> 
-                  </div>
-                
-                </div>
-                <!-- /.box-body -->
-
-                <div class="box-footer">
-                  <button type="submit" id="image_upload" class="btn btn-success">Change image</button>     
-                </div>
-               </form>
-                  
-              </div>  
               <!-- /.tab-pane -->
 
               <div class="tab-pane <?php if(isset($_POST['change_password'])) { echo 'active'; } ?>" id="timeline">
@@ -186,11 +162,12 @@
               <!-- /.tab-pane -->
 
             </div>
-            <!-- /.tab-content -->
+            <!-- /.tab-content -->  
+
           </div>
-          <!-- /.nav-tabs-custom -->
+          <!-- /.nav-tabs-custom -->   
         </div>
-        <!-- /.col -->
+        <!-- /.col --> 
       </div>
       <!-- /.row -->
 

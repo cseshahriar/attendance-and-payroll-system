@@ -32,3 +32,8 @@ WHERE attendance.created_at BETWEEN '2019-02-10' AND '2019-02-16'
 GROUP BY employees.id   
 
 
+// SELECT * FROM attendance 
+			WHERE status =:status AND 
+			MONTH(created_at) =:m AND 
+			YEAR(created_at) = YEAR(CURRENT_DATE())
+

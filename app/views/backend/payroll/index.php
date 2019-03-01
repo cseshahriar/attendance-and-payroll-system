@@ -52,7 +52,7 @@
 
                   <button type="submit" class="btn btn-success btn-sm btn-flat" name="payrollBtn" id="payrollBtn"><span class="glyphicon glyphicon-print"></span> Payroll</button>
 
-                  <button type="submit" class="btn btn-primary btn-sm btn-flat" name="payslip" id="payslip"><span class="glyphicon glyphicon-print"></span> Payslip</button>    
+                  <!-- <button type="submit" class="btn btn-primary btn-sm btn-flat" name="payslip" id="payslip"><span class="glyphicon glyphicon-print"></span> Payslip</button>   -->
                 </form>
 		    </div>
 

@@ -15,7 +15,7 @@ class Dashboard extends Controller
 		$this->dashboardModel = $this->model('DashboardModel');     
 	}
 
-	public function index()
+	public function index() 
 	{
 		// number of employees 
 		$numbersOfEmployees = $this->dashboardModel->employeeCount();   
@@ -41,8 +41,8 @@ class Dashboard extends Controller
 
 		// late present 
 		$todayLatePresent = $this->dashboardModel->todayLatePresent(); 
-		$latePresent = $todayLatePresent->latePresent;  
-
+		$latePresent = $todayLatePresent->latePresent; 
+		// ---------- chart -------------------------    
 		$data = [ 
 			'title' => 'Dashboard', 
 			'numbersOfEmployees' => $numbersOfEmployees,
