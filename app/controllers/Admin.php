@@ -283,68 +283,64 @@ class Admin extends Controller
 				}  
 			}
 
-			// if isset photo
-			if (is_uploaded_file($_FILES['photo']['tmp_name'])) { 
-				// Allow certain file formats
-				$imageFileType = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION)); 
-
-				if (empty($imageFileType) || $_FILES['photo'] == NULL) { 
-					$data['photo_error'] = 'Photo is required';      
-				}  
-
-				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-				&& $imageFileType != "gif" ) { 
-					$data = [  
-						'title' => 'Profile', 
-						'user' => $user, 
-						'name_error' => '', 
-						'email_error' => '',
-						'password_error' => '',
-						'photo_error' => 'Please upload image file.'   
-					];
-					$this->view('backend/users/profile', $data);   
-				}   elseif ($_FILES["photo"]["size"] >= 500000) { // 500KB  
-					$data = [ 
-						'title' => 'Profile', 
-						'user' => $user,  
-						'name_error' => '', 
-						'email_error' => '',
-						'password_error' => '',
-						'photo_error' => 'Sorry, your file is too large than 500KB.'   
-					];
-					$this->view('backend/users/profile', $data);   
-				}
-			}
-
 		   	// make sure has no error
 		   	if ( empty($data['name_error']) && empty($data['email_error']) && empty($data['password_error'])) { 
 
-		   	   	if ( empty($data['photo_error']) ) { 
-		   	   		// image rename and upload process 
-					$name = $_FILES['photo']['name'];
-					$tmp_name = $data['photo']['tmp_name'];
-					$type = $_FILES['photo']['type']; 
-					$size = $_FILES['photo']['size'];   
+		   		// image process 
+				if ($data['photo']['name'] != false) {  //optional     
+					
+					// Allow certain file formats
+					$imageFileType = strtolower(pathinfo($data['photo']['name'], PATHINFO_EXTENSION));  
+					if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+					&& $imageFileType != "gif" ) { 
+					    
+						$data = [ 
+							'title' => 'Profile Update',
+							'user' => $user, 
+							'name_error' => '',
+							'email_error' => '',
+							'password_error' => '',    
+							'photo_error' => 'File is not a image, please upload a image file' 
+						];
+						$this->view('backend/users/profile', $data);    
+					}    
+					// Check file size 
+					elseif ($data["photo"]["size"] >= 500000) { // 500KB 
+						$data = [ 
+							'title' => 'Profile Update',
+							'user' => $user, 
+							'name_error' => '',
+							'email_error' => '',
+							'password_error' => '',  
+							'photo_error' => 'Sorry, your file is too large.'   
+						];
 
-					// rename 
-					$newName = date('Y-m-d_H-i-s')."_".uniqid();        
-					$ext = pathinfo($name, PATHINFO_EXTENSION); 
-					$newName = $newName.".".$ext; // name with extension 
-					$fileNameWithUploadDir = '../public/uploads/admin/'.$newName;                  
+						$this->view('backend/users/profile', $data);          
+					} else {	 
+						// image rename and upload process 
+						$name = $data['photo']['name'];
+						$tmp_name = $data['photo']['tmp_name'];
+						$type = $data['photo']['type']; 
+						$size = $data['photo']['size'];   
 
-					// for database  
-					$data['photo'] = $newName; // for database    
+						// rename 
+						$newName = date('Y-m-d_H-i-s')."_".uniqid();        
+						$ext = pathinfo($name, PATHINFO_EXTENSION); 
+						$newName = $newName.".".$ext; // name with extension
+						$fileNameWithUploadDir = '../public/uploads/admin/'.$newName;            
 
-					if ( empty($data['photo_error'])) { 
-						move_uploaded_file($tmp_name, $fileNameWithUploadDir);    
-					}
-
-		   	   	} else {
-		   	   		$data['photo'] = $user->photo;  
-		   	   	}
-
+						// for database  
+						$data['photo'] = $newName; // for database   
+						if ( empty($data['photo_error'])) {
+							move_uploaded_file($tmp_name, $fileNameWithUploadDir);        
+						}    
+					} 
+				}  else {
+					$data['photo'] = $user->photo; 
+				}
+		   		 
 		   		// process  
-		   		if ($this->userModel->currentUserUpdate($data, $_SESSION['user_id']) ) {    
+		   		if ($this->userModel->currentUserUpdate($data, $_SESSION['user_id']) ) {     
 		   			flash('message', 'User info has been updated.'); 
 		   			redirect('admin/profile'); 
 		   		} else {

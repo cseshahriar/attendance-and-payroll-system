@@ -167,15 +167,15 @@ class AdminModel extends Database
 
 	public function currentUserById($id)
 	{
-		$this->db->query("SELECT * FROM admins WHERE id=:id"); 
+		$this->db->query("SELECT * FROM admins WHERE id=:id");  
 		$this->db->bind(':id', $id);
 		$row = $this->db->single();
 		return $row; 
 	} 
 
-	public function currentUserUpdate($data, $id)
+	public function currentUserUpdate($data, $id) 
 	{
-		
+
 		$this->db->query("UPDATE admins SET name=:name, email=:email, photo=:photo WHERE id=:id");  
 
 		$this->db->bind(':id', $id);
@@ -187,7 +187,8 @@ class AdminModel extends Database
 			return true;
 		} else {
 			return false;  
-		}
+		} 
+		
 	} 
 
 	public function currentUserPasswordUpdate($data, $id)
